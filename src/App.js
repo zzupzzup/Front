@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
-// import Header from './components/Header/Header';
 import Main from './pages/Main/Main';
 import Login from './pages/Login/Login';
 import {authService} from './firebase';
@@ -27,7 +26,6 @@ function App() {
     <RecoilRoot>
       <div className="App">
         <BrowserRouter>
-          {/* <Header isLoggedIn={isLoggedIn} /> */}
           <div className='main'>
             <Routes>
               <Route path="/" element={<Main />} />
