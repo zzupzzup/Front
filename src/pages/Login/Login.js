@@ -23,8 +23,8 @@ const Login = ()=>{
         <div className="logo-content">
           <img src={logo} className="login-logo" alt="" />
           <div className="subtitle">반갑습니다.<br></br>
-            <b>쩝쩝학사</b>에서 나에게 딱 맞는 <br></br>
-            <b>맛집을 추천</b> 받으세요!
+            쩝쩝학사에서 나에게 딱 맞는 <br></br>
+            맛집을 추천 받으세요!
           </div>
           <div>
             <img src={btn_signin} className='login-btn' name="google" onClick={onSocialClick} style={{cursor: 'pointer'}}/>

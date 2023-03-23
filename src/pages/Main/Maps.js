@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
+import {useRecoilState} from 'recoil';
+import {selectLat, selectLong} from '../../Atom';
 
 
 function App() {
   const { naver } = window;
   const mapElement = useRef(null);
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
+  const [lat, setLat] = useRecoilState(selectLat);
+  const [long, setLong] = useRecoilState(selectLong);
 
   // 지도
   useEffect(() => {
@@ -39,7 +41,7 @@ function App() {
   }, [lat]);
 
 
-  return <div ref={mapElement} style={{ width: '90vw', height: '90vh' }} />;
+  return <div ref={mapElement} style={{ width: '80vw', height: '88.5vh' }} />
 }
 
 

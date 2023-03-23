@@ -8,11 +8,12 @@
   width: 300px;
   height: 400px;
   background-color: #ffe09d;
-  border-radius: 30px;
+  border-radius: 25px;
   position:absolute;
   top:50%;
   left:50%;
   margin:-200px 0 0 -150px;
+  box-shadow: 0 10px 10px -5px rgb(68, 68, 68);
 }
 
 .login-logo{
@@ -42,11 +43,12 @@
 .subtitle{
   position:absolute;
   bottom: 80px;
-  margin:10px 20px 0 45px;
+  margin:10px 20px 0 50px;
 }
 
 .login-btn{
   position:absolute;
   left: 50px;
   bottom: 20px;
+  width: 195px;
 }
