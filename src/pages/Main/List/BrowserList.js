@@ -5,9 +5,9 @@ import {useRecoilState} from 'recoil';
 import axios from 'axios';
 import {selectCate} from '../../../Atom';
 import Check from './Check';
-import './List.css'
+import './BrowserList.css'
 
-const List = ()=>{
+const BrowserList = ()=>{
   const [checkedItems, setcheckedItems] = useState([]);
   const [items,setItems] = useState(null);   //결과값
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -24,7 +24,6 @@ const List = ()=>{
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/api/items`);
         console.log(response)
-        // setItems(response.data.result.postList)
     } catch (e) {
         setError(e);
     }
@@ -38,4 +37,4 @@ const List = ()=>{
   )
 }
 
-export default List
+export default BrowserList

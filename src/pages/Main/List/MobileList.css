@@ -1,0 +1,35 @@
+.list{
+  width: 350px;
+}
+
+/* Check.js */
+.check-cate{
+  display:inline-block;
+}
+
+.check-cate input[type="checkbox"]{
+  display: none;
+}
+
+.check-cate input[type="checkbox"] + label{
+  display:inline-block;
+  width: 60px;
+  height: 25px;
+  margin: 10px 1.5vw;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 3px #999999;
+  border-radius: 100px;
+}
+
+.check-cate input[type="checkbox"]:checked + label{
+  display:inline-block;
+  width: 60px;
+  height: 25px;
+  margin: 10px 1.5vw;
+  text-align: center;
+  line-height: 25px;
+  background-color: #ffdee2;
+  box-shadow: 0 0 0 3px #e96c7c;
+  border-radius: 100px;
+}

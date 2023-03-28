@@ -2,22 +2,20 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import { authService } from "../../firebase";
 import Header from '../Header/Header';
-import List from './List/List';
-import Maps from "./Maps"
+import MobileList from './List/MobileList';
+import MobileMaps from "./Map/MobileMaps"
 import {useRecoilState} from 'recoil';
 import {userId} from '../../Atom';
 
-const Main = ()=>{
+const MobileMain = ()=>{
 
   return(
     <div>
       <Header></Header>
-      <div style={{display: 'flex'}}>
-        <List></List>
-        <Maps></Maps>
-      </div>
+      <MobileList></MobileList>
+      <MobileMaps></MobileMaps>
     </div>
   )
 }
 
-export default Main
+export default MobileMain

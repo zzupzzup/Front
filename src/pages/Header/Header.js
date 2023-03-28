@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import { authService } from "../../firebase";
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo_head.png'
 import './Header.css';
 
 const Header = ()=>{

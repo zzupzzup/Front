@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {selectCate} from '../../../Atom';
-import '../Main.css'
+import './BrowserList.css'
 
 const Check = ({checkedItems, setcheckedItems})=>{
   const [cate, setCate] = useRecoilState(selectCate);
@@ -19,19 +19,18 @@ const Check = ({checkedItems, setcheckedItems})=>{
   //전체 다 넣어주기
   useEffect(() => {
     const idArray = [];
-    formData.forEach((el) => idArray.push(el.name));
+    formData.forEach((e) => idArray.push(e.name));
     setcheckedItems(idArray);
     console.log(setcheckedItems)
-    // checkedItems.forEach((checkbox) => {checkbox.checked = true;})
   }, [])
 
+  //각 카테고리 버튼 눌렀을 때
   const checkHandler = ({ target }) => {
     setCate(target.value);
-    console.log(target.checked)
-    checkedItemHandler(target.parentNode.lastChild, target.value, target.checked);
+    checkedItemHandler(target.value, target.checked);
   };
 
-  const checkedItemHandler = (text, category, isChecked) => {
+  const checkedItemHandler = (category, isChecked) => {
     if(isChecked) {
       if (!checkedItems.includes(category)){
         setcheckedItems([...checkedItems, category]);
@@ -42,11 +41,9 @@ const Check = ({checkedItems, setcheckedItems})=>{
     return checkedItems;
   };
 
-  const onRemove = id => {
-    setcheckedItems(checkedItems.filter(each => each !== id));
+  const onRemove = name => {
+    setcheckedItems(checkedItems.filter(each => each !== name));
   };
-
-  console.log(checkedItems);
 
   return(
     <div className="check">

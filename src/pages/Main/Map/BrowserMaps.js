@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import {useRecoilState} from 'recoil';
-import {selectLat, selectLong} from '../../Atom';
+import {selectLat, selectLong} from '../../../Atom';
 
 
-function App() {
+function BrowserMaps() {
   const { naver } = window;
   const mapElement = useRef(null);
   const [lat, setLat] = useRecoilState(selectLat);
@@ -45,4 +45,4 @@ function App() {
 }
 
 
-export default App;
+export default BrowserMaps;
