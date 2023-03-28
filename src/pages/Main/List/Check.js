@@ -51,7 +51,11 @@ const Check = ({checkedItems, setcheckedItems})=>{
         <div className="check-cate" key={item.id} >
           <input type = "checkbox" value={item.name} id={item.id} onChange={(e) => checkHandler(e)} defaultChecked/>
           <label for={item.id} style={{cursor: 'pointer'}}>
-            <span style={{fontSize: '12px'}}>{item.name}</span>
+            <span className="keyword">{item.name}</span>
+            {checkedItems.includes(item.name)?
+              <span className="plu-miu">x</span>:
+              <span className="plu-miu">+</span>
+            }
           </label>
         </div>
       ))}

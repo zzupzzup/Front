@@ -31,7 +31,7 @@ const MobileList = ()=>{
   };
 
   return(
-    <div className="list">
+    <div className="mobile-list">
       <Check checkedItems={checkedItems} setcheckedItems={setcheckedItems}></Check>
     </div>
   )
