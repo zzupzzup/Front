@@ -21,7 +21,6 @@ const Check = ({checkedItems, setcheckedItems})=>{
     const idArray = [];
     formData.forEach((e) => idArray.push(e.name));
     setcheckedItems(idArray);
-    console.log(setcheckedItems)
   }, [])
 
   //각 카테고리 버튼 눌렀을 때
@@ -49,7 +48,7 @@ const Check = ({checkedItems, setcheckedItems})=>{
     <div className="check">
       {formData.map((item) => (
         <div className="check-cate" key={item.id} >
-          <input type = "checkbox" value={item.name} id={item.id} onChange={(e) => checkHandler(e)} defaultChecked/>
+          <input type = "checkbox" value={item.name||''} id={item.id} onChange={(e) => checkHandler(e)} defaultChecked/>
           <label for={item.id} style={{cursor: 'pointer'}}>
             <span className="keyword">{item.name}</span>
             {checkedItems.includes(item.name)?

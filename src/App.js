@@ -4,6 +4,8 @@ import { BrowserView, MobileView } from 'react-device-detect'
 import './App.css';
 import BrowserMain from './pages/Main/BrowserMain';
 import MobileMain from './pages/Main/MobileMain';
+import BrowserMyPage from './pages/MyPage/BrowserMyPage';
+import MobileMyPage from './pages/MyPage/MobileMyPage';
 import Login from './pages/Login/Login';
 import {authService} from './firebase';
 import {RecoilRoot} from 'recoil';
@@ -33,6 +35,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<BrowserMain />} />
                 <Route path="/login" element={<Login />} />
+								<Route path="/mypage" element={<BrowserMyPage />} />
               </Routes>
             </div>
           </BrowserRouter>
@@ -43,6 +46,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<MobileMain />} />
                 <Route path="/login" element={<Login />} />
+								<Route path="/mypage" element={<MobileMyPage />} />
               </Routes>
             </div>
           </BrowserRouter>

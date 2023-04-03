@@ -31,7 +31,7 @@ const BrowserList = ()=>{
   };
 
   return(
-    <div className="list">
+    <div className="browser-list">
       <Check checkedItems={checkedItems} setcheckedItems={setcheckedItems}></Check>
     </div>
   )

@@ -20,3 +20,9 @@ export const selectCate = atom({
   default: '',
   effects_UNSTABLE: [persistAtom],
 }); 
+
+export const selectArea = atom({
+  key: 'selecArea',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+}); 

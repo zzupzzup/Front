@@ -12,10 +12,8 @@ const BrowserMain = ()=>{
   return(
     <div>
       <Header></Header>
-      <div style={{display: 'flex'}}>
-        <BrowserList></BrowserList>
-        <BrowserMaps></BrowserMaps>
-      </div>
+      <BrowserList></BrowserList>
+      <BrowserMaps></BrowserMaps>
     </div>
   )
 }

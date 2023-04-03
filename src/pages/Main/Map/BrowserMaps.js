@@ -41,7 +41,7 @@ function BrowserMaps() {
   }, [lat]);
 
 
-  return <div ref={mapElement} style={{ width: '80vw', height: '88.5vh' }} />
+  return <div ref={mapElement} style={{ width: '100vw', height: '100vh' }} />
 }
 
 

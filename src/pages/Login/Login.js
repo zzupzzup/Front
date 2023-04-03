@@ -3,6 +3,7 @@ import { authService } from '../../firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Header from '../Header/Header';
 import logo from '../../assets/logo.png'
 import btn_signin from '../../assets/btn_google_signin.png'
 import './Login.css';
@@ -18,8 +19,13 @@ const Login = ()=>{
         navigate("/");
     }
 
+    const onGotoMainClick = () => {
+      navigate("/");
+    }
+
     return(
       <div style={{backgroundColor:'#FED06E', height: '100vh'}}>
+				<Header></Header>
         <div className="logo-content">
           <img src={logo} className="login-logo" alt="" />
           <div className="subtitle">반갑습니다.<br></br>
@@ -30,6 +36,7 @@ const Login = ()=>{
             <img src={btn_signin} className='login-btn' name="google" onClick={onSocialClick} style={{cursor: 'pointer'}}/>
           </div>
         </div>
+        <button className='goto-main' onClick={onGotoMainClick} style={{cursor: 'pointer'}}>메인화면으로 가기</button>
       </div>
     )
 }
