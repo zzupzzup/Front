@@ -46,7 +46,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<MobileMain />} />
                 <Route path="/login" element={<Login />} />
-								<Route path="/mypage" element={<MobileMyPage />} />
+								{/* <Route path="/mypage" element={<MobileMyPage />} /> */}
               </Routes>
             </div>
           </BrowserRouter>

@@ -14,13 +14,6 @@ const BrowserMyPage = ()=>{
 	const [areas, setAreas] = useState(null);
   const nickname = localStorage.getItem('nickname')
 
-  // 로그아웃
-  const onLogOutClick = () => {
-    authService.signOut();
-    localStorage.clear(); 
-		navigate('/')
-  }
-
 	// 구 선택하기
 	const area = [
     {id: 1, name: "강북구"},
@@ -70,6 +63,13 @@ const BrowserMyPage = ()=>{
   const onRemove = name => {
     setcheckedAreas(checkedAreas.filter(each => each !== name));
   };
+
+  // 로그아웃
+  const onLogOutClick = () => {
+    authService.signOut();
+    localStorage.clear(); 
+    navigate('/login')
+  }
 
   //지역 고른 후 확인 버튼 눌렀을 때
   const onSubmitClick = () => {

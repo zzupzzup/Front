@@ -22,7 +22,7 @@ const MobileList = ()=>{
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
-        const response = await axios.get(`${baseUrl}/api/items`);
+        const response = await axios.get(`${baseUrl}/api/users/passionMan`);
         console.log(response)
     } catch (e) {
         setError(e);
