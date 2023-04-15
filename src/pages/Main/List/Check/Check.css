@@ -1,0 +1,48 @@
+.check{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.check-cate{
+  width: 100px;
+  position: relative;
+}
+
+.check-cate input[type="checkbox"]{
+  display: none;
+}
+
+.check-cate input[type="checkbox"] + label{
+  display:inline-block;
+  width: 80px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 2px #ffe8b6;
+  border-radius: 100px;
+}
+
+.check-cate input[type="checkbox"]:checked + label{
+  display:inline-block;
+  width: 80px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  background-color: #FED06E;
+  box-shadow: 0 0 0 2px #FED06E;
+  border-radius: 100px;
+}
+
+.keyword{
+  position: absolute;
+  left: 20px;
+}
+
+.plu-miu{
+  position: absolute;
+  right: 20px;
+  line-height: 20px;
+}

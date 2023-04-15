@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import axios from 'axios';
 import {selectCate} from '../../../Atom';
-import Check from './Check';
+import Check from './Check/Check';
 import './MobileList.css'
 
 const MobileList = ()=>{

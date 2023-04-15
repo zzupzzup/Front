@@ -4,25 +4,25 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist()
 
 export const selectLat = atom({
-  key: 'selecLat',
+  key: 'selectLat',
   default: null,
   effects_UNSTABLE: [persistAtom],
 }); 
 
 export const selectLong = atom({
-  key: 'selecLong',
+  key: 'selectLong',
   default: null,
   effects_UNSTABLE: [persistAtom],
 }); 
 
 export const selectCate = atom({
-  key: 'selecCate',
-  default: '',
+  key: 'selectCate',
+  default: [],
   effects_UNSTABLE: [persistAtom],
 }); 
 
 export const selectArea = atom({
-  key: 'selecArea',
+  key: 'selectArea',
   default: [],
   effects_UNSTABLE: [persistAtom],
 }); 

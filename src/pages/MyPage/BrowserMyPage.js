@@ -106,8 +106,8 @@ const BrowserMyPage = ()=>{
             </div>
           ))}
         </div>
+        <button className='submit-btn' onClick={onSubmitClick} style={{cursor: 'pointer'}}>확인</button>
       </div>
-      <button className='submit-btn' onClick={onSubmitClick} style={{cursor: 'pointer'}}>확인</button>
       <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>
     </div>
   )

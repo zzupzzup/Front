@@ -2,11 +2,13 @@ import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
-import {selectCate} from '../../../Atom';
-import './BrowserList.css'
+import {selectCate} from '../../../../Atom';
+import './Check.css'
 
-const Check = ({checkedItems, setcheckedItems})=>{
-  const [cate, setCate] = useRecoilState(selectCate);
+const Check = ()=>{
+  const [checkedItems, setcheckedItems] = useRecoilState(selectCate);
+	const [cate, setCate] = useState(null);
+
   const formData = [
     {id: 1, name: "한식"},
     {id: 2, name: "양식"},

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect'
-import './App.css';
+import Login from './pages/Login/Login';
+import Auth from './pages/Auth/Auth';
 import BrowserMain from './pages/Main/BrowserMain';
 import MobileMain from './pages/Main/MobileMain';
 import BrowserMyPage from './pages/MyPage/BrowserMyPage';
 import MobileMyPage from './pages/MyPage/MobileMyPage';
-import Login from './pages/Login/Login';
+import BrowserDetail from './pages/Detail/BrowserDetail';
 import {authService} from './firebase';
 import {RecoilRoot} from 'recoil';
+import './App.css';
 
 
 function App() {
@@ -35,7 +37,9 @@ function App() {
               <Routes>
                 <Route path="/" element={<BrowserMain />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/auth" element={<Auth />} />
 								<Route path="/mypage" element={<BrowserMyPage />} />
+                <Route path="/detail/:storeIdx" element={<BrowserDetail />} />
               </Routes>
             </div>
           </BrowserRouter>
@@ -46,6 +50,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<MobileMain />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/auth" element={<Auth />} />
 								{/* <Route path="/mypage" element={<MobileMyPage />} /> */}
               </Routes>
             </div>

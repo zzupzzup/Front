@@ -5,6 +5,7 @@
   width: 350px;
 	height: 86.5vh;
 	background-color: white;
+  border: 1px solid #949494;
 	border-radius: 15px;
 	box-shadow: 5px 5px 10px #949494;
 	z-index: 999;
@@ -45,52 +46,23 @@
   background-color: #FED06E;
 }
 
-/* Check.js */
-.check{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+.browser-store-list {
+  margin-top: 10px;
+  width: 350px;
+  height: 500px;
+  overflow-x: hidden;
+}
+.browser-store-list::-webkit-scrollbar {
+  width: 8px;
 }
 
-.check-cate{
-  width: 100px;
-  position: relative;
+.browser-store-list::-webkit-scrollbar-thumb {
+  height: 30%;
+  background-color: #bbbbbb;
+  border-radius: 10px;
 }
 
-.check-cate input[type="checkbox"]{
-  display: none;
+.browser-store-list::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 
-.check-cate input[type="checkbox"] + label{
-  display:inline-block;
-  width: 80px;
-  height: 25px;
-  margin: 10px;
-  text-align: center;
-  line-height: 25px;
-  box-shadow: 0 0 0 2px #ffe8b6;
-  border-radius: 100px;
-}
-
-.check-cate input[type="checkbox"]:checked + label{
-  display:inline-block;
-  width: 80px;
-  height: 25px;
-  margin: 10px;
-  text-align: center;
-  line-height: 25px;
-  background-color: #FED06E;
-  box-shadow: 0 0 0 2px #FED06E;
-  border-radius: 100px;
-}
-
-.keyword{
-  position: absolute;
-  left: 20px;
-}
-
-.plu-miu{
-  position: absolute;
-  right: 20px;
-  line-height: 20px;
-}
