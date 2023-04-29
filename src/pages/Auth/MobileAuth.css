@@ -9,7 +9,7 @@
   height: 500px;
   background-color: #ffe09d;
   border-radius: 25px;
-  position:absolute;
+  position:fixed;
   top:330px;
   left:50%;
   margin:-200px 0 0 -150px;
@@ -125,7 +125,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 500px;
   background-color: #ffe09d;
   border-radius: 25px;
-  position:absolute;
+  position:fixed;
   top:330px;
   left:50vw;
   margin:-200px 0 0 -150px;
@@ -136,4 +136,48 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .auth-content-second.success{
   transition: all 1s;
   display: block;
+}
+
+/* 라디오 버튼 */
+.auth-check-sex {
+  position: relative;
+  margin: 10px 30px;
+  display: flex;
+}
+.auth-check-sex input[type="radio"]{
+  display: none;
+}
+
+.auth-check-sex input[type="radio"] + label[for="man"]{
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 2px #ffffff;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  cursor: pointer;
+}
+.auth-check-sex input[type="radio"] + label[for="woman"]{
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 2px #ffffff;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  cursor: pointer;
+}
+.auth-check-sex input[type="radio"]:checked + label{
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#414141;
+  text-align: center;
+  line-height: 25px;
+  background-color: #FED06E;
 }

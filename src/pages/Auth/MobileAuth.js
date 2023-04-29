@@ -39,6 +39,12 @@ const MobileAuth = ()=>{
   const onChangeName = (e) => {
     setName(e.target.value)
   }
+  const onChangeSex = (e) => {
+    setSex(e.target.value)
+  }
+  const onChangeAge = (e) => {
+    setAge(e.target.value)
+  }
 
   //버튼 클릭
   const onNextClick = async(e)=>{
@@ -123,18 +129,16 @@ const MobileAuth = ()=>{
         <div className='auth_warp'>
           <div className='auth_items'>
             <div className='auth_text'><span className='text_bar'>성별</span></div>
-            <label><input type="radio" name="sex" value="man"/> 남</label>
-            <label><input type="radio" name="sex" value="woman"/> 여</label>
+            <div className="auth-check-sex">
+              <input type="radio" id="man" name="sex" value="1" onChange={onChangeSex} /><label for="man"> 남</label>
+              <input type="radio" id="woman" name="sex" value="0" onChange={onChangeSex} /><label for="woman"> 여</label>
+            </div>
           </div>
           <div className='auth_items'>
-            <div className='auth_text'><span className='text_bar'>연령대</span></div>
-            <label><input type="radio" name="age" value="man"/> 0~9세</label>
-            <label><input type="radio" name="age" value="man"/> 10~19세</label>
-            <label><input type="radio" name="age" value="man"/> 20~29세</label>
-            <label><input type="radio" name="age" value="man"/> 30~39세</label>
-            <label><input type="radio" name="age" value="man"/> 40~49세</label>
-            <label><input type="radio" name="age" value="man"/> 50~59세</label>
-            <label><input type="radio" name="age" value="man"/> 60세 이상</label>
+            <div className='auth_text'><span className='text_bar'>나이</span></div>
+            <div className= "auth_content">
+              <input className='textinput' type="text" placeholder="나이(숫자만)" onChange={onChangeAge} value={age} />
+            </div>
           </div>
         </div>
         <button className={`start_btn ${!pressBtn ? '' :(email&&password&&passwordCheck&&name ? 'success' : 'fail')}`} onClick={onSignUpClick}>가입하기</button>
