@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import logo from '../../assets/logo.png'
 import btn_signin from '../../assets/btn_google_signin.png'
-import './Login.css';
+import './MobileLogin.css';
 
-const Login = ()=>{
+const MobileLogin = ()=>{
   const navigate = useNavigate();
   const [userId, setUserId] = useState([]); 
   const [email, setEmail] = useState('');
@@ -66,9 +66,9 @@ const Login = ()=>{
   }
 
   return(
-    <div style={{backgroundColor:'#FED06E', height: '100vh'}}>
+    <div className="mobile-login">
       <Header></Header>
-      <div className="login-content">
+      <div className="mobile-login-content">
         <div>
           <img src={logo} className="login-logo" alt="" />
         </div>
@@ -100,4 +100,4 @@ const Login = ()=>{
   )
 }
 
-export default Login
+export default MobileLogin

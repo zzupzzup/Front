@@ -49,7 +49,7 @@
 .browser-store-list {
   margin-top: 10px;
   width: 350px;
-  height: 500px;
+  height: 490px;
   overflow-x: hidden;
 }
 .browser-store-list::-webkit-scrollbar {

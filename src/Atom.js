@@ -26,3 +26,9 @@ export const selectArea = atom({
   default: [],
   effects_UNSTABLE: [persistAtom],
 }); 
+
+export const selectStore = atom({
+  key: 'selectStore',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+}); 

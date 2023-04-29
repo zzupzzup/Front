@@ -13,7 +13,6 @@ const MobileMain = ()=>{
     <div>
       <Header></Header>
       <MobileList></MobileList>
-      <MobileMaps></MobileMaps>
     </div>
   )
 }

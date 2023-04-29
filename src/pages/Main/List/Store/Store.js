@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {useRecoilState} from 'recoil';
+import {selectStore} from '../../../../Atom';	
 import star from '../../../../assets/star.png'
 import view from '../../../../assets/view.png'
 import heart from '../../../../assets/heart.png'
@@ -12,6 +14,7 @@ const Store = (props)=>{
   const navigate = useNavigate();
   const { store, isScrappedStore } = props;
   const [isScrapped, setIsScrapped] = useState(isScrappedStore);
+  const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
 
   const setColor = (tagName) => {
     if (tagName === "또") {
@@ -22,6 +25,12 @@ const Store = (props)=>{
       return 'store-tag red';
     }
   };
+
+  //선택했을 때
+  const clickStore = () => {
+    setcheckedStore(store.id)
+  }
+
 
   //스크랩
   const storeScrap = () => {
@@ -35,7 +44,7 @@ const Store = (props)=>{
   }
 
   return(
-    <div className="store" key={store.id}>
+    <div className="store" key={store.id} onClick={clickStore}>
       <div className="store-first">
         <div>
           <span className="store-title" onClick={()=>{navigate(`/detail/${store.id}`)}}>{store.title}</span>
@@ -58,7 +67,7 @@ const Store = (props)=>{
         <div>
           {isScrapped ?
             <img src={pinkHeart} alt='' className="store-like" onClick={storeUnScrap}/> :
-            <img src={emptyHeart} alt='' className="store-like" onClick={storeUnScrap}/>
+            <img src={emptyHeart} alt='' className="store-like" onClick={storeScrap}/>
           }
         </div>
       </div>

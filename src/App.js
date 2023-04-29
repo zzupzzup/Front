@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect'
-import Login from './pages/Login/Login';
-import Auth from './pages/Auth/Auth';
+import BrowserLogin from './pages/Login/BrowserLogin';
+import MobileLogin from './pages/Login/MobileLogin';
+import BrowserAuth from './pages/Auth/BrowserAuth';
+import MobileAuth from './pages/Auth/MobileAuth';
 import BrowserMain from './pages/Main/BrowserMain';
 import MobileMain from './pages/Main/MobileMain';
 import BrowserMyPage from './pages/MyPage/BrowserMyPage';
@@ -14,6 +16,10 @@ import './App.css';
 
 
 function App() {
+  // 빌드 후 배포
+  // npm run build
+  // firebase deploy --only hosting
+
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -36,8 +42,8 @@ function App() {
             <div className='browser-main'>
               <Routes>
                 <Route path="/" element={<BrowserMain />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/auth" element={<Auth />} />
+                <Route path="/login" element={<BrowserLogin />} />
+                <Route path="/auth" element={<BrowserAuth />} />
 								<Route path="/mypage" element={<BrowserMyPage />} />
                 <Route path="/detail/:storeIdx" element={<BrowserDetail />} />
               </Routes>
@@ -49,8 +55,8 @@ function App() {
             <div className='mobile-main'>
               <Routes>
                 <Route path="/" element={<MobileMain />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/auth" element={<Auth />} />
+                <Route path="/login" element={<MobileLogin />} />
+                <Route path="/auth" element={<MobileAuth />} />
 								{/* <Route path="/mypage" element={<MobileMyPage />} /> */}
               </Routes>
             </div>
