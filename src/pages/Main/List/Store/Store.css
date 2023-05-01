@@ -6,6 +6,9 @@
 .store:hover{
   background-color: #f5f5f5;
 }
+.store.click{
+  background-color: #f5f5f5;
+}
 
 .store-first{
   display: flex;

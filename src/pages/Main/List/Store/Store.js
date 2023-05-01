@@ -30,6 +30,13 @@ const Store = (props)=>{
   const clickStore = () => {
     setcheckedStore(store.id)
   }
+  const setClick = (id) => {
+    if (id === store.id){
+      return 'store click'
+    } else{
+      return 'store'
+    }
+  }
 
 
   //스크랩
@@ -44,7 +51,7 @@ const Store = (props)=>{
   }
 
   return(
-    <div className="store" key={store.id} onClick={clickStore}>
+    <div className={setClick(checkedStore)} key={store.id} onClick={clickStore}>
       <div className="store-first">
         <div>
           <span className="store-title" onClick={()=>{navigate(`/detail/${store.id}`)}}>{store.title}</span>
@@ -71,7 +78,6 @@ const Store = (props)=>{
           }
         </div>
       </div>
-      <div>{isScrapped}</div>
     </div>
   )
 }

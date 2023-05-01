@@ -23,11 +23,6 @@ const MobileChat = ()=>{
   ];
   
   //검색
-  function back() {
-    setText(false)
-    setSearchTerm("")
-  }
-
   const onChange =(e)=>{
     setText(true)
     if(e.target.value===''){
