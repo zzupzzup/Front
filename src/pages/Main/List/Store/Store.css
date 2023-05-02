@@ -75,17 +75,22 @@
   font-size: 13px;
 }
 
-.store-info{
-  margin-right: 15px;
-}
-
-.store-icon{
-  width:11px;
-  opacity: 0.6;
+.store-review{
+  display:block;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 3px;
 }
 
 .store-like{
   height: 25px;
   margin-bottom: 5px;
   cursor: pointer;
+}
+
+.store-review-content{
+  font-weight: 400;
+  color:#414141;
+  font-size: 13px;
+  padding-bottom: 10px;
 }

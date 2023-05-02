@@ -51,9 +51,7 @@ const BrowserMyPage = ()=>{
 
   const checkedItemHandler = (category, isChecked) => {
     if(isChecked) {
-      if (!checkedAreas.includes(category)){
-        setcheckedAreas([...checkedAreas, category]);
-      }
+      setcheckedAreas([...checkedAreas, category]);
     } else if (!isChecked ) {
       onRemove(category);
     }

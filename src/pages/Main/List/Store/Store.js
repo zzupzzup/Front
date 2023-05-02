@@ -3,9 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {useRecoilState} from 'recoil';
 import {selectStore} from '../../../../Atom';	
-import star from '../../../../assets/star.png'
-import view from '../../../../assets/view.png'
-import heart from '../../../../assets/heart.png'
 import pinkHeart from '../../../../assets/pink_heart.png'
 import emptyHeart from '../../../../assets/empty_heart.png'
 import './Store.css'
@@ -15,6 +12,7 @@ const Store = (props)=>{
   const { store, isScrappedStore } = props;
   const [isScrapped, setIsScrapped] = useState(isScrappedStore);
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
+  const [isReview, setIsReview] = useState(false)
 
   const setColor = (tagName) => {
     if (tagName === "또") {
@@ -50,6 +48,11 @@ const Store = (props)=>{
     setIsScrapped(state => !state);
   }
 
+  //리뷰보기
+  const watchReview = () => {
+    setIsReview(state => !state);
+  }
+
   return(
     <div className={setClick(checkedStore)} key={store.id} onClick={clickStore}>
       <div className="store-first">
@@ -66,10 +69,11 @@ const Store = (props)=>{
       <div className="store-type">{store.type}</div>
       <div className="store-address">{store.address}</div>
       <div className="store-last">
-        <div>
-          <span className="store-info"><img src={star} className="store-icon" alt="" /> {store.point}({store.review})</span>
-          <span className="store-info"><img src={view} className="store-icon" alt="" /> {store.view}</span>
-          <span className="store-info"><img src={heart} className="store-icon" alt="" /> {store.star}</span>
+        <div className="store-review" onClick={watchReview}>대표 리뷰
+        {isReview ?
+          <span> 접기▲</span>:
+          <span> 보기▼</span>
+        }
         </div>
         <div>
           {isScrapped ?
@@ -78,6 +82,10 @@ const Store = (props)=>{
           }
         </div>
       </div>
+      {isReview ?
+        <div className="store-review-content">"{store.review}"</div>:
+        <div></div>
+      }
     </div>
   )
 }

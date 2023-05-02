@@ -18,7 +18,8 @@ const MobileAuth = ()=>{
   const [sex, setSex] = useState('');
   const [age, setAge] = useState('');
   const [pressBtn, setPressBtn] = useState(false);
-  const [nextBtn1, setNextBtn1] = useState(false);
+  const [nextBtn, setNextBtn] = useState(false);
+  const [checkedTypes, setcheckedTypes] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const headers = {
@@ -46,9 +47,39 @@ const MobileAuth = ()=>{
     setAge(e.target.value)
   }
 
+  // 음식 카테고리
+	const type = [
+    {id: 1, name: "한식"},
+    {id: 2, name: "일식"},
+    {id: 3, name: "술집"},
+    {id: 4, name: "양식"},
+    {id: 5, name: "중식"},
+		{id: 6, name: "분식"},
+    {id: 7, name: "카페"},
+    {id: 8, name: "식육(숯불구이)"},
+    {id: 9, name: "기타"}
+  ];
+
+  //각 카테고리 버튼 눌렀을 때
+  const checkHandler = ({ target }) => {
+
+    if(target.checked) {
+      setcheckedTypes([...checkedTypes, target.value]);
+    } else if (!target.checked ) {
+      target.checked = false;
+      setcheckedTypes(checkedTypes.filter(each => each !== target.value));
+    }
+    if (checkedTypes.length > 2 && !checkedTypes.includes(target.value)){
+      alert("최대 3개까지 선택 가능합니다.");
+      setcheckedTypes(checkedTypes.filter(each => each !== target.value));
+      target.checked = false;
+    }
+    return checkedTypes;
+  };
+
   //버튼 클릭
   const onNextClick = async(e)=>{
-    setNextBtn1(true)
+    setNextBtn(true)
   } 
 
   const onSignUpClick = async(e)=>{
@@ -88,7 +119,7 @@ const MobileAuth = ()=>{
   return(
     <div className='auth'>
       <Header></Header>
-      <div className={`auth-content-first ${ nextBtn1 ? 'success' : 'fail'}`}>
+      <div className={`auth-content-first ${ nextBtn ? 'success' : 'fail'}`}>
         <div className='auth-title'>
           <p style={{fontSize:'18px'}}>회원가입</p>
           <p style={{fontSize:'14px'}}>기본 정보입력(필수)</p>
@@ -121,7 +152,7 @@ const MobileAuth = ()=>{
         </div>
         <button className={`start_btn ${!pressBtn ? '' :(email&&password&&passwordCheck&&name ? 'success' : 'fail')}`} onClick={onNextClick}>다음 단계</button>
       </div>
-      <div className={`auth-content-second ${ nextBtn1 ? 'success' : 'fail'}`}>
+      <div className={`auth-content-second ${ nextBtn ? 'success' : 'fail'}`}>
         <div className='auth-title'>
           <p style={{fontSize:'18px'}}>회원가입</p>
           <p style={{fontSize:'14px'}}>추가 정보입력(선택)</p>
@@ -138,6 +169,17 @@ const MobileAuth = ()=>{
             <div className='auth_text'><span className='text_bar'>나이</span></div>
             <div className= "auth_content">
               <input className='textinput' type="text" placeholder="나이(숫자만)" onChange={onChangeAge} value={age} />
+            </div>
+          </div>
+          <div className='auth_items'>
+            <div className='auth_text'><span className='text_bar'>좋아하는 음식 타입(최대 3개)</span></div>
+            <div className="select-type">
+              {type.map((item) => (
+                <div className="check-type" key={item.id} >
+                  <input type = "checkbox" value={item.name||''} id={item.id} onChange={(e) => checkHandler(e)}/>
+                  <label for={item.id} style={ item.id === 8 ? {fontSize:'10px', fontWeight:'bold'} : {fontSize:'13.5px'} }>{item.name}</label>
+                </div>
+              ))}
             </div>
           </div>
         </div>

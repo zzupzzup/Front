@@ -57,7 +57,7 @@
 }
 .text_bar{
   display:inline-block;
-  width:120px;
+  width:440px;
   padding: 0 10px;
   border-left: 2px solid #414141;
 }
@@ -155,7 +155,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color:#919191;
   text-align: center;
   line-height: 25px;
-  box-shadow: 0 0 0 2px #ffffff;
+  box-shadow: 0 0 0 2px #fff3da;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   cursor: pointer;
@@ -167,7 +167,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color:#919191;
   text-align: center;
   line-height: 25px;
-  box-shadow: 0 0 0 2px #ffffff;
+  box-shadow: 0 0 0 2px #fff3da;
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
   cursor: pointer;
@@ -180,4 +180,45 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   text-align: center;
   line-height: 25px;
   background-color: #FED06E;
+}
+
+/* 체크박스 버튼 */
+.select-type{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 270px;
+  margin-left: 15px;
+}
+
+.check-type{
+  width: 90px;
+  position: relative;
+}
+
+.check-type input[type="checkbox"]{
+  display: none;
+}
+
+.check-type input[type="checkbox"] + label{
+  display:inline-block;
+  width: 70px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 2px #fff3da;
+  border-radius: 100px;
+}
+
+.check-type input[type="checkbox"]:checked + label{
+  display:inline-block;
+  width: 70px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  background-color: #FED06E;
+  box-shadow: 0 0 0 2px #FED06E;
+  border-radius: 100px;
 }
