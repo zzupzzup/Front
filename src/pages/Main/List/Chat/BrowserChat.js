@@ -21,6 +21,7 @@ const BrowserChat = ()=>{
     {id: 5, title: "벼랑순대국", result: '57%', point:4.2, view: 11039, review: 12, star:311, address:"서울시 강북구 번동 428-90", type:"탕/찌개/전골", tags:[{tag_id: 3,tag_name:"쭈"}],userScrap:false, review: "흐헿"},
     {id: 6, title: "마리웨일마카롱", result: '52%', point:null, view: 3368, review: 4, star:38, address:"서울시 강북구 수유동 192-71", type:"고기 요리", tags:null,userScrap:true, review: "요오"},
   ];
+
   
   //검색
   function back() {

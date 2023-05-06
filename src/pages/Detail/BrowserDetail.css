@@ -1,0 +1,18 @@
+.browser-detail{
+  width:800px;
+  margin:auto;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.store-detail-title{
+  font-size: 40px;
+}
+
+.store-detail-img{
+  width: 300px;
+}
+
+.store-detail-second{
+  display:flex;
+}
