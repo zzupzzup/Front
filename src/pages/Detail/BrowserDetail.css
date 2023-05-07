@@ -7,12 +7,52 @@
 
 .store-detail-title{
   font-size: 40px;
+  border-top: 5px #FED06E solid;
+}
+
+/* 두번째 구역(사진, 지도) */
+.store-detail-second{
+  display:flex;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .store-detail-img{
   width: 300px;
 }
 
-.store-detail-second{
-  display:flex;
+.store-detail-tag{
+  border-radius: 10%;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 16px;
+  text-align: center;
+  margin: 2px;
+  color: white;
+  padding: 3px 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* 세번째 구역(정보, 리뷰) */
+.store-detail-third{
+  display: flex;
+  justify-content:space-between;
+}
+
+.store-detail-info{
+  width:350px;
+  margin-top: 20px;
+  background-image: url('../../assets/paper.jpg');
+  z-index: 999;
+  opacity: 1;
+  white-space: pre-line;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 20px;
+  text-align: left;
+}
+
+.store-info-title{
+  font-size: 18px;
+  border-bottom: 2px rgb(112, 112, 112) solid;
+  margin: 10px  0;
 }

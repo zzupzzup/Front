@@ -50,7 +50,7 @@ const DetailMap = (props)=>{
     };
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
-  }, []);
+  }, [x]);
 
   return <div ref={mapElement} style={{width: '500px', height: '300px' }} />
 }
