@@ -8,7 +8,7 @@
   border: 1px solid #949494;
 	border-radius: 15px;
 	box-shadow: 5px 5px 10px #949494;
-	z-index: 999;
+	z-index: 1;
 }
 
 /* 두개 버튼 */
@@ -66,3 +66,8 @@
   background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 
+/* 모달 */
+.modal{
+  padding:0 20px;
+  cursor: pointer;
+}

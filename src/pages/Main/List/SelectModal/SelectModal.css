@@ -1,0 +1,165 @@
+/* 지역 */
+.area-img{
+  width:280px;
+}
+
+/* 라디오 버튼 */
+.modal-area {
+  position: relative;
+}
+
+.modal-area button{
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-weight: 1000;
+  font-family: 'SUITE-Regular';
+}
+
+.area1{
+  position: absolute;
+  top:90px;
+  left:78px;
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+  z-index: 999;
+}
+.area2{
+  position: absolute;
+  top:96px;
+  left:159px;
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+}
+.area3{
+  position: absolute;
+  top:99px;
+  left:196px;
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+}
+.area4{
+  position: absolute;
+  top:147px;
+  left:139px;
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+}
+.area5{
+  position: absolute;
+  top:140px;
+  left:175px;
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#919191;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+}
+.black{
+  display:inline-block;
+  width: 50px;
+  height: 25px;
+  color:#2f2f2f;
+  text-align: center;
+  line-height: 25px;
+}
+
+
+
+
+
+
+
+/* 음식 타입 */
+.type{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.check-cate{
+  width: 100px;
+  position: relative;
+}
+
+.type button{
+  border: none;
+  padding: 0;
+  font-weight: 1000;
+  font-family: 'SUITE-Regular';
+}
+
+.types{
+  display:inline-block;
+  width: 80px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  box-shadow: 0 0 0 2px #ffe8b6;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.yellow{
+  display:inline-block;
+  width: 80px;
+  height: 25px;
+  margin: 10px;
+  text-align: center;
+  line-height: 25px;
+  background-color: #FED06E;
+  box-shadow: 0 0 0 2px #FED06E;
+  border-radius: 100px;
+}
+
+.cate-keyword{
+  position: absolute;
+  left: 20px;
+}
+
+.plu-miu{
+  position: absolute;
+  right: 20px;
+  line-height: 20px;
+}
+
+/* 확정하기 버튼 */
+.ok-button{
+  position:absolute;
+  left: 80px;
+  bottom: 20px;
+  width: 180px;
+  height: 35px;
+  background: #FFFFFF;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 29px;
+  color: #414141;
+  cursor: pointer;
+}

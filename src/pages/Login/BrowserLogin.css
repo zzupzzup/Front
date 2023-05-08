@@ -55,7 +55,6 @@
 }
 .login_text{
   line-height: 14px;
-  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
@@ -108,7 +107,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 35px;
   background: #FFFFFF;
   border-radius: 6px;
-  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 900;
   font-size: 15px;
