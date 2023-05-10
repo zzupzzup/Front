@@ -30,7 +30,7 @@ function BrowserMaps() {
     if (!mapElement.current || !naver) return;
 
     //중심부 찍기
-    const location = new naver.maps.LatLng(37.566, 126.9385);
+    const location = new naver.maps.LatLng(37.527118100, 126.932956014);
 
     const mapOptions: naver.maps.MapOptions = {
       center: location,

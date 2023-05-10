@@ -8,7 +8,7 @@ import './SelectModal.css';
 
 export default function SelectModal(props) {
   const [types, setTypes] = useState(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
-  const { isOpen, onRequestClose, area, type, handleAreaClick, handleTypeClick } = props;
+  const { isOpen, onRequestClose, area, type, allCheck, handleAreaClick, handleTypeClick, handleTypeAll } = props;
 
   const customStyles = {
     content: {
@@ -36,7 +36,6 @@ export default function SelectModal(props) {
   };
 
 
-
   Modal.setAppElement('#root');
   return (
     <Modal closeTimeoutMS={300} isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles} contentLabel="Example Modal">
@@ -53,7 +52,13 @@ export default function SelectModal(props) {
           <button className={area === '강남구' ? 'area5 black' : 'area5'} onClick={() => handleAreaClick('강남구')}>강남구</button>
         </div>
         <br></br>
-        <div className='modal-sub-title'>음식 타입</div>
+        <div className='modal-sub-title'>
+          <div>음식 타입</div>
+          <div>
+            <button className={allCheck ? 'all-check ok' : 'all-check'} onClick={() => handleTypeAll()}>✔</button>
+            <span> 모두 선택</span>
+          </div>
+        </div>
         <div className='type'>
           {types.map((item) => (
             <button className={type.includes(item) ? 'types yellow' : 'types'} onClick={() => handleTypeClick(item)}>{item}</button>

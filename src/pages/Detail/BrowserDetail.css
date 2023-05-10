@@ -13,6 +13,7 @@
 /* 두번째 구역(사진, 지도) */
 .store-detail-second{
   display:flex;
+  margin-top: 10px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -20,13 +21,14 @@
   width: 300px;
 }
 
+
 .store-detail-tag{
   border-radius: 10%;
   font-weight: 700;
   font-size: 9px;
   line-height: 16px;
   text-align: center;
-  margin: 2px;
+  margin-right: 5px;
   color: white;
   padding: 3px 10px;
   display: inline-block;
