@@ -9,7 +9,7 @@ import './BrowserLogin.css';
 
 const BrowserLogin = ()=>{
   const navigate = useNavigate();
-  const [userId, setUserId] = useState([]); 
+  const [userId, setUserId] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -42,7 +42,7 @@ const BrowserLogin = ()=>{
 
   async function postData(email, password) {
     try {
-      const response = await axios.post(`${baseUrl}/auth/login/email`,
+      const response = await axios.post(`${baseUrl}/auth/login?sns_type=email`,
         JSON.stringify(
           {
             email : email,
@@ -50,8 +50,8 @@ const BrowserLogin = ()=>{
           }),
         { headers }
       );
+      localStorage.setItem("jwt", JSON.stringify(response.data.Authorization));
       navigate("/mypage");
-      console.log('리턴', response);
 
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import {useRecoilState} from 'recoil';
-import {selectList, selectStore} from '../../../Atom';
+import {selectList, selectStore, selectArea} from '../../../Atom';
 
 
 function BrowserMaps() {
@@ -8,7 +8,10 @@ function BrowserMaps() {
   const mapElement = useRef(null);
   const [chatbot, setChatbot] = useRecoilState(selectList);
   const [store, setStore] = useRecoilState(selectStore);
-
+  const [area, setArea] = useRecoilState(selectArea);
+  const [centerLat, setCenterLat] = useState(37.527118100);
+  const [centerLong, setCenterLong] = useState(126.932956014);
+  const [zoom, setZoom] = useState(12);
 
   //식당 더미데이터
   let stores = []
@@ -29,12 +32,41 @@ function BrowserMaps() {
   useEffect(() => {
     if (!mapElement.current || !naver) return;
 
-    //중심부 찍기
-    const location = new naver.maps.LatLng(37.527118100, 126.932956014);
+    if (!area){
+      setCenterLat(37.527118100);
+      setCenterLong(126.932956014);
+      setZoom(12);
+    }
+    else{
+      if (area === '마포구') {
+        setCenterLat(37.5663);
+        setCenterLong(126.9017);
+        setZoom(14);
+      } else if (area === '성동구') {
+        setCenterLat(37.5635);
+        setCenterLong(127.0365);
+        setZoom(14);
+      } else if (area === '광진구') {
+        setCenterLat(37.5388);
+        setCenterLong(127.0825);
+        setZoom(14);
+      } else if (area === '강남구') {
+        setCenterLat(37.4959867);
+        setCenterLong(127.0664091);
+        setZoom(14);
+      } else if (area === '서초구') {
+        setCenterLat(37.4837);
+        setCenterLong(127.0324);
+        setZoom(14);
+      }
+    }
 
+    //중심부 찍기
+    const location = new naver.maps.LatLng(centerLat, centerLong);
+    
     const mapOptions: naver.maps.MapOptions = {
       center: location,
-      zoom: 12,
+      zoom: zoom,
       zoomControl: true,
       mapTypeControl: true,
       zoomControlOptions: {
@@ -88,7 +120,7 @@ function BrowserMaps() {
       });
     }
 
-  }, [chatbot]);
+  }, [chatbot, area, mapElement, naver, centerLat, centerLong, zoom]);
 
   return <div ref={mapElement} style={{marginTop:'60px', wstoreIdth: '100vw', height: 'calc(100vh - 60px)' }} />
 }

@@ -65,7 +65,7 @@ export default function SelectModal(props) {
           ))}
         </div>
 
-        <button className='ok-button' onClick={onRequestClose}>확정하기</button>
+        <button className='ok-button' onClick={() => onRequestClose()}>확정하기</button>
       </div>
     </Modal>
   );

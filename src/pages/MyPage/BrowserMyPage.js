@@ -30,7 +30,7 @@ const BrowserMyPage = ()=>{
           <span style={{fontSize: "25px"}}>{nickname}</span>님 반갑습니다!
           <br></br>
           <br></br>
-          저는 학사를 위해 뛰는 토끼 학뛰토입니다.
+          저는 학사를 위해 뛰는 토끼<br></br>학뛰토입니다.
         </div>
       </div>
       <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>

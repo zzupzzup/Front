@@ -85,11 +85,6 @@
   color : #FF0000;
   border: 2px solid #FF0000;
 }
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-}
 
 .subtitle{
   position:absolute;

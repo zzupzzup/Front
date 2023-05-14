@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import axios from 'axios';
-import {selectList, selectStore} from '../../../Atom';
+import {selectList, selectStore, selectArea} from '../../../Atom';
 import Check from './Check/Check';
 import BrowserChat from './Chat/BrowserChat';
 import SelectModal from './SelectModal/SelectModal';
@@ -19,9 +19,11 @@ const BrowserList = ()=>{
   const [allCheck, setAllCheck] = useState(true);
   const [selectModalOn, setSelectModalOn] = useState(false);
   const [store, setStore] = useRecoilState(selectStore);
+  const [selArea, setSelArea] = useRecoilState(selectArea);
   const [test, setTest] = useState(null);   //결과값
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
+  const storeListRef = useRef(null);
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   // const headers = {
@@ -56,6 +58,11 @@ const BrowserList = ()=>{
     setChatbot(true)
   };
 
+  const onRequestClose = () => {
+    setSelectModalOn(false)
+    setSelArea(area)
+  }
+
   const handleAreaClick = (e) => {
     if (area !== e) {
       setArea(e);
@@ -84,8 +91,13 @@ const BrowserList = ()=>{
 
   //음식 카테고리 모두 선택
   const handleTypeAll = () => {
-    setType(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
-    setAllCheck(true)
+    if (!allCheck){
+      setType(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
+      setAllCheck(true)
+    }else{
+      setType([]);
+      setAllCheck(false)
+    }
   }
 
 
@@ -94,7 +106,7 @@ const BrowserList = ()=>{
     <div className="browser-list">
       <SelectModal
         isOpen={selectModalOn}
-        onRequestClose={() => setSelectModalOn(false)}
+        onRequestClose={onRequestClose}
         area={area}
         type={type}
         allCheck={allCheck}
