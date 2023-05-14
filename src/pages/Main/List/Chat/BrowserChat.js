@@ -1,16 +1,26 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {selectCate} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
-import Store from '../Store/Store';
+import ChatStore from '../Store/ChatStore';
 import './BrowserChat.css'
 
 const BrowserChat = ()=>{
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [text, setText] = useState(false);
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
+  const headers = {
+    'ACCESS-TOKEN': String(JSON.parse(localStorage.getItem("jwt"))),
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   //식당 더미데이터
   const stores = [
@@ -24,42 +34,41 @@ const BrowserChat = ()=>{
 
   
   //검색
-  function back() {
-    setText(false)
-    setSearchTerm("")
-  }
-
   const onChange =(e)=>{
     setText(true)
     if(e.target.value===''){
       setText(false)
     }
+    setSearchTerm(e.target.value)
     e.preventDefault() 
-    // SearchPost(params.boardId, e.target.value );
+  }
+  
+  const onClick = (e) => {
+    SearchPost(searchTerm);
   }
 
-  // const SearchPost = async (boardIdx, key) => {
-  //   try {
-  //       setError(null);
-  //       setLoading(true); //로딩이 시작됨
-  //       const response = await axios.get(`${baseUrl}/api/post/boardPostList/${boardIdx}?key=${key}`, { headers });
-  //       setSearchResult(response.data.result)
-  //       console.log(response.data);
-  //   } catch (e) {
-  //       setError(e);
-  //   }
-  //   setLoading(false);
-  // };
+  const SearchPost = async (key) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/chatRRS?query=${key}`, { headers });
+        setSearchResult(response.data)
+        console.log(response.data);
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
 
   return(
     <div className="chat">
       <div className={`search-bar ${(text ? 'success' : 'fail')}`}>
-        <input type="text" className="search" placeholder="비 오는 날 먹을 음식 추천해줘" onChange={onChange}/>
-        <img src={searchIcon} className="search-icon" alt="" />
+        <input type="text" className="search" placeholder="비 오는 날 먹을 음식 추천해줘" value={searchTerm} onChange={onChange}/>
+        <img src={searchIcon} className="search-icon" alt="" onClick={onClick}/>
       </div>
       <div className="browser-store-list">
-        {stores.map(store => {
-          return <Store store={store} isScrappedStore={store.userScrap}></Store>
+        {searchResult && searchResult.map(store => {
+          return <ChatStore store={store} isScrappedStore={store.userScrap}></ChatStore>
         })}   
       </div>   
     </div>

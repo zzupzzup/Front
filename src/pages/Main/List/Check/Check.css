@@ -1,3 +1,23 @@
+.browser-store-check-list {
+  margin-top: 10px;
+  width: 350px;
+  height: 472px;
+  overflow-x: hidden;
+}
+.browser-store-check-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.browser-store-check-list::-webkit-scrollbar-thumb {
+  height: 30%;
+  background-color: #bbbbbb;
+  border-radius: 10px;
+}
+
+.browser-store-check-list::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
+}
+
 .check{
   display: flex;
   flex-wrap: wrap;

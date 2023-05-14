@@ -1,5 +1,21 @@
-.chat{
+.browser-store-list {
+  margin-top: 10px;
+  width: 350px;
+  height: 431px;
+  overflow-x: hidden;
+}
+.browser-store-list::-webkit-scrollbar {
+  width: 8px;
+}
 
+.browser-store-list::-webkit-scrollbar-thumb {
+  height: 30%;
+  background-color: #bbbbbb;
+  border-radius: 10px;
+}
+
+.browser-store-list::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 
 .search-bar {

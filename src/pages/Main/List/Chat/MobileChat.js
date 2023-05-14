@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {selectCate} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
-import Store from '../Store/Store';
+import ChatStore from '../Store/ChatStore';
 import './MobileChat.css'
 
 const MobileChat = ()=>{
@@ -53,7 +53,7 @@ const MobileChat = ()=>{
       </div>
       <div className="mobile-store-list">
         {stores.map(store => {
-          return <Store store={store} isScrappedStore={store.userScrap}></Store>
+          return <ChatStore store={store} isScrappedStore={store.userScrap}></ChatStore>
         })}   
       </div>   
     </div>
