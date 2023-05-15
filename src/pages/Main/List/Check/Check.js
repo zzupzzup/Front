@@ -14,7 +14,7 @@ const Check = (props)=>{
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  console.log(area)
+  console.log(type)
   const headers = {
     'ACCESS-TOKEN': String(JSON.parse(localStorage.getItem("jwt"))),
     Accept: 'application/json',
@@ -67,7 +67,11 @@ const Check = (props)=>{
     }
   }, [area]);
 
-
+  //카테고리 필터링
+  useEffect(() => {
+    setStoreList(originalList);
+    setStoreList(state => state.filter(store => type.includes(store.category)));
+  }, [type])
 
   return(
     <div className="check">

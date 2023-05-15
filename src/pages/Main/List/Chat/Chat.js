@@ -8,8 +8,10 @@ import searchIcon from '../../../../assets/search_icon.webp'
 import ChatStore from '../Store/ChatStore';
 import './Chat.css'
 
-const Chat = ()=>{
+const Chat = (props)=>{
+  const {chatbot, area, type} = props;
   const [searchTerm, setSearchTerm] = useState("");
+  const [originalList, setOriginalList] = useState(null);
   const [searchResult, setSearchResult] = useRecoilState(resultChat);
   const [text, setText] = useState(false);
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -48,6 +50,40 @@ const Chat = ()=>{
     }
     setLoading(false);
   };
+
+  //지역 필터링
+  useEffect(() => {
+    if (searchTerm){
+      if (area === null){
+        setSearchTerm(originalList);
+      }else{
+        if (area === '마포구'){
+          setSearchTerm(originalList);
+          setSearchTerm(state => [...state.filter(store => store.address.includes("마포구"))]);
+        }else if (area === '광진구'){
+          setSearchTerm(originalList);
+          setSearchTerm(state => [...state.filter(store => store.address.includes("광진구"))]);
+        }else if (area === '성동구'){
+          setSearchTerm(originalList);
+          setSearchTerm(state => [...state.filter(store => store.address.includes("성동구"))]);
+        }else if (area === '서초구'){
+          setSearchTerm(originalList);
+          setSearchTerm(state => [...state.filter(store => store.address.includes("서초구"))]);
+        }else if (area === '강남구'){
+          setSearchTerm(originalList);
+          setSearchTerm(state => [...state.filter(store => store.address.includes("강남구"))]);
+        }
+      }
+    }
+  }, [searchTerm, area]);
+
+  //카테고리 필터링
+  useEffect(() => {
+    if (searchTerm){
+      setSearchTerm(originalList);
+      setSearchTerm(state => state.filter(store => type.includes(store.category)));
+    }
+  }, [searchTerm, type])
 
   return(
     <div className="chat">
