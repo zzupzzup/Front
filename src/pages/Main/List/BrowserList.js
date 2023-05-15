@@ -5,7 +5,7 @@ import {useRecoilState} from 'recoil';
 import axios from 'axios';
 import {selectList, selectStore, selectArea} from '../../../Atom';
 import Check from './Check/Check';
-import BrowserChat from './Chat/BrowserChat';
+import Chat from './Chat/Chat';
 import SelectModal from './SelectModal/SelectModal';
 import redArea from '../../../assets/red_area.png'
 import grayType from '../../../assets/gray_type.png'
@@ -117,8 +117,8 @@ const BrowserList = ()=>{
         }
       </div>
       {chatbot ? 
-        <BrowserChat></BrowserChat>:
-        <Check></Check>
+        <Chat chatbot={chatbot} area={area} type={type}></Chat>:
+        <Check chatbot={chatbot} area={area} type={type}></Check>
       }
     </div>
   )

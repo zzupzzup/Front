@@ -20,3 +20,15 @@ export const selectArea = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 }); 
+
+export const resultChat = atom({
+  key: 'resultChat',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+}); 
+
+export const resultCheck = atom({
+  key: 'resultCheck',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+}); 
