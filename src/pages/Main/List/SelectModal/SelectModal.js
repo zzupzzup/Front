@@ -7,7 +7,7 @@ import seoul from '../../../../assets/seoul.jpg';
 import './SelectModal.css';
 
 export default function SelectModal(props) {
-  const [types, setTypes] = useState(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
+  const [types, setTypes] = useState(['한식', '일식', '술집', '양식', '분식', '까페', '숯불구이', '중식', '기타']);
   const { isOpen, onRequestClose, area, type, allCheck, handleAreaClick, handleTypeClick, handleTypeAll } = props;
 
   const customStyles = {

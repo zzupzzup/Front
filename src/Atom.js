@@ -32,3 +32,15 @@ export const resultCheck = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 }); 
+
+export const firstChat = atom({
+  key: 'firstChat',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+}); 
+
+export const firstCheck = atom({
+  key: 'firstCheck',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+}); 

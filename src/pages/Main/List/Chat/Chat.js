@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
-import {resultChat} from '../../../../Atom';
+import {resultChat, firstChat} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
 import ChatStore from '../Store/ChatStore';
 import './Chat.css'
@@ -11,7 +11,7 @@ import './Chat.css'
 const Chat = (props)=>{
   const {chatbot, area, type} = props;
   const [searchTerm, setSearchTerm] = useState("");
-  const [originalList, setOriginalList] = useState(null);
+  const [originalChat, setOriginalChat] = useRecoilState(firstChat);
   const [searchResult, setSearchResult] = useRecoilState(resultChat);
   const [text, setText] = useState(false);
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -23,7 +23,6 @@ const Chat = (props)=>{
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
-
   
   //검색
   const onChange =(e)=>{
@@ -35,7 +34,7 @@ const Chat = (props)=>{
     e.preventDefault() 
   }
   
-  const onClick = (e) => {
+  const onClick = () => {
     SearchPost(searchTerm);
   }
 
@@ -45,50 +44,51 @@ const Chat = (props)=>{
         setLoading(true); //로딩이 시작됨
         const response = await axios.post(`${baseUrl}/chatRRS?query=${key}`, { headers });
         setSearchResult(response.data)
+        setOriginalChat(response.data)
     } catch (e) {
         setError(e);
     }
     setLoading(false);
   };
 
-  //지역 필터링
+  // 지역 필터링
   useEffect(() => {
-    if (searchTerm){
+    if (searchResult){
       if (area === null){
-        setSearchTerm(originalList);
+        setSearchResult(originalChat);
       }else{
         if (area === '마포구'){
-          setSearchTerm(originalList);
-          setSearchTerm(state => [...state.filter(store => store.address.includes("마포구"))]);
+          setSearchResult(originalChat);
+          setSearchResult(state => [...state.filter(store => store.address.includes("마포구"))]);
         }else if (area === '광진구'){
-          setSearchTerm(originalList);
-          setSearchTerm(state => [...state.filter(store => store.address.includes("광진구"))]);
+          setSearchResult(originalChat);
+          setSearchResult(state => [...state.filter(store => store.address.includes("광진구"))]);
         }else if (area === '성동구'){
-          setSearchTerm(originalList);
-          setSearchTerm(state => [...state.filter(store => store.address.includes("성동구"))]);
+          setSearchResult(originalChat);
+          setSearchResult(state => [...state.filter(store => store.address.includes("성동구"))]);
         }else if (area === '서초구'){
-          setSearchTerm(originalList);
-          setSearchTerm(state => [...state.filter(store => store.address.includes("서초구"))]);
+          setSearchResult(originalChat);
+          setSearchResult(state => [...state.filter(store => store.address.includes("서초구"))]);
         }else if (area === '강남구'){
-          setSearchTerm(originalList);
-          setSearchTerm(state => [...state.filter(store => store.address.includes("강남구"))]);
+          setSearchResult(originalChat);
+          setSearchResult(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
     }
-  }, [searchTerm, area]);
+  }, [searchResult, area]);
 
   //카테고리 필터링
   useEffect(() => {
-    if (searchTerm){
-      setSearchTerm(originalList);
-      setSearchTerm(state => state.filter(store => type.includes(store.category)));
+    if (searchResult){
+      setSearchResult(originalChat);
+      setSearchResult(state => [...state.filter(store => type.includes(store.category))]);
     }
-  }, [searchTerm, type])
+  }, [searchResult, type])
 
   return(
     <div className="chat">
       <div className={`search-bar ${(text ? 'success' : 'fail')}`}>
-        <input type="text" className="search" placeholder="비 오는 날 먹을 음식 추천해줘" value={searchTerm} onChange={onChange}/>
+        <input type="text" className="search" placeholder={searchTerm} value={searchTerm} onChange={onChange}/>
         <img src={searchIcon} className="search-icon" alt="" onClick={onClick}/>
       </div>
       <div className="browser-store-list">
