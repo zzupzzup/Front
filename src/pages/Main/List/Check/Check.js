@@ -23,10 +23,14 @@ const Check = (props)=>{
 
   //결과 가져오기
   useEffect( () =>{
+    fetchstores();
+  },[]);
+
+  useEffect( () =>{
     if (!originalCheck){
       fetchstores();
     }
-  },[]);
+  },[chatbot]);
 
   const fetchstores = async () => {
     try {
@@ -41,9 +45,10 @@ const Check = (props)=>{
     setLoading(false);
   };
 
-  //지역 필터링
+  //필터링
   useEffect(() => {
     if (storeList){
+      setStoreList(originalCheck);
       if (area === null){
         setStoreList(originalCheck);
       }else{
@@ -64,14 +69,11 @@ const Check = (props)=>{
           setStoreList(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
+      if (storeList){
+        setStoreList(state => [...state.filter(store => type.includes(store.category))]);
+      }
     }
-  }, [area]);
-
-  //카테고리 필터링
-  useEffect(() => {
-    setStoreList(originalCheck);
-    setStoreList(state => [...state.filter(store => type.includes(store.category))]);
-  }, [type])
+  }, [chatbot, area, type]);
 
   return(
     <div className="check">

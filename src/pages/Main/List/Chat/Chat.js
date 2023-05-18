@@ -36,6 +36,7 @@ const Chat = (props)=>{
   
   const onClick = () => {
     SearchPost(searchTerm);
+    searchTerm.preventDefault() 
   }
 
   const SearchPost = async (key) => {
@@ -51,9 +52,10 @@ const Chat = (props)=>{
     setLoading(false);
   };
 
-  // 지역 필터링
+  //필터링
   useEffect(() => {
     if (searchResult){
+      setSearchResult(originalChat);
       if (area === null){
         setSearchResult(originalChat);
       }else{
@@ -74,16 +76,11 @@ const Chat = (props)=>{
           setSearchResult(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
+      if (searchResult){
+        setSearchResult(state => [...state.filter(store => type.includes(store.category))]);
+      }
     }
-  }, [searchResult, area]);
-
-  //카테고리 필터링
-  useEffect(() => {
-    if (searchResult){
-      setSearchResult(originalChat);
-      setSearchResult(state => [...state.filter(store => type.includes(store.category))]);
-    }
-  }, [searchResult, type])
+  }, [searchResult, chatbot, area, type]);
 
   return(
     <div className="chat">
