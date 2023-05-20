@@ -6,7 +6,7 @@ import mypage from '../../assets/mypage.png'
 import './Header.css';
 
 const Header = ()=>{
-  const signin = localStorage.getItem('jwt')
+  const user = JSON.parse(localStorage.getItem("user"))
 
   return(
     <div className="header">
@@ -14,7 +14,7 @@ const Header = ()=>{
 			<Link to="/"><img src={logo} className="logo" alt="" /></Link>
 			<Link to="/" style={{textDecoration:"none"}}><div className="title">쩝쩝학사</div></Link>
 
-      {signin?
+      {user?
         <Link to="/mypage" className="mypage-logo"><img src={mypage} className="mypage" alt="" /></Link>
         :
         <Link to="/login" className="login"><img src={mypage} className="mypage" alt="" /></Link>

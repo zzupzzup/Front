@@ -14,7 +14,7 @@ import './BrowserList.css'
 
 const BrowserList = ()=>{
   const [chatbot, setChatbot] = useRecoilState(selectList);
-  const [type, setType] = useState(['한식', '일식', '술집', '양식', '분식', '까페', '숯불구이', '중식', '기타']);
+  const [type, setType] = useState(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
   const [area, setArea] = useState(null);
   const [allCheck, setAllCheck] = useState(true);
   const [selectModalOn, setSelectModalOn] = useState(false);
@@ -65,7 +65,7 @@ const BrowserList = ()=>{
   //음식 카테고리 모두 선택
   const handleTypeAll = () => {
     if (!allCheck){
-      setType(['한식', '일식', '술집', '양식', '분식', '까페', '숯불구이', '중식', '기타']);
+      setType(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
       setAllCheck(true)
     }else{
       setType([]);

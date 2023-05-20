@@ -3,8 +3,7 @@
   height: 100vh;
   overflow:hidden !important;
 }
-
-.auth-content-first{
+.auth-contents{
   width: 300px;
   height: 500px;
   background-color: #ffe09d;
@@ -15,17 +14,36 @@
   margin:-200px 0 0 -150px;
   box-shadow: 0 10px 10px -5px rgb(68, 68, 68);
   z-index: 2;
+  overflow-y: hidden;
+}
+.auth-content-scroll{
+  width: 300px;
+  height: 470px;
+  position:absolute;
+  top:0px;
+  left:50%;
+  margin:15px 0 0 -150px;
+  z-index: 2;
+  overflow-x: hidden;
+}
+.auth-content-scroll::-webkit-scrollbar {
+  width: 8px;
 }
 
-.auth-content-first.success{
-  transition: 1s;
-  top: -330px;
+.auth-content-scroll::-webkit-scrollbar-thumb {
+  height: 30%;
+  background: rgba(92, 92, 92, 0.4);
+  border-radius: 10px;
+}
+
+.auth-content-scroll::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 
 .auth-title{
   position: absolute;
   left: 35px;
-  top: 20px;
+  top: 10px;
   color:#414141;
   text-align: left;
   line-height: 11px;
@@ -36,7 +54,7 @@
   position: absolute;
   color: #414141;
   box-sizing: border-box;
-  top: 100px;
+  top: 70px;
   width : 300px;
 }
 
@@ -45,12 +63,15 @@
 .auth_items{
   height:85px;
 }
+.auth_items_type{
+  height: 180px;
+}
 .auth_text{
   line-height: 14px;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  margin:2px 40px;
+  margin:2px 38px;
   width:440px;
   word-break:keep-all;
 }
@@ -86,18 +107,10 @@
   border: 2px solid #FF0000;
 }
 
-.subtitle{
-  position:absolute;
-  bottom: 80px;
-  margin:10px 20px 0 50px;
-}
-
 .start_btn{
-  position:absolute;
-  left: 50px;
-  bottom: 20px;
   width: 195px;
   height: 40px;
+  margin: 10px 50px;
   background: #FFFFFF;
   border-radius: 6px;
   font-style: normal;
@@ -111,24 +124,6 @@
   color : #FF0000;
   border: 2px solid #FF0000;
   background: #FFFFFF;
-}
-
-.auth-content-second{
-  width: 300px;
-  height: 500px;
-  background-color: #ffe09d;
-  border-radius: 25px;
-  position:absolute;
-  top:330px;
-  left:50vw;
-  margin:-200px 0 0 -150px;
-  box-shadow: 0 10px 10px -5px rgb(68, 68, 68);
-  display: none;
-  z-index: 1;
-}
-.auth-content-second.success{
-  transition: all 1s;
-  display: block;
 }
 
 /* 라디오 버튼 */

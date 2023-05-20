@@ -10,10 +10,10 @@ import './Chat.css'
 
 const Chat = (props)=>{
   const {chatbot, area, type} = props;
-  const [searchTerm, setSearchTerm] = useState("");
   const [originalChat, setOriginalChat] = useRecoilState(firstChat);
   const [searchResult, setSearchResult] = useRecoilState(resultChat);
   const [text, setText] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -36,7 +36,6 @@ const Chat = (props)=>{
   
   const onClick = () => {
     SearchPost(searchTerm);
-    searchTerm.preventDefault() 
   }
 
   const SearchPost = async (key) => {
@@ -80,7 +79,7 @@ const Chat = (props)=>{
         setSearchResult(state => [...state.filter(store => type.includes(store.category))]);
       }
     }
-  }, [searchResult, chatbot, area, type]);
+  }, [originalChat, chatbot, area, type]);
 
   return(
     <div className="chat">
@@ -89,7 +88,9 @@ const Chat = (props)=>{
         <img src={searchIcon} className="search-icon" alt="" onClick={onClick}/>
       </div>
       <div className="browser-store-list">
-        {searchResult && searchResult.map(store => {
+        {loading?
+        <div>로딩중</div>:
+        searchResult && searchResult.map(store => {
           return <ChatStore store={store} isScrappedStore={store.userScrap}></ChatStore>
         })}   
       </div>   

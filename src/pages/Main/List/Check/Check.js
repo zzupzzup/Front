@@ -73,7 +73,7 @@ const Check = (props)=>{
         setStoreList(state => [...state.filter(store => type.includes(store.category))]);
       }
     }
-  }, [chatbot, area, type]);
+  }, [originalCheck, chatbot, area, type]);
 
   return(
     <div className="check">

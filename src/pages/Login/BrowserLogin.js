@@ -50,7 +50,8 @@ const BrowserLogin = ()=>{
           }),
         { headers }
       );
-      localStorage.setItem("jwt", JSON.stringify(response.data.Authorization));
+      localStorage.setItem("user", JSON.stringify(response.data));
+      console.log(response.data)
       navigate("/mypage");
 
     } catch (error) {
