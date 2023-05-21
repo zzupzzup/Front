@@ -9,7 +9,8 @@ import Chat from './Chat/Chat';
 import SelectModal from './SelectModal/SelectModal';
 import redArea from '../../../assets/red_area.png'
 import grayType from '../../../assets/gray_type.png'
-import emptyType from '../../../assets/empty_type.png'
+import logo from '../../../assets/logo.png'
+import lock from '../../../assets/lock.png'
 import './BrowserList.css'
 
 const BrowserList = ()=>{
@@ -124,7 +125,12 @@ const BrowserList = ()=>{
           <Check chatbot={chatbot} area={area} type={type}></Check>
         }
       </div>:
-      <div className="please-login">로그인 후 이용해주세요</div>
+      <div className="please-login">
+        <img src={logo} className="please-img"/>
+        <img src={lock} className="lock-img"/>
+        <div style={{fontSize:"18px", margin:"300px 0 20px 0"}}>로그인이 필요한 서비스입니다.</div>
+        <div>로그인 후 이용해주세요!</div>
+      </div>
     }
     </div>
   )
