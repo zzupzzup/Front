@@ -89,7 +89,7 @@ function BrowserMaps() {
         //마커 찍기
         const otherMarkers = new naver.maps.Marker({
           map: map,
-          title: stores[i].title,
+          title: stores[i].store,
           position: new naver.maps.LatLng(
             response.v2.addresses[0].y, 
             response.v2.addresses[0].x
@@ -106,18 +106,18 @@ function BrowserMaps() {
 
         //마커 클릭하면 정보창 뜨게함
         naver.maps.Event.addListener(otherMarkers, "click", function(e){
-          setStore(stores[i].storeId)
-          if (infowindow.getMap()) {
-            infowindow.close();
-          } else {
-            infowindow.open(map,otherMarkers);
-          }
+          setStore(stores[i].id)
         });
-
+        if (store) {
+          infowindow.open(map, otherMarkers);
+        } else {
+          infowindow.close();
+        }
+        
       });
     }
 
-  }, [chatbot, stores, area, mapElement, naver, centerLat, centerLong, zoom]);
+  }, [chatbot, stores, area, mapElement, naver, centerLat, centerLong, zoom, store]);
 
   return <div ref={mapElement} style={{marginTop:'60px', wstoreIdth: '100vw', height: 'calc(100vh - 60px)' }} />
 }

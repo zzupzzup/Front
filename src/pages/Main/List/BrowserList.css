@@ -67,6 +67,7 @@
   margin-right: 5px;
 }
 
-.modal-content{
-  
+/* 로그인 안 했을 때 */
+.please-login{
+  margin: 30%;
 }

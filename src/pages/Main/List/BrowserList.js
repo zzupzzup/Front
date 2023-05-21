@@ -21,6 +21,7 @@ const BrowserList = ()=>{
   const [store, setStore] = useRecoilState(selectStore);
   const [selArea, setSelArea] = useRecoilState(selectArea);
   const storeListRef = useRef(null);
+  const user = JSON.parse(localStorage.getItem("user"))
 
 
   const clickCate = () => {
@@ -76,50 +77,55 @@ const BrowserList = ()=>{
 
   return(
     <div className="browser-list">
-      <SelectModal
-        isOpen={selectModalOn}
-        onRequestClose={onRequestClose}
-        area={area}
-        type={type}
-        allCheck={allCheck}
-        handleAreaClick={handleAreaClick}
-        handleTypeClick={handleTypeClick}
-        handleTypeAll={handleTypeAll}
-      />
-      <div className="browser-select-content">
-        <div className={`browser-select-word ${(chatbot ? 'cate' : 'chatbot')}`} onClick={clickCate}>추천 결과 보기</div>
-        <div className={`browser-select-word ${(chatbot ? 'chatbot' : 'cate')}`} onClick={clickChatbot}>챗봇에게 물어보기</div>
-        <div className={`browser-select ${(chatbot ? 'cate' : 'chatbot')}`} onClick={clickCate}></div>
-        <div className={`browser-select ${(chatbot ? 'chatbot' : 'cate')}`} onClick={clickChatbot}></div>
-      </div>
-      <div className="modal" onClick={() => setSelectModalOn(true)}>
-        {area ?
-          <div className="modal-content">
-            <img src={redArea} className="modal-area-img"/>
-            <span> {area}</span>
-          </div>
-          :
-          <div className="modal-content">
-            <img src={redArea} className="modal-area-img"/>
-            <span> 모든 지역을 보여드릴게요!</span>
-          </div>
+    {user?
+      <div>
+        <SelectModal
+          isOpen={selectModalOn}
+          onRequestClose={onRequestClose}
+          area={area}
+          type={type}
+          allCheck={allCheck}
+          handleAreaClick={handleAreaClick}
+          handleTypeClick={handleTypeClick}
+          handleTypeAll={handleTypeAll}
+        />
+        <div className="browser-select-content">
+          <div className={`browser-select-word ${(chatbot ? 'cate' : 'chatbot')}`} onClick={clickCate}>추천 결과 보기</div>
+          <div className={`browser-select-word ${(chatbot ? 'chatbot' : 'cate')}`} onClick={clickChatbot}>챗봇에게 물어보기</div>
+          <div className={`browser-select ${(chatbot ? 'cate' : 'chatbot')}`} onClick={clickCate}></div>
+          <div className={`browser-select ${(chatbot ? 'chatbot' : 'cate')}`} onClick={clickChatbot}></div>
+        </div>
+        <div className="modal" onClick={() => setSelectModalOn(true)}>
+          {area ?
+            <div className="modal-content">
+              <img src={redArea} className="modal-area-img"/>
+              <span> {area}</span>
+            </div>
+            :
+            <div className="modal-content">
+              <img src={redArea} className="modal-area-img"/>
+              <span> 모든 지역을 보여드릴게요!</span>
+            </div>
+          }
+          {type.length > 0 ?
+            <div className="modal-content">
+              <img src={grayType} className="modal-type-img"/>
+              <span> {type.map((t, index) => (<span key={index}> {t}</span>))}</span>
+            </div>
+            :
+            <div className="modal-content">
+              <img src={grayType} className="modal-type-img"/>
+              <span> 음식 카테고리를 선택해주세요!</span>
+            </div>
+          }
+        </div>
+        {chatbot ? 
+          <Chat chatbot={chatbot} area={area} type={type}></Chat>:
+          <Check chatbot={chatbot} area={area} type={type}></Check>
         }
-        {type.length > 0 ?
-          <div className="modal-content">
-            <img src={grayType} className="modal-type-img"/>
-            <span> {type.map((t) => (<span> {t}</span>))}</span>
-          </div>
-          :
-          <div className="modal-content">
-            <img src={grayType} className="modal-type-img"/>
-            <span> 음식 카테고리를 선택해주세요!</span>
-          </div>
-        }
-      </div>
-      {chatbot ? 
-        <Chat chatbot={chatbot} area={area} type={type}></Chat>:
-        <Check chatbot={chatbot} area={area} type={type}></Check>
-      }
+      </div>:
+      <div className="please-login">로그인 후 이용해주세요</div>
+    }
     </div>
   )
 }

@@ -15,8 +15,8 @@ const BrowserMyPage = ()=>{
 
   // 로그아웃
   const onLogOutClick = () => {
-    authService.signOut();
     localStorage.clear(); 
+    localStorage.removeItem('__mantle_tile_meta_data');
     navigate('/login')
   }
 

@@ -42,15 +42,16 @@
 }
 
 .store-detail-info{
-  width:350px;
   margin-top: 20px;
-  background-image: url('../../assets/paper.jpg');
-  z-index: 999;
-  opacity: 1;
   white-space: pre-line;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   padding: 20px;
   text-align: left;
+  width: 350px;
+	height: 200px;
+	background-color: white;
+  border: 1px solid #949494;
+	border-radius: 15px;
+	box-shadow: 1px 1px 3px #949494;
 }
 
 .store-info-title{

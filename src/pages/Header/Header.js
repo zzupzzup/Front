@@ -15,9 +15,9 @@ const Header = ()=>{
 			<Link to="/" style={{textDecoration:"none"}}><div className="title">쩝쩝학사</div></Link>
 
       {user?
-        <Link to="/mypage" className="mypage-logo"><img src={mypage} className="mypage" alt="" /></Link>
+        <Link to="/mypage"><img src={mypage} className="mypage" alt="" /></Link>
         :
-        <Link to="/login" className="login"><img src={mypage} className="mypage" alt="" /></Link>
+        <Link to="/login"><img src={mypage} className="mypage" alt="" /></Link>
       }
 
     </div>

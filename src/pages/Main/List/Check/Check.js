@@ -14,29 +14,52 @@ const Check = (props)=>{
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"))
 
   const headers = {
-    'ACCESS-TOKEN': String(JSON.parse(localStorage.getItem("jwt"))),
+    'ACCESS-TOKEN': user.Authorization,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
 
   //결과 가져오기
   useEffect( () =>{
-    fetchstores();
+    if (user.click_log){
+      fetchpresonalModel();
+    }else{
+      const categoryArr = user.category.split(" ");
+      fetchfirstModel(categoryArr);
+    }
   },[]);
 
   useEffect( () =>{
     if (!originalCheck){
-      fetchstores();
+      if (user.click_log){
+        fetchpresonalModel();
+      }else{
+        fetchfirstModel(user.category);
+      }
     }
   },[chatbot]);
 
-  const fetchstores = async () => {
+  const fetchpresonalModel = async () => {
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/personalModel`, { headers });
+        setStoreList(response.data)
+        setOriginalCheck(response.data)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  const fetchfirstModel = async (category) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.get(`${baseUrl}/firstModel?user_category=${category}`, { headers });
         setStoreList(response.data)
         setOriginalCheck(response.data)
     } catch (e) {
@@ -78,9 +101,9 @@ const Check = (props)=>{
   return(
     <div className="check">
       <div className="browser-store-check-list">
-        {storeList && storeList.map(store => {
-          return <CheckStore store={store} isScrappedStore={store.userScrap}></CheckStore>
-        })}   
+      {storeList && storeList.map(store => (
+        <CheckStore key={store.id} store={store} isScrappedStore={store.userScrap} />
+      ))}  
       </div> 
     </div>
   )

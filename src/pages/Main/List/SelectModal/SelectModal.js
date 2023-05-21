@@ -60,9 +60,11 @@ export default function SelectModal(props) {
           </div>
         </div>
         <div className='type'>
-          {types.map((item) => (
-            <button className={type.includes(item) ? 'types yellow' : 'types'} onClick={() => handleTypeClick(item)}>{item}</button>
-          ))}
+        {types.map((item, index) => (
+          <button key={index} className={type.includes(item) ? 'types yellow' : 'types'} onClick={() => handleTypeClick(item)}>
+            {item}
+          </button>
+        ))}
         </div>
 
         <button className='ok-button' onClick={() => onRequestClose()}>확정하기</button>

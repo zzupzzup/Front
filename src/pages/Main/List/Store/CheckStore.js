@@ -27,6 +27,7 @@ const CheckStore = (props)=>{
   //선택했을 때
   const clickStore = () => {
     setcheckedStore(store.id)
+    console.log(store.id)
   }
   const setClick = (id) => {
     if (id === store.id){
