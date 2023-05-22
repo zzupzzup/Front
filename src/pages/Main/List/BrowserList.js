@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import axios from 'axios';
-import {selectList, selectStore, selectArea} from '../../../Atom';
+import {selectList, selectArea} from '../../../Atom';
 import Check from './Check/Check';
 import Chat from './Chat/Chat';
 import SelectModal from './SelectModal/SelectModal';
@@ -19,7 +19,6 @@ const BrowserList = ()=>{
   const [area, setArea] = useState(null);
   const [allCheck, setAllCheck] = useState(true);
   const [selectModalOn, setSelectModalOn] = useState(false);
-  const [store, setStore] = useRecoilState(selectStore);
   const [selArea, setSelArea] = useRecoilState(selectArea);
   const storeListRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("user"))

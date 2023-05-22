@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import {useRecoilState} from 'recoil';
-import {selectList, selectStore} from '../../../Atom';
 
 
 const DetailMap = (props)=>{
@@ -52,7 +51,7 @@ const DetailMap = (props)=>{
     const map = new naver.maps.Map(mapElement.current, mapOptions);
   }, [x]);
 
-  return <div ref={mapElement} style={{width: '500px', height: '300px', margin:'auto' }} />
+  return <div ref={mapElement} style={{width: '350px', height: '233px', margin:'auto' }} />
 }
 
 

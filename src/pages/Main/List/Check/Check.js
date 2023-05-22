@@ -37,7 +37,8 @@ const Check = (props)=>{
       if (user.click_log){
         fetchpresonalModel();
       }else{
-        fetchfirstModel(user.category);
+        const categoryArr = user.category.split(" ");
+        fetchfirstModel(categoryArr);
       }
     }
   },[chatbot]);

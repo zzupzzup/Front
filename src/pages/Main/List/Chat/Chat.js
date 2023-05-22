@@ -17,9 +17,10 @@ const Chat = (props)=>{
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"))
 
   const headers = {
-    'ACCESS-TOKEN': String(JSON.parse(localStorage.getItem("jwt"))),
+    'ACCESS-TOKEN': user.Authorization,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };

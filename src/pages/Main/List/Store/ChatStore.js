@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {selectStore} from '../../../../Atom';	
 import pinkHeart from '../../../../assets/pink_heart.png'
@@ -13,6 +14,16 @@ const ChatStore = (props)=>{
   const [isScrapped, setIsScrapped] = useState(isScrappedStore);
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [isReview, setIsReview] = useState(false)
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  const headers = {
+    'ACCESS-TOKEN': user.Authorization,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   const setColor = (tagName) => {
     if (tagName === "또") {
@@ -35,6 +46,24 @@ const ChatStore = (props)=>{
       return 'store'
     }
   }
+  const clickStoreTitle = () => {
+    poststoreClick(store.id)
+    navigate(`/detail/${store.id}`)
+  }
+
+  
+  //클릭로그
+  const poststoreClick = async (id) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/click_log/${id}`, { headers });
+        console.log(response)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
 
 
   //스크랩
@@ -57,7 +86,7 @@ const ChatStore = (props)=>{
     <div className={setClick(checkedStore)} key={store.id} onClick={clickStore}>
       <div className="store-first">
         <div>
-          <span className="store-title" onClick={()=>{navigate(`/detail/${store.id}`)}}>{store.store} </span>
+          <span className="store-title" onClick={clickStoreTitle}>{store.store} </span>
           <span style={{fontSize:'13px', color:'#FED06E'}}> {Math.floor(store.score)}% 정확해요</span>
         </div>
         <div>
