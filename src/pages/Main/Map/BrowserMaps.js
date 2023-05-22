@@ -108,7 +108,7 @@ function BrowserMaps() {
         naver.maps.Event.addListener(otherMarkers, "click", function(e){
           setStore(stores[i].id)
         });
-        if (store) {
+        if (store===stores[i].id) {
           infowindow.open(map, otherMarkers);
         } else {
           infowindow.close();
