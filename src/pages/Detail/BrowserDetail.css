@@ -1,5 +1,5 @@
 .browser-detail{
-  width:800px;
+  width:810px;
   margin:auto;
   margin-top: 70px;
   text-align: center;
@@ -63,7 +63,7 @@
 }
 
 .store-detail-info{
-  margin-top: 20px;
+  margin-top: 25px;
   white-space: pre-line;
   padding: 20px;
   text-align: left;
@@ -74,6 +74,7 @@
 	border-radius: 15px;
 	box-shadow: 1px 1px 3px #949494;
 }
+
 .store-info-review{
   height: 460px;
   overflow-x: hidden;
@@ -90,6 +91,10 @@
 
 .store-info-review::-webkit-scrollbar-track {
   background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.store-detail-user-img{
+  width: 50px;
 }
 
 .store-info-title{

@@ -47,16 +47,18 @@ const CheckStore = (props)=>{
     }
   }
   const clickStoreTitle = () => {
-    poststoreClick(store.id)
+    poststoreClick(store.id, user.id)
     navigate(`/detail/${store.id}`)
   }
 
   //클릭로그
-  const poststoreClick = async (id) => {
+  const poststoreClick = async (id, userId) => {
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
-        const response = await axios.post(`${baseUrl}/click_log/${id}`, { headers });
+        const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`,{ headers })
+        user.click_log_cnt = response.data.click_log_cnt;
+        localStorage.setItem('user', JSON.stringify(user));
     } catch (e) {
         setError(e);
     }

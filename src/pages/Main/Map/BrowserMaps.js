@@ -99,10 +99,17 @@ function BrowserMaps() {
         //정보창
         const infowindow = new naver.maps.InfoWindow({
           content: stores[i].store,
-          borderWstoreIdth: 1,
+          backgroundColor: "#fff",
+          borderColor: "rgb(80, 80, 80)",
+          borderWidth: 3,
+          borderRadius: "10px",
           anchorSize: new naver.maps.Size(10, 10),
-          pixelOffset: new naver.maps.Point(10, -10),
+          anchorSkew: true,
+          anchorColor: "#fff",
+          pixelOffset: new naver.maps.Point(0, 3),
+          boxShadow: "#949494",
         });
+              
 
         //마커 클릭하면 정보창 뜨게함
         naver.maps.Event.addListener(otherMarkers, "click", function(e){

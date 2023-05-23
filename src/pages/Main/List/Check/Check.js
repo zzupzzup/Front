@@ -24,8 +24,9 @@ const Check = (props)=>{
 
   //결과 가져오기
   useEffect( () =>{
-    if (user.click_log){
+    if (user.click_log > 10){
       fetchpresonalModel();
+      console.log("응애")
     }else{
       const categoryArr = user.category.split(" ");
       fetchfirstModel(categoryArr);
@@ -34,14 +35,14 @@ const Check = (props)=>{
 
   useEffect( () =>{
     if (!originalCheck){
-      if (user.click_log){
+      if (user.click_log_cnt > 10){
         fetchpresonalModel();
       }else{
         const categoryArr = user.category.split(" ");
         fetchfirstModel(categoryArr);
       }
     }
-  },[chatbot]);
+  },[chatbot, user.click_log]);
 
   const fetchpresonalModel = async () => {
     try {

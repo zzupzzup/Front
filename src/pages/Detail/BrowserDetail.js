@@ -5,6 +5,7 @@ import {useRecoilState} from 'recoil';
 import axios from 'axios';
 import Header from '../Header/Header';
 import DetailMap from "./DetailMap/DetailMap"
+import userLogo from '../../assets/user_logo.png'
 import './BrowserDetail.css'
 
 const BrowserDetail = ()=>{
@@ -78,7 +79,10 @@ const BrowserDetail = ()=>{
               <div className="store-info-review">
                 {storeDetails.reviewtext && storeDetails.reviewtext.map((r, i) => (
                   <div className="" key={i} >
-                    {r}
+                    <div style={{display:"flex"}}>
+                      <img src={userLogo} className="store-detail-user-img"></img><div style={{paddingTop:"15px"}}> 익명{i+1}</div>
+                    </div>
+                    <div style={{padding:"0 10px", fontWeight:"100"}}>{r}</div>
                     <hr></hr>
                   </div>
                 ))}
