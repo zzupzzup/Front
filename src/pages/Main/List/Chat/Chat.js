@@ -3,15 +3,17 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
-import {resultChat, firstChat} from '../../../../Atom';
+import {resultChat, firstChat, selectStore} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
 import ChatStore from '../Store/ChatStore';
 import './Chat.css'
 
 const Chat = (props)=>{
   const {chatbot, area, type} = props;
+  const storeListRef = useRef(null);
   const [originalChat, setOriginalChat] = useRecoilState(firstChat);
   const [searchResult, setSearchResult] = useRecoilState(resultChat);
+  const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [text, setText] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -24,6 +26,10 @@ const Chat = (props)=>{
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
+
+  useEffect(() => {
+    setcheckedStore(null)
+  }, [])
   
   //검색
   const onChange =(e)=>{
@@ -81,6 +87,16 @@ const Chat = (props)=>{
       }
     }
   }, [originalChat, chatbot, area, type]);
+
+  useEffect(() => {
+    if (storeListRef.current && checkedStore) {
+      const index = searchResult.findIndex(store => store.id === checkedStore);
+      storeListRef.current.scrollTo({
+        top: index * 106,
+        behavior: 'smooth'
+      });
+    }
+  }, [checkedStore, searchResult]);
 
   return(
     <div className="chat">

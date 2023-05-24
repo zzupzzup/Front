@@ -41,9 +41,9 @@ const ChatStore = (props)=>{
   }
   const setClick = (id) => {
     if (id === store.id){
-      return 'store click'
+      return 'chat-store click'
     } else{
-      return 'store'
+      return 'chat-store'
     }
   }
   const clickStoreTitle = () => {

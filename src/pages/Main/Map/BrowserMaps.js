@@ -26,10 +26,8 @@ function BrowserMaps() {
     }
   }
 
-  // 지도
+  //중심부
   useEffect(() => {
-    if (!mapElement.current || !naver) return;
-
     if (!area){
       setCenterLat(37.527118100);
       setCenterLong(126.932956014);
@@ -57,6 +55,11 @@ function BrowserMaps() {
         setZoom(14);
       }
     }
+  }, [area, zoom])
+
+  // 지도
+  useEffect(() => {
+    if (!mapElement.current || !naver) return;
 
     //중심부 찍기
     const location = new naver.maps.LatLng(centerLat, centerLong);
@@ -124,7 +127,7 @@ function BrowserMaps() {
       });
     }
 
-  }, [chatbot, stores, area, mapElement, naver, centerLat, centerLong, zoom, store]);
+  }, [chatbot, stores, mapElement, naver, centerLat, centerLong, store]);
 
   return <div ref={mapElement} style={{marginTop:'60px', wstoreIdth: '100vw', height: 'calc(100vh - 60px)' }} />
 }
