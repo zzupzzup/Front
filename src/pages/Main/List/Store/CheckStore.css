@@ -67,21 +67,3 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-.store-last{
-  width: 310px;
-  font-size: 13px;
-  font-weight: 400;
-  color:#414141;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.store-like{
-  position: absolute;
-  height: 25px;
-  bottom: 15px;
-  right: 15px;
-  cursor: pointer;
-}

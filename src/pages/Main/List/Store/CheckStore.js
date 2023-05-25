@@ -10,8 +10,7 @@ import './CheckStore.css'
 
 const CheckStore = (props)=>{
   const navigate = useNavigate();
-  const { store, isScrappedStore } = props;
-  const [isScrapped, setIsScrapped] = useState(isScrappedStore);
+  const { store } = props;
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [isReview, setIsReview] = useState(false)
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -65,18 +64,6 @@ const CheckStore = (props)=>{
     setLoading(false);
   };
 
-
-  //스크랩
-  const storeScrap = () => {
-    // poststoreScrap(store.storeIdx);
-    setIsScrapped(state => !state);
-  };
-
-  const storeUnScrap = () => {
-    // poststoreUnScrap(store.storeIdx);
-    setIsScrapped(state => !state);
-  }
-
   //리뷰보기
   const watchReview = () => {
     setIsReview(state => !state);
@@ -96,14 +83,6 @@ const CheckStore = (props)=>{
       </div>
       <div className="store-type">{store.category}</div>
       <div className="store-address">{store.address}</div>
-      <div className="store-last">
-        <div>
-          {isScrapped ?
-            <img src={pinkHeart} alt='' className="store-like" onClick={storeUnScrap}/> :
-            <img src={emptyHeart} alt='' className="store-like" onClick={storeScrap}/>
-          }
-        </div>
-      </div>
     </div>
   )
 }

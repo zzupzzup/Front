@@ -26,6 +26,7 @@ const Check = (props)=>{
 
   useEffect(() => {
     setcheckedStore(null)
+    storeListRef.current = null;
   }, [])
 
   //결과 가져오기
@@ -116,17 +117,12 @@ const Check = (props)=>{
     }
   }, [checkedStore, storeList]);
 
-  // const index = storeList.findIndex(store => store.id === checkedStore);
-  // console.log(index)
-  // const storeElement = document.getElementById(`store${index}`);
-  // storeElement.scrollIntoView({ behavior: 'smooth' });
-
   return(
     <div className="check">
       <div className="browser-store-check-list" ref={storeListRef}>
-      {storeList && storeList.map(store => (
-        <CheckStore key={store.id} className="storeScroll" store={store} isScrappedStore={store.userScrap} />
-      ))}  
+        {storeList && storeList.map(store => (
+          <CheckStore key={store.id} className="storeScroll" store={store} />
+        ))}  
       </div> 
     </div>
   )

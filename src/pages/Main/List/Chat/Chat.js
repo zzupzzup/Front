@@ -29,6 +29,7 @@ const Chat = (props)=>{
 
   useEffect(() => {
     setcheckedStore(null)
+    storeListRef.current = null;
   }, [])
   
   //검색
@@ -108,7 +109,7 @@ const Chat = (props)=>{
         {loading?
         <div>로딩중</div>:
         searchResult && searchResult.map(store => {
-          return <ChatStore store={store} isScrappedStore={store.userScrap}></ChatStore>
+          return <ChatStore store={store}></ChatStore>
         })}   
       </div>   
     </div>

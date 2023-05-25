@@ -10,8 +10,7 @@ import './ChatStore.css'
 
 const ChatStore = (props)=>{
   const navigate = useNavigate();
-  const { store, isScrappedStore } = props;
-  const [isScrapped, setIsScrapped] = useState(isScrappedStore);
+  const { store} = props;
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [isReview, setIsReview] = useState(false)
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -65,18 +64,6 @@ const ChatStore = (props)=>{
     setLoading(false);
   };
 
-
-  //스크랩
-  const storeScrap = () => {
-    // poststoreScrap(store.storeIdx);
-    setIsScrapped(state => !state);
-  };
-
-  const storeUnScrap = () => {
-    // poststoreUnScrap(store.storeIdx);
-    setIsScrapped(state => !state);
-  }
-
   //리뷰보기
   const watchReview = () => {
     setIsReview(state => !state);
@@ -103,12 +90,6 @@ const ChatStore = (props)=>{
           <span> 접기▲</span>:
           <span> 보기▼</span>
         }
-        </div>
-        <div>
-          {isScrapped ?
-            <img src={pinkHeart} alt='' className="store-chat-like" onClick={storeUnScrap}/> :
-            <img src={emptyHeart} alt='' className="store-chat-like" onClick={storeScrap}/>
-          }
         </div>
       </div>
       {isReview ?

@@ -33,6 +33,7 @@ const BrowserDetail = ()=>{
         setLoading(true); //로딩이 시작됨
         const response = await axios.post(`${baseUrl}/detail/${id}`, { headers });
         setStoreDetails(response.data)
+        console.log(response.data.id)
     } catch (e) {
         setError(e);
     }

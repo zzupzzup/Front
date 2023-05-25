@@ -20,7 +20,6 @@ const BrowserList = ()=>{
   const [allCheck, setAllCheck] = useState(true);
   const [selectModalOn, setSelectModalOn] = useState(false);
   const [selArea, setSelArea] = useRecoilState(selectArea);
-  const storeListRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("user"))
 
 
