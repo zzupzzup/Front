@@ -11,6 +11,7 @@ import './BrowserDetail.css'
 const BrowserDetail = ()=>{
   const params = useParams();
   const [storeDetails, setStoreDetails] = useState(null);   //결과값
+  const [storeSimilar, setStoreSimilar] = useState(null);   //결과값
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -25,6 +26,7 @@ const BrowserDetail = ()=>{
 
   useEffect( () =>{
     fetchstoreDetails(Number(params.storeIdx));
+    fetchstoreSimilar(Number(params.storeIdx), user.id);
   },[]);
 
   const fetchstoreDetails = async (id) => {
@@ -33,7 +35,18 @@ const BrowserDetail = ()=>{
         setLoading(true); //로딩이 시작됨
         const response = await axios.post(`${baseUrl}/detail/${id}`, { headers });
         setStoreDetails(response.data)
-        console.log(response.data.id)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  const fetchstoreSimilar = async (storeId, id) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.get(`${baseUrl}/similarRestaurant?id=${storeId}&user_id=${id}`, { headers });
+        setStoreSimilar(response.data)
     } catch (e) {
         setError(e);
     }
@@ -91,7 +104,6 @@ const BrowserDetail = ()=>{
             </div>
             <div className="store-detail-info">
               <div className="store-info-title">비슷한 추천 식당</div>
-
             </div>
           </div>
         </div>

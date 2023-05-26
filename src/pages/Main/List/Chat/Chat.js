@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {resultChat, firstChat, selectStore} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
+import noResult from '../../../../assets/noResult.png'
 import ChatStore from '../Store/ChatStore';
 import './Chat.css'
 
@@ -29,7 +30,15 @@ const Chat = (props)=>{
 
   useEffect(() => {
     setcheckedStore(null)
-    storeListRef.current = null;
+    if (storeListRef.current){
+      storeListRef.current.scrollTo({
+        top: 0
+      });
+    }
+    const savedSearchTerm = localStorage.getItem('searchTerm');
+    if (savedSearchTerm) {
+      setSearchTerm(savedSearchTerm);
+    }
   }, [])
   
   //검색
@@ -43,10 +52,12 @@ const Chat = (props)=>{
   }
   
   const onClick = () => {
+    localStorage.setItem('searchTerm', searchTerm);
     SearchPost(searchTerm);
   }
 
   const SearchPost = async (key) => {
+    console.log(key)
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
@@ -107,10 +118,17 @@ const Chat = (props)=>{
       </div>
       <div className="browser-store-list">
         {loading?
-        <div>로딩중</div>:
-        searchResult && searchResult.map(store => {
-          return <ChatStore store={store}></ChatStore>
-        })}   
+          <div style={{margin: "150px"}}>로딩중</div>:
+            searchResult&&!searchResult.length?
+            <div>
+              <img src={noResult} style={{width: "100px", margin:"30px 120px"}}></img>
+              <div style={{fontSize:"18px", margin:"-10px 0 10px 95px"}}>결과를 찾지 못 했어요.</div>
+              <div style={{margin:"0 60px"}}>검색어나 필터링을 다시 확인해주세요!</div>
+            </div>:
+            searchResult && searchResult.map(store => {
+              return <ChatStore store={store}></ChatStore>
+            })
+        }   
       </div>   
     </div>
   )

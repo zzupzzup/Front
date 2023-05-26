@@ -26,7 +26,9 @@ const Check = (props)=>{
 
   useEffect(() => {
     setcheckedStore(null)
-    storeListRef.current = null;
+    storeListRef.current.scrollTo({
+      top: 0
+    });
   }, [])
 
   //결과 가져오기
@@ -34,8 +36,8 @@ const Check = (props)=>{
     if (user.click_log_cnt > 10){
       fetchpresonalModel(user.id);
     }else{
-      const categoryArr = user.category.split(" ");
-      fetchfirstModel(categoryArr);
+      console.log(user.category)
+      fetchfirstModel(user.category, user.id);
     }
   },[user.click_log_cnt]);
 
@@ -44,8 +46,7 @@ const Check = (props)=>{
       if (user.click_log_cnt > 10){
         fetchpresonalModel();
       }else{
-        const categoryArr = user.category.split(" ");
-        fetchfirstModel(categoryArr);
+        fetchfirstModel(user.category, user.id);
       }
     }
   },[chatbot, user.click_log_cnt]);
@@ -57,19 +58,21 @@ const Check = (props)=>{
         const response = await axios.get(`${baseUrl}/personalModel?user_id=${id}`, { headers });
         setStoreList(response.data)
         setOriginalCheck(response.data)
+        console.log(response.data)
     } catch (e) {
         setError(e);
     }
     setLoading(false);
   };
 
-  const fetchfirstModel = async (category) => {
+  const fetchfirstModel = async (category, id) => {
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
-        const response = await axios.get(`${baseUrl}/firstModel?user_category=${category}`, { headers });
+        const response = await axios.get(`${baseUrl}/firstModel?user_category=${category}&user_id=${id}`, { headers });
         setStoreList(response.data)
         setOriginalCheck(response.data)
+        console.log(response.data)
     } catch (e) {
         setError(e);
     }

@@ -75,21 +75,25 @@
 	border-radius: 15px;
 	box-shadow: 1px 1px 3px #949494;
 	margin: 10px 0;
+}
+.mypage-log-list-content{
+  width: 350px;
+	height: 450px;
   overflow-x: hidden;
 }
 
-.mypage-log-list::-webkit-scrollbar {
+.mypage-log-list-content::-webkit-scrollbar {
   width: 8px;
   margin-right: 10px;
 }
 
-.mypage-log-list::-webkit-scrollbar-thumb {
+.mypage-log-list-content::-webkit-scrollbar-thumb {
   height: 30%;
   background-color: #bbbbbb;
   border-radius: 10px;
 }
 
-.mypage-log-list::-webkit-scrollbar-track {
+.mypage-log-list-content::-webkit-scrollbar-track {
   background: rgba(92, 92, 92, 0.1); 
 }
 

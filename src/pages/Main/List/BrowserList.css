@@ -48,14 +48,29 @@
 }
 
 /* 모달 */
+.filter_btn{
+  position:absolute;
+  right: 30px;
+  background: #FFFFFF;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 700;
+  color: #414141;
+  cursor: pointer;
+  border: 2px #414141 solid;
+}
+.filter_btn:hover{
+  background-color: #f5f5f5;
+}
 .modal{
   margin: 0 10px 10px 10px;
   padding: 5px;
-  cursor: pointer;
-  border: 2px #949494 solid;
-  border-radius: 10px;
 }
-
+.modal-content{
+  display:flex;
+  height: 25px;
+  line-height: 22px;
+}
 .modal-area-img{
   width: 17px;
   margin-right: 5px;

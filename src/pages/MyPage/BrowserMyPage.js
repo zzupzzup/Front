@@ -41,8 +41,8 @@ const BrowserMyPage = ()=>{
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/click_list?user_id=${id}`, { headers });
-        setClickList(response.data.click_list)
-        console.log(response.data.click_list)
+        setClickList(response.data)
+        console.log(response.data)
     } catch (e) {
         setError(e);
     }
@@ -50,10 +50,24 @@ const BrowserMyPage = ()=>{
   };
 
   //클릭했을 때
-  // const clickStoreTitle = () => {
-  //   poststoreClick(store.id, user.id)
-  //   navigate(`/detail/${store.id}`)
-  // }
+  const clickStoreTitle = (store_id) => {
+    poststoreClick(store_id, user.id)
+    navigate(`/detail/${store_id}`)
+  }
+
+  //클릭로그
+  const poststoreClick = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`,{ headers })
+        user.click_log_cnt = response.data.click_log_cnt;
+        localStorage.setItem('user', JSON.stringify(user));
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
 
 
   return(
@@ -78,18 +92,19 @@ const BrowserMyPage = ()=>{
           <div className="mypage-click-log">
             <div style={{fontSize: "18px"}}>최근 클릭한 식당</div>
             <div className="mypage-log-list">
-              {clickList && clickList.map((store, i) => (
-                <div className="store" key={i}>
-                  <div className="store-first">
-                    <div>
-                      {/* <span className="store-title" onClick={clickStoreTitle}>{store}</span> */}
-                      <span className="store-title">{store}</span>
+              <div className="mypage-log-list-content">
+                {clickList && clickList.map((store) => (
+                  <div className="store" key={store.id}>
+                    <div className="store-first">
+                      <div>
+                        <span className="store-title" onClick={() => clickStoreTitle(store.id)}>{store.store}</span>
+                      </div>
                     </div>
+                    <div className="store-type">{store.category}</div>
+                    <div className="store-address">{store.address}</div>
                   </div>
-                  <div className="store-type">{store.category}</div>
-                  <div className="store-address">{store.address}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -94,27 +94,31 @@ const BrowserList = ()=>{
           <div className={`browser-select ${(chatbot ? 'cate' : 'chatbot')}`} onClick={clickCate}></div>
           <div className={`browser-select ${(chatbot ? 'chatbot' : 'cate')}`} onClick={clickChatbot}></div>
         </div>
-        <div className="modal" onClick={() => setSelectModalOn(true)}>
+        <button className="filter_btn" onClick={() => setSelectModalOn(true)}>
+          <img style={{width:"10px"}} src="https://w7.pngwing.com/pngs/550/928/png-transparent-computer-icons-iconfinder-symbol-apple-icon-format-filter-icon-angle-text-computer.png"></img>
+           필터
+        </button>
+        <div className="modal">
           {area ?
             <div className="modal-content">
-              <img src={redArea} className="modal-area-img"/>
-              <span> {area}</span>
+              <div><img src={redArea} className="modal-area-img"/></div>
+              <div> {area}</div>
             </div>
             :
             <div className="modal-content">
-              <img src={redArea} className="modal-area-img"/>
-              <span> 모든 지역을 보여드릴게요!</span>
+              <div><img src={redArea} className="modal-area-img"/></div>
+              <div> 모든 지역을 보여드릴게요!</div>
             </div>
           }
           {type.length > 0 ?
             <div className="modal-content">
-              <img src={grayType} className="modal-type-img"/>
-              <span> {type.map((t, index) => (<span key={index}> {t}</span>))}</span>
+              <div><img src={grayType} className="modal-type-img"/></div>
+              <div> {type.map((t, index) => (<span key={index}> {t}</span>))}</div>
             </div>
             :
             <div className="modal-content">
-              <img src={grayType} className="modal-type-img"/>
-              <span> 음식 카테고리를 선택해주세요!</span>
+              <div><img src={grayType} className="modal-type-img"/></div>
+              <div> 음식 카테고리를 선택해주세요!</div>
             </div>
           }
         </div>
