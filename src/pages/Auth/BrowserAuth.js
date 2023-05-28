@@ -19,6 +19,8 @@ const BrowserAuth = ()=>{
   const [age, setAge] = useState('');
   const [pressBtn, setPressBtn] = useState(false);
   const [checkedTypes, setcheckedTypes] = useState([]);
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const headers = {
@@ -89,12 +91,17 @@ const BrowserAuth = ()=>{
     } 
     else {
       postData(email, password, name, sex, age, checkedTypes);
+      if (error&&error.response.data.msg==="EMAIL_EXISTS"){
+        return alert('중복된 이메일입니다. 다시 확인해주세요.')
+      }
     }
   }     
 
-  async function postData(email, password, name, sex, age, checkedTypes) {
+  const postData = async (email, password, name, sex, age, checkedTypes) => {
     try {
-      const response = await axios.post(`${baseUrl}/auth/register?sns_type=email`,
+        setError(null);
+        setLoading(true);
+        const response = await axios.post(`${baseUrl}/auth/register?sns_type=email`,
         JSON.stringify(
           {
             email : email,
@@ -107,10 +114,11 @@ const BrowserAuth = ()=>{
         { headers }
       );
       navigate("/login");
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      setError(e);
     }
-  }
+    setLoading(false);
+  };
 
   return(
     <div className='auth'>

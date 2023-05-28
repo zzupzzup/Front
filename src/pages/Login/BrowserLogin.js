@@ -14,6 +14,8 @@ const BrowserLogin = ()=>{
   const [passwordCheck, setPasswordCheck] = useState('');
   const [name, setName] = useState('');
   const [login, setLogin] = useState(false);
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const headers = {
@@ -36,11 +38,16 @@ const BrowserLogin = ()=>{
     } 
     else {
       postData(email, password);
+      if (error&&error.response.data.msg==="NO_MATCH_USER"){
+        return alert('이메일이나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요.')
+      }
     }
   }     
 
-  async function postData(email, password) {
+  const postData = async (email, password) => {
     try {
+      setError(null);
+      setLoading(true);
       const response = await axios.post(`${baseUrl}/auth/login?sns_type=email`,
         JSON.stringify(
           {
@@ -51,11 +58,13 @@ const BrowserLogin = ()=>{
       );
       localStorage.setItem("user", JSON.stringify(response.data));
       navigate("/mypage");
-
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.log(e)
+      setError(e);
     }
-  }
+    setLoading(false);
+  };
+
   const onGotoAuthClick = () => {
     navigate("/auth");
   }

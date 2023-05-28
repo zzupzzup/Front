@@ -23,12 +23,16 @@ const BrowserList = ()=>{
   const [selArea, setSelArea] = useRecoilState(selectArea);
   const [selType, setSelType] = useRecoilState(selectType);
   const user = JSON.parse(localStorage.getItem("user"))
-  const age = parseInt(user.age/10)
+
+  let age
   let gender
-  if (user.gender==='man'){
-    gender = '남성'
-  } else{
-    gender = '여성'
+  if (user){
+    age = parseInt(user.age/10)
+    if (user.gender==='man'){
+      gender = '남성'
+    } else{
+      gender = '여성'
+    }
   }
 
 
