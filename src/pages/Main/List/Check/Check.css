@@ -1,7 +1,7 @@
 .browser-store-check-list {
-  margin-top: 10px;
+  margin-top: 5px;
   width: 350px;
-  height: 472px;
+  height: 466px;
   overflow-x: hidden;
 }
 .browser-store-check-list::-webkit-scrollbar {

@@ -107,8 +107,6 @@ const BrowserAuth = ()=>{
         { headers }
       );
       navigate("/login");
-      console.log('리턴', response);
-
     } catch (error) {
       console.error(error);
     }

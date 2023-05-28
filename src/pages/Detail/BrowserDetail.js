@@ -16,7 +16,6 @@ const BrowserDetail = ()=>{
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  console.log(params)
   const user = JSON.parse(localStorage.getItem("user"))
 
   const headers = {
@@ -56,7 +55,6 @@ const BrowserDetail = ()=>{
 
   //클릭했을 때
   const clickStoreTitle = (store_id) => {
-    console.log(store_id)
     poststoreClick(store_id, user.id)
     navigate(`/detail/${store_id}`)
   }

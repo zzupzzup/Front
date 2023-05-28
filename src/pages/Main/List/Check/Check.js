@@ -39,7 +39,6 @@ const Check = (props)=>{
     if (user.click_log_cnt > 10){
       fetchpresonalModel(user.id);
     }else{
-      console.log(user.category)
       fetchfirstModel(user.category, user.id);
     }
   },[user.click_log_cnt]);
@@ -123,6 +122,7 @@ const Check = (props)=>{
 
   return(
     <div className="check">
+      {!loading&&storeList&&<div style={{textAlign:"left", width: "90%", fontSize:"13px"}}>검색결과 ({storeList.length}개)</div>}
       <div className="browser-store-check-list" ref={storeListRef}>
         {loading?
           <div style={{margin: "150px"}}>로딩중</div>:

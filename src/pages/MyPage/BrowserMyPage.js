@@ -46,7 +46,6 @@ const BrowserMyPage = ()=>{
         } else{
           setClickList(response.data.slice(0, 10))
         }
-        console.log(response.data)
     } catch (e) {
         setError(e);
     }

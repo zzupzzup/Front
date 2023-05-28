@@ -59,7 +59,6 @@ const Chat = (props)=>{
   }
 
   const SearchPost = async (key) => {
-    console.log(key)
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
@@ -118,6 +117,7 @@ const Chat = (props)=>{
         <input type="text" className="search" placeholder={searchTerm} value={searchTerm} onChange={onChange}/>
         <img src={searchIcon} className="search-icon" alt="" onClick={onClick}/>
       </div>
+      {!loading&&searchResult&&<div style={{textAlign:"left", margin: "10px 20px", fontSize:"13px"}}>검색결과 ({searchResult.length}개)</div>}
       <div className="browser-store-list">
         {loading?
           <div style={{margin: "150px"}}>로딩중</div>:
