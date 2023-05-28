@@ -41,7 +41,11 @@ const BrowserMyPage = ()=>{
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/click_list?user_id=${id}`, { headers });
-        setClickList(response.data)
+        if (user.click_log_cnt < 10){
+          setClickList(response.data)
+        } else{
+          setClickList(response.data.slice(0, 10))
+        }
         console.log(response.data)
     } catch (e) {
         setError(e);
@@ -55,7 +59,6 @@ const BrowserMyPage = ()=>{
     navigate(`/detail/${store_id}`)
   }
 
-  //클릭로그
   const poststoreClick = async (id, userId) => {
     try {
         setError(null);
@@ -90,7 +93,7 @@ const BrowserMyPage = ()=>{
 
         <div className="mypage-log">
           <div className="mypage-click-log">
-            <div style={{fontSize: "18px"}}>최근 클릭한 식당</div>
+            <div style={{fontSize: "18px"}}>최근 클릭한 식당(10개)</div>
             <div className="mypage-log-list">
               <div className="mypage-log-list-content">
                 {clickList && clickList.map((store) => (

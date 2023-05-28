@@ -19,9 +19,6 @@ const DetailMap = (props)=>{
       if (status === naver.maps.Service.Status.ERROR) {
         return alert('문제가 발생했습니다.');
       }
-      if (response.v2.meta.totalCount === 0) {
-        return alert('입력한 주소가 맞는지 다시 확인해주세요!');
-      }
       setX(response.v2.addresses[0].x)
       setY(response.v2.addresses[0].y)
 

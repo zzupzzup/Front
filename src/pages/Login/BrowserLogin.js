@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import logo from '../../assets/logo.png'
-import btn_signin from '../../assets/btn_google_signin.png'
 import './BrowserLogin.css';
 
 const BrowserLogin = ()=>{

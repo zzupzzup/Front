@@ -21,6 +21,12 @@ export const selectArea = atom({
   effects_UNSTABLE: [persistAtom],
 }); 
 
+export const selectType = atom({
+  key: 'selectType',
+  default: ['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타'],
+  effects_UNSTABLE: [persistAtom],
+}); 
+
 export const resultChat = atom({
   key: 'resultChat',
   default: null,

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
-import {resultChat, firstChat, selectStore} from '../../../../Atom';
+import {resultChat, firstChat, selectStore, selectArea, selectType} from '../../../../Atom';
 import searchIcon from '../../../../assets/search_icon.webp'
 import noResult from '../../../../assets/noResult.png'
 import ChatStore from '../Store/ChatStore';
@@ -12,6 +12,8 @@ import './Chat.css'
 const Chat = (props)=>{
   const {chatbot, area, type} = props;
   const storeListRef = useRef(null);
+  const [selArea, setSelArea] = useRecoilState(selectArea);
+  const [selType, setSelType] = useRecoilState(selectType);
   const [originalChat, setOriginalChat] = useRecoilState(firstChat);
   const [searchResult, setSearchResult] = useRecoilState(resultChat);
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
@@ -74,31 +76,31 @@ const Chat = (props)=>{
   useEffect(() => {
     if (searchResult){
       setSearchResult(originalChat);
-      if (area === null){
+      if (selArea === null){
         setSearchResult(originalChat);
       }else{
-        if (area === '마포구'){
+        if (selArea === '마포구'){
           setSearchResult(originalChat);
           setSearchResult(state => [...state.filter(store => store.address.includes("마포구"))]);
-        }else if (area === '광진구'){
+        }else if (selArea === '광진구'){
           setSearchResult(originalChat);
           setSearchResult(state => [...state.filter(store => store.address.includes("광진구"))]);
-        }else if (area === '성동구'){
+        }else if (selArea === '성동구'){
           setSearchResult(originalChat);
           setSearchResult(state => [...state.filter(store => store.address.includes("성동구"))]);
-        }else if (area === '서초구'){
+        }else if (selArea === '서초구'){
           setSearchResult(originalChat);
           setSearchResult(state => [...state.filter(store => store.address.includes("서초구"))]);
-        }else if (area === '강남구'){
+        }else if (selArea === '강남구'){
           setSearchResult(originalChat);
           setSearchResult(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
       if (searchResult){
-        setSearchResult(state => [...state.filter(store => type.includes(store.category))]);
+        setSearchResult(state => [...state.filter(store => selType.includes(store.category))]);
       }
     }
-  }, [originalChat, chatbot, area, type]);
+  }, [originalChat, chatbot, selArea, selType]);
 
   useEffect(() => {
     if (storeListRef.current && checkedStore) {
@@ -125,8 +127,8 @@ const Chat = (props)=>{
               <div style={{fontSize:"18px", margin:"-10px 0 10px 95px"}}>결과를 찾지 못 했어요.</div>
               <div style={{margin:"0 60px"}}>검색어나 필터링을 다시 확인해주세요!</div>
             </div>:
-            searchResult && searchResult.map(store => {
-              return <ChatStore store={store}></ChatStore>
+            searchResult && searchResult.map((store, i) => {
+              return <ChatStore key={i} store={store}></ChatStore>
             })
         }   
       </div>   

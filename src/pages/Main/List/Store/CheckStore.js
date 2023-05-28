@@ -4,8 +4,6 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {selectStore} from '../../../../Atom';	
-import pinkHeart from '../../../../assets/pink_heart.png'
-import emptyHeart from '../../../../assets/empty_heart.png'
 import './CheckStore.css'
 
 const CheckStore = (props)=>{
@@ -74,11 +72,6 @@ const CheckStore = (props)=>{
       <div className="store-first">
         <div>
           <span className="store-title" onClick={clickStoreTitle}>{store.store}</span>
-        </div>
-        <div>
-          {store.tags && store.tags.map((tag) => (
-            <div className={setColor(tag.tag_name)} key={tag.tag_id} >{tag.tag_name}</div>
-          ))}
         </div>
       </div>
       <div className="store-type">{store.category}</div>

@@ -11,6 +11,32 @@
 	z-index: 1;
 }
 
+.plus-btn{
+  position: fixed;
+  top: 75px;
+  left: 50%;
+  cursor: 'pointer';
+  font-family: 'SUITE-Regular';
+  font-size: 16px;
+  font-weight: 900;
+  border: 3px #FED06E solid;
+  border-radius: 10px;
+  width: 130px;
+  height: 35px;
+  background: #ffffff;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 1px 4px 0 rgb(0,0,0,0.5);
+  transition-duration: 0.1s;
+}
+.plus-btn:hover{
+  background-color: #FED06E;
+}
+.plus-btn:active {
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+  margin-top: 3px;
+}
+
 /* 두개 버튼 */
 .browser-select-content{
   display : flex;

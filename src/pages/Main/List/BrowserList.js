@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import axios from 'axios';
-import {selectList, selectArea} from '../../../Atom';
+import {selectList, selectArea, selectType} from '../../../Atom';
 import Check from './Check/Check';
 import Chat from './Chat/Chat';
 import SelectModal from './SelectModal/SelectModal';
@@ -14,13 +14,22 @@ import lock from '../../../assets/lock.png'
 import './BrowserList.css'
 
 const BrowserList = ()=>{
+  const navigate = useNavigate();
   const [chatbot, setChatbot] = useRecoilState(selectList);
   const [type, setType] = useState(['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타']);
   const [area, setArea] = useState(null);
   const [allCheck, setAllCheck] = useState(true);
   const [selectModalOn, setSelectModalOn] = useState(false);
   const [selArea, setSelArea] = useRecoilState(selectArea);
+  const [selType, setSelType] = useRecoilState(selectType);
   const user = JSON.parse(localStorage.getItem("user"))
+  const age = parseInt(user.age/10)
+  let gender
+  if (user.gender==='man'){
+    gender = '남성'
+  } else{
+    gender = '여성'
+  }
 
 
   const clickCate = () => {
@@ -34,6 +43,7 @@ const BrowserList = ()=>{
   const onRequestClose = () => {
     setSelectModalOn(false)
     setSelArea(area)
+    setSelType(type)
   }
 
   const handleAreaClick = (e) => {
@@ -72,12 +82,17 @@ const BrowserList = ()=>{
       setAllCheck(false)
     }
   }
-
+  
+  
+  const onPlusClick = () => {
+    navigate("/plus");
+  }
 
   return(
     <div className="browser-list">
     {user?
       <div>
+        <button className="plus-btn" onClick={onPlusClick}>{age}0대 {gender} pick!</button>
         <SelectModal
           isOpen={selectModalOn}
           onRequestClose={onRequestClose}
@@ -98,33 +113,27 @@ const BrowserList = ()=>{
           <img style={{width:"10px"}} src="https://w7.pngwing.com/pngs/550/928/png-transparent-computer-icons-iconfinder-symbol-apple-icon-format-filter-icon-angle-text-computer.png"></img>
            필터
         </button>
+
         <div className="modal">
-          {area ?
-            <div className="modal-content">
-              <div><img src={redArea} className="modal-area-img"/></div>
-              <div> {area}</div>
-            </div>
-            :
-            <div className="modal-content">
-              <div><img src={redArea} className="modal-area-img"/></div>
+          <div className="modal-content">
+            <div><img src={redArea} className="modal-area-img"/></div>
+            {selArea?
+              <div> {selArea}</div>:
               <div> 모든 지역을 보여드릴게요!</div>
-            </div>
-          }
-          {type.length > 0 ?
-            <div className="modal-content">
-              <div><img src={grayType} className="modal-type-img"/></div>
-              <div> {type.map((t, index) => (<span key={index}> {t}</span>))}</div>
-            </div>
-            :
-            <div className="modal-content">
-              <div><img src={grayType} className="modal-type-img"/></div>
+            }
+          </div>
+          <div className="modal-content">
+            <div><img src={grayType} className="modal-type-img"/></div>
+            {selType.length > 0 ?
+              <div> {selType.map((t, index) => (<span key={index}> {t}</span>))}</div>:
               <div> 음식 카테고리를 선택해주세요!</div>
-            </div>
-          }
+            }
+          </div>
         </div>
+
         {chatbot ? 
-          <Chat chatbot={chatbot} area={area} type={type}></Chat>:
-          <Check chatbot={chatbot} area={area} type={type}></Check>
+          <Chat chatbot={chatbot}></Chat>:
+          <Check chatbot={chatbot}></Check>
         }
       </div>:
       <div className="please-login">

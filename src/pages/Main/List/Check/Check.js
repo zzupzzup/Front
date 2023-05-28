@@ -2,14 +2,17 @@ import React from "react";
 import { useState, useEffect, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
-import {resultCheck, firstCheck, selectStore} from '../../../../Atom';
+import {resultCheck, firstCheck, selectStore, selectArea, selectType} from '../../../../Atom';
 import axios from 'axios';
+import noResult from '../../../../assets/noResult.png'
 import CheckStore from '../Store/CheckStore';
 import './Check.css'
 
 const Check = (props)=>{
-  const {chatbot, area, type} = props;
+  const {chatbot} = props;
   const storeListRef = useRef(null);
+  const [selArea, setSelArea] = useRecoilState(selectArea);
+  const [selType, setSelType] = useRecoilState(selectType);
   const [originalCheck, setOriginalCheck] = useRecoilState(firstCheck);
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [storeList, setStoreList] = useRecoilState(resultCheck);   //결과값
@@ -58,7 +61,6 @@ const Check = (props)=>{
         const response = await axios.get(`${baseUrl}/personalModel?user_id=${id}`, { headers });
         setStoreList(response.data)
         setOriginalCheck(response.data)
-        console.log(response.data)
     } catch (e) {
         setError(e);
     }
@@ -72,7 +74,6 @@ const Check = (props)=>{
         const response = await axios.get(`${baseUrl}/firstModel?user_category=${category}&user_id=${id}`, { headers });
         setStoreList(response.data)
         setOriginalCheck(response.data)
-        console.log(response.data)
     } catch (e) {
         setError(e);
     }
@@ -83,31 +84,31 @@ const Check = (props)=>{
   useEffect(() => {
     if (storeList){
       setStoreList(originalCheck);
-      if (area === null){
+      if (selArea === null){
         setStoreList(originalCheck);
       }else{
-        if (area === '마포구'){
+        if (selArea === '마포구'){
           setStoreList(originalCheck);
           setStoreList(state => [...state.filter(store => store.address.includes("마포구"))]);
-        }else if (area === '광진구'){
+        }else if (selArea === '광진구'){
           setStoreList(originalCheck);
           setStoreList(state => [...state.filter(store => store.address.includes("광진구"))]);
-        }else if (area === '성동구'){
+        }else if (selArea === '성동구'){
           setStoreList(originalCheck);
           setStoreList(state => [...state.filter(store => store.address.includes("성동구"))]);
-        }else if (area === '서초구'){
+        }else if (selArea === '서초구'){
           setStoreList(originalCheck);
           setStoreList(state => [...state.filter(store => store.address.includes("서초구"))]);
-        }else if (area === '강남구'){
+        }else if (selArea === '강남구'){
           setStoreList(originalCheck);
           setStoreList(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
       if (storeList){
-        setStoreList(state => [...state.filter(store => type.includes(store.category))]);
+        setStoreList(state => [...state.filter(store => selType.includes(store.category))]);
       }
     }
-  }, [originalCheck, chatbot, area, type]);
+  }, [originalCheck, chatbot, selArea, selType]);
 
   //스크롤
   useEffect(() => {
@@ -123,9 +124,18 @@ const Check = (props)=>{
   return(
     <div className="check">
       <div className="browser-store-check-list" ref={storeListRef}>
-        {storeList && storeList.map(store => (
-          <CheckStore key={store.id} className="storeScroll" store={store} />
-        ))}  
+        {loading?
+          <div style={{margin: "150px"}}>로딩중</div>:
+          storeList&&!storeList.length?
+            <div>
+              <img src={noResult} style={{width: "100px", margin:"60px 120px"}}></img>
+              <div style={{fontSize:"18px", margin:"-40px 0 10px 95px"}}>결과를 찾지 못 했어요.</div>
+              <div style={{margin:"0 90px"}}>필터링을 다시 확인해주세요!</div>
+            </div>:
+            storeList && storeList.map(store => (
+              <CheckStore key={store.id} store={store} />
+            ))
+        }  
       </div> 
     </div>
   )

@@ -4,8 +4,6 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {selectStore} from '../../../../Atom';	
-import pinkHeart from '../../../../assets/pink_heart.png'
-import emptyHeart from '../../../../assets/empty_heart.png'
 import './ChatStore.css'
 
 const ChatStore = (props)=>{

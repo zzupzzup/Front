@@ -10,6 +10,7 @@ import MobileMain from './pages/Main/MobileMain';
 import BrowserMyPage from './pages/MyPage/BrowserMyPage';
 import MobileMyPage from './pages/MyPage/MobileMyPage';
 import BrowserDetail from './pages/Detail/BrowserDetail';
+import BrowserPlus from './pages/Plus/BrowserPlus';
 import {authService} from './firebase';
 import {RecoilRoot} from 'recoil';
 import './App.css';
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/auth" element={<BrowserAuth />} />
 								<Route path="/mypage" element={<BrowserMyPage />} />
                 <Route path="/detail/:storeIdx" element={<BrowserDetail />} />
+                <Route path="/plus" element={<BrowserPlus />} />
               </Routes>
             </div>
           </BrowserRouter>

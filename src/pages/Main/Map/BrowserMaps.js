@@ -124,7 +124,7 @@ function BrowserMaps() {
       });
     }
 
-  }, [area, zoom, centerLat, centerLong, chatbot, stores, mapElement, naver, store]);
+  }, [area, zoom, centerLat, centerLong, stores, mapElement, naver, store]);
 
   return <div ref={mapElement} style={{marginTop:'60px', width: '100vw', height: 'calc(100vh - 60px)' }} />
 }

@@ -1,8 +1,6 @@
 import Modal from 'react-modal';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import {useRecoilState} from 'recoil';
-import {selectType, selectArea} from '../../../../Atom';
 import seoul from '../../../../assets/seoul.jpg';
 import './SelectModal.css';
 
@@ -60,14 +58,16 @@ export default function SelectModal(props) {
           </div>
         </div>
         <div className='type'>
-        {types.map((item, index) => (
-          <button key={index} className={type.includes(item) ? 'types yellow' : 'types'} onClick={() => handleTypeClick(item)}>
-            {item}
-          </button>
-        ))}
+          {types.map((item, index) => (
+            <button key={index} className={type.includes(item) ? 'types yellow' : 'types'} onClick={() => handleTypeClick(item)}>
+              {item}
+            </button>
+          ))}
         </div>
-
-        <button className='ok-button' onClick={() => onRequestClose()}>확정하기</button>
+        {!area&&type.length===9?
+          <button className='ok-button' onClick={() => onRequestClose()}>초기화하기</button>:
+          <button className='ok-button' onClick={() => onRequestClose()}>확정하기</button>
+        }
       </div>
     </Modal>
   );
