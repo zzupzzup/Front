@@ -1,3 +1,10 @@
+.mypage-word{
+  position:absolute;
+  top: 110px;
+  left: 22vw;
+  font-size: 25px;
+}
+
 .browser-mypage{
   display: flex;
   width: 60vw;
@@ -43,8 +50,13 @@
 .mypage-myinfo{
   margin: 10px 40px;
 }
+
+.mypage-goto{
+  margin: 90px 55px;
+  display: flex;
+  width: 200px;
+}
 .logout-btn{
-  width: 100px;
   padding: 10px;
   text-align: center;
   color: #414141;
@@ -52,7 +64,6 @@
   background-color: inherit;
   text-decoration: underline;
   font-weight: 1000;
-  margin: 90px;
 }
 
 /* 로그 */

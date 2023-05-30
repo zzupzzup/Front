@@ -36,22 +36,18 @@ const Check = (props)=>{
 
   //결과 가져오기
   useEffect( () =>{
-    if (user.click_log_cnt > 10){
-      fetchpresonalModel(user.id);
+    if (user.click_log_cnt === 0){
+      fetchfirstModel(user.category, user.id);  
     }else{
-      fetchfirstModel(user.category, user.id);
-    }
-  },[user.click_log_cnt]);
-
-  useEffect( () =>{
-    if (!originalCheck){
       if (user.click_log_cnt > 10){
-        fetchpresonalModel();
+        fetchpresonalModel(user.id);
       }else{
-        fetchfirstModel(user.category, user.id);
+        if (originalCheck.length < 30+2*user.click_log_cnt){    
+          fetchfirstModel(user.category, user.id);
+        }
       }
     }
-  },[chatbot, user.click_log_cnt]);
+  },[]);
 
   const fetchpresonalModel = async (id) => {
     try {
@@ -71,8 +67,9 @@ const Check = (props)=>{
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/firstModel?user_category=${category}&user_id=${id}`, { headers });
-        setStoreList(response.data)
-        setOriginalCheck(response.data)
+        console.log(response.data.slice(0, 30+2*user.click_log_cnt))
+        setStoreList(response.data.slice(0, 30+2*user.click_log_cnt))
+        setOriginalCheck(response.data.slice(0, 30+2*user.click_log_cnt))
     } catch (e) {
         setError(e);
     }
@@ -81,7 +78,7 @@ const Check = (props)=>{
 
   //필터링
   useEffect(() => {
-    if (storeList){
+    if (originalCheck&&storeList){
       setStoreList(originalCheck);
       if (selArea === null){
         setStoreList(originalCheck);
@@ -103,7 +100,7 @@ const Check = (props)=>{
           setStoreList(state => [...state.filter(store => store.address.includes("강남구"))]);
         }
       }
-      if (storeList){
+      if (originalCheck&&storeList){
         setStoreList(state => [...state.filter(store => selType.includes(store.category))]);
       }
     }
@@ -132,8 +129,8 @@ const Check = (props)=>{
               <div style={{fontSize:"18px", margin:"-40px 0 10px 95px"}}>결과를 찾지 못 했어요.</div>
               <div style={{margin:"0 90px"}}>필터링을 다시 확인해주세요!</div>
             </div>:
-            storeList && storeList.map(store => (
-              <CheckStore key={store.id} store={store} />
+            storeList && storeList.map((store, i) => (
+              <CheckStore key={i} store={store} />
             ))
         }  
       </div> 

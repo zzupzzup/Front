@@ -91,9 +91,6 @@ const BrowserAuth = ()=>{
     } 
     else {
       postData(email, password, name, sex, age, checkedTypes);
-      if (error&&error.response.data.msg==="EMAIL_EXISTS"){
-        return alert('중복된 이메일입니다. 다시 확인해주세요.')
-      }
     }
   }     
 
@@ -115,6 +112,9 @@ const BrowserAuth = ()=>{
       );
       navigate("/login");
     } catch (e) {
+      if (e.response.data.msg==="EMAIL_EXISTS"){
+        return alert('중복된 이메일입니다. 다시 확인해주세요.')
+      }
       setError(e);
     }
     setLoading(false);

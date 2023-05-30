@@ -38,9 +38,6 @@ const BrowserLogin = ()=>{
     } 
     else {
       postData(email, password);
-      if (error&&error.response.data.msg==="NO_MATCH_USER"){
-        return alert('이메일이나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요.')
-      }
     }
   }     
 
@@ -57,9 +54,11 @@ const BrowserLogin = ()=>{
         { headers }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
-      navigate("/mypage");
+      navigate("/");
     } catch (e) {
-      console.log(e)
+      if (e.response.data.msg==="NO_MATCH_USER"){
+        return alert('이메일이나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요.')
+      }
       setError(e);
     }
     setLoading(false);

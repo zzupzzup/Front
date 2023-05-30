@@ -30,6 +30,10 @@ const BrowserMyPage = ()=>{
     localStorage.removeItem('__mantle_tile_meta_data');
     navigate('/login')
   }
+  //메인화면가기
+  const onGotoMainClick = () => {
+    navigate("/");
+  }
 
   //클릭로그 가져오기
   useEffect(() => {
@@ -75,6 +79,7 @@ const BrowserMyPage = ()=>{
   return(
     <div style={{backgroundColor:'#FED06E', height: '300px'}}>
 			<Header></Header>
+      <div className="mypage-word">마이 페이지</div>
       <div className="browser-mypage">
         <div className="mypage-info">
           <div style={{display:"flex"}}>
@@ -86,8 +91,14 @@ const BrowserMyPage = ()=>{
               저는 학사를 위해 뛰는 토끼<br></br>하띠입니다.
             </div>
           </div>
-          <div className="mypage-myinfo">{user.age}세 | {user.gender} | {user.category}</div>
-          <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>
+          <div className="mypage-myinfo">
+            <div style={{fontSize:"17px"}}>내 정보</div>
+            <div style={{color:"#555555"}}>{user.age}세 | {user.gender} | {user.category}</div>
+          </div>
+          <div className="mypage-goto">
+            <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>
+            <button className='goto-main' onClick={onGotoMainClick} style={{cursor: 'pointer'}}>메인화면</button>
+          </div>
         </div>
 
         <div className="mypage-log">

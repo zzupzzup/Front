@@ -62,11 +62,6 @@ const CheckStore = (props)=>{
     setLoading(false);
   };
 
-  //리뷰보기
-  const watchReview = () => {
-    setIsReview(state => !state);
-  }
-
   return(
     <div className={setClick(checkedStore)} key={store.id} onClick={clickStore}>
       <div className="store-first">

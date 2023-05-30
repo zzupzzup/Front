@@ -107,7 +107,7 @@ const BrowserDetail = ()=>{
               </div>
             </div>
             <div className="store-detail-info">
-              <div className="store-info-title">비슷한 추천 식당</div>
+              <div className="store-info-title">유사한 식당 추천</div>
                 <div className="store-info-review">
                   {storeSimilar && storeSimilar.map((store, i) => (
                     <div className="store-similar" key={i} >
