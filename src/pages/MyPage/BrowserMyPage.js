@@ -19,7 +19,6 @@ const BrowserMyPage = ()=>{
   const user = JSON.parse(localStorage.getItem("user"))
 
   const headers = {
-    'ACCESS-TOKEN': user.Authorization,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
