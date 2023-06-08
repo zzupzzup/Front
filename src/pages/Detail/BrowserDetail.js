@@ -70,7 +70,6 @@ const BrowserDetail = ()=>{
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.post(`${baseUrl}/userLike/${id}?user_id=${userId}`,{ headers })
-        console.log(response)
     } catch (e) {
         setError(e);
     }
@@ -82,7 +81,6 @@ const BrowserDetail = ()=>{
         setError(null);
         setLoading(true); //로딩이 시작됨
         const response = await axios.post(`${baseUrl}/userUnlike/${id}?user_id=${userId}`,{ headers })
-        console.log(response)
     } catch (e) {
         setError(e);
     }

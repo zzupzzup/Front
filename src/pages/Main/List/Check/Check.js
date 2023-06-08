@@ -42,6 +42,7 @@ const Check = (props)=>{
         fetchpresonalModel(user.id);
       }else{
         if (originalCheck && originalCheck.length < 30+2*user.click_log_cnt){    
+          console.log(originalCheck.length)
           fetchfirstModel(user.category, user.id);
         }
       }
