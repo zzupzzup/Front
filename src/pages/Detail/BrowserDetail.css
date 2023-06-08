@@ -10,6 +10,10 @@
   border-top: 5px #FED06E solid;
 }
 
+.store-detail-like{
+  width: 20px;
+}
+
 .store-info-subtitle{
   background-color:#e1e1e1;
   font-size: 12px;

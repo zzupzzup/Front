@@ -41,7 +41,7 @@ const Check = (props)=>{
       if (user.click_log_cnt > 10){
         fetchpresonalModel(user.id);
       }else{
-        if (originalCheck.length < 30+2*user.click_log_cnt){    
+        if (originalCheck && originalCheck.length < 30+2*user.click_log_cnt){    
           fetchfirstModel(user.category, user.id);
         }
       }
@@ -129,7 +129,7 @@ const Check = (props)=>{
               <div style={{margin:"0 90px"}}>필터링을 다시 확인해주세요!</div>
             </div>:
             storeList && storeList.map((store, i) => (
-              <CheckStore key={i} store={store} />
+              <CheckStore key={i} store={store} isScrappedStore={store.userScrap}/>
             ))
         }  
       </div> 

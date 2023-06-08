@@ -21,6 +21,7 @@ const Chat = (props)=>{
   const [searchTerm, setSearchTerm] = useState("");
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
+  const [embeddings, setEmbeddings] = useState([]);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = JSON.parse(localStorage.getItem("user"))
 
@@ -54,18 +55,18 @@ const Chat = (props)=>{
   
   const onClick = () => {
     localStorage.setItem('searchTerm', searchTerm);
-    SearchPost(searchTerm);
+    SearchPost(user.id, searchTerm);
   }
 
-  const SearchPost = async (key) => {
+  const SearchPost = async (id, key) => {
     try {
-        setError(null);
-        setLoading(true); //로딩이 시작됨
-        const response = await axios.post(`${baseUrl}/chatRRS?query=${key}`, { headers });
-        setSearchResult(response.data)
-        setOriginalChat(response.data)
+      setError(null);
+      setLoading(true); //로딩이 시작됨
+      const response = await axios.post(`${baseUrl}/chatRRS??user_id=${id}&query=${key}`, { headers });
+      setSearchResult(response.data)
+      setOriginalChat(response.data)
     } catch (e) {
-        setError(e);
+      setError(e);
     }
     setLoading(false);
   };
@@ -127,7 +128,7 @@ const Chat = (props)=>{
               <div style={{margin:"0 60px"}}>검색어나 필터링을 다시 확인해주세요!</div>
             </div>:
             searchResult && searchResult.map((store, i) => {
-              return <ChatStore key={i} store={store}></ChatStore>
+              return <ChatStore key={i} store={store} isScrappedStore={store.userScrap}></ChatStore>
             })
         }   
       </div>   

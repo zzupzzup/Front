@@ -4,11 +4,14 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import axios from 'axios';
 import {useRecoilState} from 'recoil';
 import {selectStore} from '../../../../Atom';	
+import pinkHeart from '../../../../assets/pink_heart.png'
+import emptyHeart from '../../../../assets/empty_heart.png'
 import './CheckStore.css'
 
 const CheckStore = (props)=>{
   const navigate = useNavigate();
-  const { store } = props;
+  const { store, isScrappedStore } = props;
+  const [isScrapped, setIsScrapped] = useState(isScrappedStore);
   const [checkedStore, setcheckedStore] = useRecoilState(selectStore);
   const [isReview, setIsReview] = useState(false)
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -47,6 +50,40 @@ const CheckStore = (props)=>{
     navigate(`/detail/${store.id}`)
   }
 
+  //스크랩
+  const storeScrap = () => {
+    poststoreScrap(store.id, user.id);
+    setIsScrapped(state => !state);
+  };
+  const storeUnScrap = () => {
+    poststoreUnScrap(store.id, user.id);
+    setIsScrapped(state => !state);
+  }
+
+  const poststoreScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userLike/${id}?user_id=${userId}`,{ headers })
+        console.log(response)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  const poststoreUnScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userUnlike/${id}?user_id=${userId}`,{ headers })
+        console.log(response)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
   //클릭로그
   const poststoreClick = async (id, userId) => {
     try {
@@ -70,6 +107,12 @@ const CheckStore = (props)=>{
       </div>
       <div className="store-type">{store.category}</div>
       <div className="store-address">{store.address}</div>
+      <div>
+        {isScrapped==1 ?
+          <img src={pinkHeart} alt='' className="store-like" onClick={storeUnScrap}/> :
+          <img src={emptyHeart} alt='' className="store-like" onClick={storeScrap}/>
+        }
+      </div>
     </div>
   )
 }

@@ -67,6 +67,12 @@
   white-space: nowrap;
 }
 
+.store-like{
+  height: 25px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
 .store-last{
   width: 310px;
   font-size: 13px;

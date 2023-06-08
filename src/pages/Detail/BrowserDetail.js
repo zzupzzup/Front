@@ -6,11 +6,14 @@ import axios from 'axios';
 import Header from '../Header/Header';
 import DetailMap from "./DetailMap/DetailMap"
 import userLogo from '../../assets/user_logo.png'
+import pinkHeart from '../../assets/pink_heart.png'
+import emptyHeart from '../../assets/empty_heart.png'
 import './BrowserDetail.css'
 
 const BrowserDetail = ()=>{
   const params = useParams();
   const navigate = useNavigate();
+  const [isScrapped, setIsScrapped] = useState(false);
   const [storeDetails, setStoreDetails] = useState(null);   //결과값
   const [storeSimilar, setStoreSimilar] = useState(null);   //결과값
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
@@ -24,15 +27,15 @@ const BrowserDetail = ()=>{
   };
 
   useEffect( () =>{
-    fetchstoreDetails(Number(params.storeIdx));
+    fetchstoreDetails(Number(params.storeIdx), user.id);
     fetchstoreSimilar(Number(params.storeIdx), user.id);
   },[params]);
 
-  const fetchstoreDetails = async (id) => {
+  const fetchstoreDetails = async (storeId, id) => {
     try {
         setError(null);
         setLoading(true); //로딩이 시작됨
-        const response = await axios.post(`${baseUrl}/detail/${id}`, { headers });
+        const response = await axios.post(`${baseUrl}/detail/${storeId}?user_id=${id}`, { headers });
         setStoreDetails(response.data)
     } catch (e) {
         setError(e);
@@ -46,6 +49,40 @@ const BrowserDetail = ()=>{
         setLoading(true); //로딩이 시작됨
         const response = await axios.get(`${baseUrl}/similarRestaurant?id=${storeId}&user_id=${id}`, { headers });
         setStoreSimilar(response.data)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  //스크랩
+  const storeScrap = () => {
+    poststoreScrap(Number(params.storeIdx), user.id);
+    setIsScrapped(state => !state);
+  };
+  const storeUnScrap = () => {
+    poststoreUnScrap(Number(params.storeIdx), user.id);
+    setIsScrapped(state => !state);
+  }
+
+  const poststoreScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userLike/${id}?user_id=${userId}`,{ headers })
+        console.log(response)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  const poststoreUnScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userUnlike/${id}?user_id=${userId}`,{ headers })
+        console.log(response)
     } catch (e) {
         setError(e);
     }
@@ -77,7 +114,12 @@ const BrowserDetail = ()=>{
       {storeDetails&&
         <div className="browser-detail" key={storeDetails.id}>
           <div><span className="store-detail-title">{storeDetails.store}</span></div>
-
+          <div>
+            {isScrapped==1 ?
+              <img src={pinkHeart} alt='' className="store-detail-like" onClick={storeUnScrap}/> :
+              <img src={emptyHeart} alt='' className="store-detail-like" onClick={storeScrap}/>
+            }
+          </div>
           <div className="store-detail-second">
             <div className="store-detail-info-second">
               <div className="store-info-title">식당 사진 <span className="store-info-subtitle">#{storeDetails.category}</span></div>

@@ -67,3 +67,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.store-like{
+  position: absolute;
+  top: 16px;
+  right: 20px;
+}
