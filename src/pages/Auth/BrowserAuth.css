@@ -197,6 +197,7 @@
   line-height: 25px;
   box-shadow: 0 0 0 2px #fff3da;
   border-radius: 100px;
+  cursor: pointer;
 }
 
 .check-type input[type="checkbox"]:checked + label{
@@ -209,4 +210,5 @@
   background-color: #FED06E;
   box-shadow: 0 0 0 2px #FED06E;
   border-radius: 100px;
+  cursor: pointer;
 }

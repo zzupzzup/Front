@@ -62,7 +62,7 @@ const Chat = (props)=>{
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/chatRRS??user_id=${id}&query=${key}`, { headers });
+      const response = await axios.post(`${baseUrl}/chatRRS?user_id=${id}&query=${key}`, { headers });
       setSearchResult(response.data)
       setOriginalChat(response.data)
     } catch (e) {
@@ -128,7 +128,7 @@ const Chat = (props)=>{
               <div style={{margin:"0 60px"}}>검색어나 필터링을 다시 확인해주세요!</div>
             </div>:
             searchResult && searchResult.map((store, i) => {
-              return <ChatStore key={i} store={store} isScrappedStore={store.userScrap}></ChatStore>
+              return <ChatStore key={i} store={store} isScrappedStore={store.userscrap}></ChatStore>
             })
         }   
       </div>   

@@ -113,7 +113,7 @@ const BrowserDetail = ()=>{
         <div className="browser-detail" key={storeDetails.id}>
           <div><span className="store-detail-title">{storeDetails.store}</span></div>
           <div>
-            {isScrapped==1 ?
+            {storeDetails.userscrap==1 || isScrapped?
               <img src={pinkHeart} alt='' className="store-detail-like" onClick={storeUnScrap}/> :
               <img src={emptyHeart} alt='' className="store-detail-like" onClick={storeScrap}/>
             }

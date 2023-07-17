@@ -11,7 +11,8 @@
 }
 
 .store-detail-like{
-  width: 20px;
+  width: 25px;
+  cursor: pointer;
 }
 
 .store-info-subtitle{

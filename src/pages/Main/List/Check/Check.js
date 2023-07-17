@@ -130,7 +130,7 @@ const Check = (props)=>{
               <div style={{margin:"0 90px"}}>필터링을 다시 확인해주세요!</div>
             </div>:
             storeList && storeList.map((store, i) => (
-              <CheckStore key={i} store={store} isScrappedStore={store.userScrap}/>
+              <CheckStore key={i} store={store} isScrappedStore={store.userscrap}/>
             ))
         }  
       </div> 
