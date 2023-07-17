@@ -5,69 +5,168 @@ import {useRecoilState} from 'recoil';
 import axios from 'axios';
 import Header from '../Header/Header';
 import DetailMap from "./DetailMap/DetailMap"
+import userLogo from '../../assets/user_logo.png'
+import pinkHeart from '../../assets/pink_heart.png'
+import emptyHeart from '../../assets/empty_heart.png'
 import './BrowserDetail.css'
 
 const BrowserDetail = ()=>{
   const params = useParams();
-  const [test, setTest] = useState(null);   //결과값
+  const navigate = useNavigate();
+  const [isScrapped, setIsScrapped] = useState(false);
+  const [storeDetails, setStoreDetails] = useState(null);   //결과값
+  const [storeSimilar, setStoreSimilar] = useState(null);   //결과값
   const [loading,setLoading] = useState(false); // 로딩되는지 여부
   const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"))
 
-  const storeDetails = [
-    {id: 1, title: "우리콩순두부", img:"https://mp-seoul-image-production-s3.mangoplate.com/260580/585290_1679191787585_1000009442?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80", result: '87%', point:4.4, view: 10434, review: 9, star:146, address:"서울시 강북구 우이동 182-3", type:"기타 한식", tags:[{tag_id: 1, tag_name:"또"}, {tag_id: 2, tag_name:"먹"}], userScrap:true, reviews: [{reviewId: 1, reviewScore:"괜찮다", reviewContent:"우왕"}, {reviewId: 2, reviewScore:"맛있다", reviewContent:"또올게요"}, {reviewId: 2, reviewScore:"맛있다", reviewContent:"아주좋아"}, {reviewId: 2, reviewScore:"별로", reviewContent:"좋은디 담에 딴데 가야지"}]},
-  ];
-
-  const setColor = (tagName) => {
-    if (tagName === "또") {
-      return 'store-tag green';
-    } else if (tagName === '먹') {
-      return 'store-tag mint';
-    } else if (tagName === '쭈') {
-      return 'store-tag red';
-    }
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   };
 
-  // const headers = {
-  //   'ACCESS-TOKEN': `${JSON.parse(localStorage.getstoreDetail('jwt'))}`,
-  //   Accept: 'application/json',
-  //   'Content-Type': 'application/json',
-  // };
+  useEffect( () =>{
+    fetchstoreDetails(Number(params.storeIdx), user.id);
+    fetchstoreSimilar(Number(params.storeIdx), user.id);
+  },[params]);
 
-  // useEffect( () =>{
-  //   fetchstoreDetails('passion');
-  // },[]);
+  const fetchstoreDetails = async (storeId, id) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/detail/${storeId}?user_id=${id}`, { headers });
+        setStoreDetails(response.data)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
 
-  // const fetchstoreDetails = async (user_id) => {
-  //   try {
-  //       setError(null);
-  //       setLoading(true); //로딩이 시작됨
-  //       const response = await axios.get(`${baseUrl}/api/users/${user_id}`, { headers });
-  //       setTest(response.data.user_id)
-  //       console.log(response)
-  //   } catch (e) {
-  //       setError(e);
-  //   }
-  //   setLoading(false);
-  // };
+  const fetchstoreSimilar = async (storeId, id) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.get(`${baseUrl}/similarRestaurant?id=${storeId}&user_id=${id}`, { headers });
+        setStoreSimilar(response.data)
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  //스크랩
+  const storeScrap = () => {
+    poststoreScrap(Number(params.storeIdx), user.id);
+    setIsScrapped(state => !state);
+  };
+  const storeUnScrap = () => {
+    poststoreUnScrap(Number(params.storeIdx), user.id);
+    setIsScrapped(state => !state);
+  }
+
+  const poststoreScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userLike/${id}?user_id=${userId}`,{ headers })
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  const poststoreUnScrap = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/userUnlike/${id}?user_id=${userId}`,{ headers })
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  //클릭했을 때
+  const clickStoreTitle = (store_id) => {
+    poststoreClick(store_id, user.id)
+    navigate(`/detail/${store_id}`)
+  }
+
+  const poststoreClick = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true);
+        const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`,{ headers })
+        user.click_log_cnt = response.data.click_log_cnt;
+        localStorage.setItem('user', JSON.stringify(user));
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
 
   return(
     <div>
       <Header></Header>
-      {storeDetails&&storeDetails.map((storeDetail) => (
-        <div className="browser-detail" key={storeDetail.id}>
-          <div><span className="store-detail-title">{storeDetail.title}</span> {storeDetail.point}({storeDetail.review})</div>
+      {storeDetails&&
+        <div className="browser-detail" key={storeDetails.id}>
+          <div><span className="store-detail-title">{storeDetails.store}</span></div>
           <div>
-            {storeDetail.tags && storeDetail.tags.map((tag) => (
-              <div className={setColor(tag.tag_name)} key={tag.tag_id} >{tag.tag_name}</div>
-            ))}
+            {storeDetails.userscrap==1 || isScrapped?
+              <img src={pinkHeart} alt='' className="store-detail-like" onClick={storeUnScrap}/> :
+              <img src={emptyHeart} alt='' className="store-detail-like" onClick={storeScrap}/>
+            }
           </div>
           <div className="store-detail-second">
-            <img src={storeDetail.img} className="store-detail-img"></img>
-            <DetailMap storeAddress={storeDetail.address}></DetailMap>
+            <div className="store-detail-info-second">
+              <div className="store-info-title">식당 사진 <span className="store-info-subtitle">#{storeDetails.category}</span></div>
+              <img src={storeDetails.img_url} className="store-detail-img"></img>
+            </div>
+            <div className="store-detail-info-second">
+              <div className="store-info-title">식당 위치 <span className="store-info-subtitle">{storeDetails.address}</span></div>
+              <DetailMap storeAddress={storeDetails.address}></DetailMap>
+            </div>
+            
+          </div>
+
+          <div className="store-detail-third">
+            <div className="store-detail-info">
+              <div className="store-info-title">리뷰 <span className="store-info-subtitle">{storeDetails.point}({storeDetails.reviewtext.length})</span></div>
+              <div className="store-info-review">
+                {storeDetails.reviewtext && storeDetails.reviewtext.map((r, i) => (
+                  <div className="" key={i} >
+                    <div style={{display:"flex"}}>
+                      <img src={userLogo} className="store-detail-user-img"></img><div style={{paddingTop:"15px"}}> 익명{i+1}</div>
+                    </div>
+                    <div style={{padding:"5px 10px", fontWeight:"100"}}>{r}</div>
+                    <hr></hr>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="store-detail-info">
+              <div className="store-info-title">유사한 식당 추천</div>
+                <div className="store-info-review">
+                  {storeSimilar && storeSimilar.map((store, i) => (
+                    <div className="store-similar" key={i} >
+                      <div style={{display:"flex"}}>
+                        <img src={store.img_url} className="store-similar-img"></img>
+                        <div className="store-similar-content">
+                          <div>
+                            <span className="store-title" onClick={() => clickStoreTitle(store.id)}>{store.store}</span>
+                          </div>
+                          <div className="store-type">{store.category}</div>
+                          <div className="store-address">{store.address}</div>
+                        </div>
+                      </div>
+                      <hr></hr>
+                    </div>
+                  ))}
+                </div>
+            </div>
           </div>
         </div>
-      ))
       }
     </div>
   )

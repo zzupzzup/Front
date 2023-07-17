@@ -56,7 +56,7 @@ const MobileAuth = ()=>{
     {id: 5, name: "중식"},
 		{id: 6, name: "분식"},
     {id: 7, name: "카페"},
-    {id: 8, name: "식육(숯불구이)"},
+    {id: 8, name: "숯불구이"},
     {id: 9, name: "기타"}
   ];
 
@@ -177,7 +177,7 @@ const MobileAuth = ()=>{
               {type.map((item) => (
                 <div className="check-type" key={item.id} >
                   <input type = "checkbox" value={item.name||''} id={item.id} onChange={(e) => checkHandler(e)}/>
-                  <label for={item.id} style={ item.id === 8 ? {fontSize:'10px', fontWeight:'bold'} : {fontSize:'13.5px'} }>{item.name}</label>
+                  <label for={item.id} style={ item.id === 8 ? {fontSize:'11px', fontWeight:'bold'} : {fontSize:'13.5px'} }>{item.name}</label>
                 </div>
               ))}
             </div>

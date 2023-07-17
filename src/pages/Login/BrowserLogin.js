@@ -4,17 +4,18 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import logo from '../../assets/logo.png'
-import btn_signin from '../../assets/btn_google_signin.png'
 import './BrowserLogin.css';
 
 const BrowserLogin = ()=>{
   const navigate = useNavigate();
-  const [userId, setUserId] = useState([]); 
+  const [userId, setUserId] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [name, setName] = useState('');
   const [login, setLogin] = useState(false);
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const headers = {
@@ -40,9 +41,11 @@ const BrowserLogin = ()=>{
     }
   }     
 
-  async function postData(email, password) {
+  const postData = async (email, password) => {
     try {
-      const response = await axios.post(`${baseUrl}/auth/login/email`,
+      setError(null);
+      setLoading(true);
+      const response = await axios.post(`${baseUrl}/auth/login?sns_type=email`,
         JSON.stringify(
           {
             email : email,
@@ -50,13 +53,17 @@ const BrowserLogin = ()=>{
           }),
         { headers }
       );
-      navigate("/mypage");
-      console.log('리턴', response);
-
-    } catch (error) {
-      console.error(error);
+      localStorage.setItem("user", JSON.stringify(response.data));
+      navigate("/");
+    } catch (e) {
+      if (e.response.data.msg==="NO_MATCH_USER"){
+        return alert('이메일이나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요.')
+      }
+      setError(e);
     }
-  }
+    setLoading(false);
+  };
+
   const onGotoAuthClick = () => {
     navigate("/auth");
   }

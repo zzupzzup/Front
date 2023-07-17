@@ -4,109 +4,124 @@ import {Link, useNavigate} from 'react-router-dom';
 import { authService } from "../../firebase";
 import {useRecoilState} from 'recoil';
 import {selectArea} from '../../Atom';
+import axios from 'axios';
 import Header from '../Header/Header';
 import logo from '../../assets/logo.png'
 import './BrowserMyPage.css';
 
 const BrowserMyPage = ()=>{
 	const navigate = useNavigate();
-	const [checkedAreas, setcheckedAreas] = useRecoilState(selectArea);
 	const [areas, setAreas] = useState(null);
-  const nickname = localStorage.getItem('nickname')
+  const [clickList, setClickList] = useState(null);   //결과값
+  const [loading,setLoading] = useState(false); // 로딩되는지 여부
+  const [error,setError] = useState(null); //에러
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const user = JSON.parse(localStorage.getItem("user"))
 
-	// 구 선택하기
-	const area = [
-    {id: 1, name: "강북구"},
-    {id: 2, name: "도봉구"},
-    {id: 3, name: "노원구"},
-    {id: 4, name: "은평구"},
-    {id: 5, name: "서대문구"},
-		{id: 6, name: "종로구"},
-    {id: 7, name: "성북구"},
-    {id: 8, name: "동대문구"},
-    {id: 9, name: "중랑구"},
-    {id: 10, name: "마포구"},
-		{id: 11, name: "용산구"},
-    {id: 12, name: "중구"},
-    {id: 13, name: "성동구"},
-    {id: 14, name: "광진구"},
-    {id: 15, name: "강서구"},
-		{id: 16, name: "양천구"},
-    {id: 17, name: "영등포구"},
-    {id: 18, name: "동작구"},
-    {id: 19, name: "서초구"},
-    {id: 20, name: "강남구"},
-		{id: 21, name: "송파구"},
-    {id: 22, name: "강동구"},
-    {id: 23, name: "구로구"},
-    {id: 24, name: "금천구"},
-    {id: 25, name: "관악구"},
-  ]; 
-
-  //각 카테고리 버튼 눌렀을 때
-  const checkHandler = ({ target }) => {
-    setAreas(target.value);
-    checkedItemHandler(target.value, target.checked);
-  };
-
-  const checkedItemHandler = (category, isChecked) => {
-    if(isChecked) {
-      setcheckedAreas([...checkedAreas, category]);
-    } else if (!isChecked ) {
-      onRemove(category);
-    }
-    return checkedAreas;
-  };
-
-  const onRemove = name => {
-    setcheckedAreas(checkedAreas.filter(each => each !== name));
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   };
 
   // 로그아웃
   const onLogOutClick = () => {
-    authService.signOut();
     localStorage.clear(); 
+    localStorage.removeItem('__mantle_tile_meta_data');
     navigate('/login')
   }
-
-  //지역 고른 후 확인 버튼 눌렀을 때
-  const onSubmitClick = () => {
+  //메인화면가기
+  const onGotoMainClick = () => {
     navigate("/");
   }
 
+  //클릭로그 가져오기
+  useEffect(() => {
+    fetchClickList(user.id)
+  }, [])
+
+  const fetchClickList = async (id) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.get(`${baseUrl}/click_list?user_id=${id}`, { headers });
+        if (user.click_log_cnt < 10){
+          setClickList(response.data)
+        } else{
+          setClickList(response.data.slice(0, 10))
+        }
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+  //클릭했을 때
+  const clickStoreTitle = (store_id) => {
+    poststoreClick(store_id, user.id)
+    navigate(`/detail/${store_id}`)
+  }
+
+  const poststoreClick = async (id, userId) => {
+    try {
+        setError(null);
+        setLoading(true); //로딩이 시작됨
+        const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`,{ headers })
+        user.click_log_cnt = response.data.click_log_cnt;
+        localStorage.setItem('user', JSON.stringify(user));
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+  };
+
+
   return(
-    <div style={{backgroundColor:'#FED06E', height: '100vh'}}>
+    <div style={{backgroundColor:'#FED06E', height: '300px'}}>
 			<Header></Header>
-			<div className="browser-mypage">
-				<img src={logo} className="logout-logo" alt="" />
-				<div className="mypage-content">
-          <span style={{fontSize: "25px"}}>{nickname}</span>님 반갑습니다!
-          <br></br>
-          <br></br>
-          저는 학사를 위해 뛰는 토끼 학뛰토입니다.
-        </div>
-      </div>
-      <div className="select-area-content">
-        자주 가는 구를 선택하시면 더 정확한 추천을 해드릴 수 있어요!
-        <div className="select-area">
-          {area.map((item) => (
-            <div>
-              {checkedAreas.includes(item.name)?
-                <div className="check-area" key={item.id} >
-                  <input type = "checkbox" value={item.name||''} id={item.id} onChange={(e) => checkHandler(e)} checked/>
-                  <label for={item.id} style={{cursor: 'pointer'}}>{item.name}</label>
-                </div>:
-                <div className="check-area" key={item.id} >
-                  <input type = "checkbox" value={item.name||''} id={item.id} onChange={(e) => checkHandler(e)}/>
-                  <label for={item.id} style={{cursor: 'pointer'}}>{item.name}</label>
-                </div>
-              }
+      <div className="mypage-word">마이 페이지</div>
+      <div className="browser-mypage">
+        <div className="mypage-info">
+          <div style={{display:"flex"}}>
+            <img src={logo} className="mypage-rabbit-logo" alt="" />
+            <div className="mypage-content">
+              <span style={{fontSize: "25px"}}>{user.nickname} </span>님 반갑습니다!
+              <br></br>
+              <br></br>
+              저는 학사를 위해 뛰는 토끼<br></br>하띠입니다.
             </div>
-          ))}
+          </div>
+          <div className="mypage-myinfo">
+            <div style={{fontSize:"17px"}}>내 정보</div>
+            <div style={{color:"#555555"}}>{user.age}세 | {user.gender} | {user.category}</div>
+          </div>
+          <div className="mypage-goto">
+            <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>
+            <button className='goto-main' onClick={onGotoMainClick} style={{cursor: 'pointer'}}>메인화면</button>
+          </div>
         </div>
-        <button className='submit-btn' onClick={onSubmitClick} style={{cursor: 'pointer'}}>확인</button>
+
+        <div className="mypage-log">
+          <div className="mypage-click-log">
+            <div style={{fontSize: "18px"}}>최근 클릭한 식당(10개)</div>
+            <div className="mypage-log-list">
+              <div className="mypage-log-list-content">
+                {clickList && clickList.map((store) => (
+                  <div className="store" key={store.id}>
+                    <div className="store-first">
+                      <div>
+                        <span className="store-title" onClick={() => clickStoreTitle(store.id)}>{store.store}</span>
+                      </div>
+                    </div>
+                    <div className="store-type">{store.category}</div>
+                    <div className="store-address">{store.address}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <button className='logout-btn' onClick={onLogOutClick} style={{cursor: 'pointer'}}>로그아웃</button>
     </div>
   )
 }

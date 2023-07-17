@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import {useRecoilState} from 'recoil';
-import {selectList, selectStore} from '../../../Atom';
 
 
 const DetailMap = (props)=>{
@@ -19,9 +18,6 @@ const DetailMap = (props)=>{
     naver.maps.Service.geocode({query: storeAddress}, function(status, response) {
       if (status === naver.maps.Service.Status.ERROR) {
         return alert('문제가 발생했습니다.');
-      }
-      if (response.v2.meta.totalCount === 0) {
-        return alert('입력한 주소가 맞는지 다시 확인해주세요!');
       }
       setX(response.v2.addresses[0].x)
       setY(response.v2.addresses[0].y)
@@ -50,9 +46,9 @@ const DetailMap = (props)=>{
     };
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
-  }, []);
+  }, [x]);
 
-  return <div ref={mapElement} style={{width: '500px', height: '300px' }} />
+  return <div ref={mapElement} style={{width: '350px', height: '233px', margin:'auto' }} />
 }
 
 

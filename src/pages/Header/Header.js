@@ -1,14 +1,12 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import { authService } from "../../firebase";
-import {useRecoilState} from 'recoil';
-import {signin} from '../../Atom';
 import logo from '../../assets/logo_head.png'
 import mypage from '../../assets/mypage.png'
 import './Header.css';
 
 const Header = ()=>{
-  const name = localStorage.getItem('name')
+  const user = JSON.parse(localStorage.getItem("user"))
 
   return(
     <div className="header">
@@ -16,10 +14,10 @@ const Header = ()=>{
 			<Link to="/"><img src={logo} className="logo" alt="" /></Link>
 			<Link to="/" style={{textDecoration:"none"}}><div className="title">쩝쩝학사</div></Link>
 
-      {name?
-        <Link to="/mypage" className="mypage-logo"><img src={mypage} className="mypage" alt="" /></Link>
+      {user?
+        <Link to="/mypage"><img src={mypage} className="mypage" alt="" /></Link>
         :
-        <Link to="/login" className="login"><img src={mypage} className="mypage" alt="" /></Link>
+        <Link to="/login"><img src={mypage} className="mypage" alt="" /></Link>
       }
 
     </div>

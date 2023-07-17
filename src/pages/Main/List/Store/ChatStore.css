@@ -1,12 +1,12 @@
-.store{
-  padding: 15px 20px 0 20px;
+.chat-store{
+  padding: 15px 50px 15px 20px;
   border-top: 1px solid #c2c2c2;
   position: relative;
 }
-.store:hover{
+.chat-store:hover{
   background-color: #f5f5f5;
 }
-.store.click{
+.chat-store.click{
   background-color: #f5f5f5;
 }
 
@@ -27,7 +27,6 @@
 .store-tag {
   width: 16px;
   border-radius: 50%;
-  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
   font-size: 9px;
@@ -63,6 +62,15 @@
   font-size: 14px;
   font-weight: 400;
   color:#414141;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-like{
+  height: 25px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .store-last{
@@ -72,7 +80,6 @@
   color:#414141;
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
 }
 
 .store-review{
@@ -82,15 +89,9 @@
   margin-top: 3px;
 }
 
-.store-like{
-  height: 25px;
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-
 .store-review-content{
   font-weight: 400;
   color:#414141;
   font-size: 13px;
-  padding-bottom: 10px;
+  padding: 10px 0;
 }

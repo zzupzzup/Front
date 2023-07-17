@@ -10,6 +10,7 @@ import MobileMain from './pages/Main/MobileMain';
 import BrowserMyPage from './pages/MyPage/BrowserMyPage';
 import MobileMyPage from './pages/MyPage/MobileMyPage';
 import BrowserDetail from './pages/Detail/BrowserDetail';
+import BrowserPlus from './pages/Plus/BrowserPlus';
 import {authService} from './firebase';
 import {RecoilRoot} from 'recoil';
 import './App.css';
@@ -19,20 +20,6 @@ function App() {
   // 빌드 후 배포
   // npm run build
   // firebase deploy --only hosting
-
-  const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect( ()=>{
-    authService.onAuthStateChanged((user) =>{
-      if (user!==null){
-        setIsLoggedIn(true);
-      } else{
-        setIsLoggedIn(false);
-      }
-      setInit(true); //firebase초기화 후 값변경. 초기화 후에야 auth 상태 확인 가능하니까.
-    })
-  }, [])
   
   return (
     <RecoilRoot>
@@ -46,6 +33,7 @@ function App() {
                 <Route path="/auth" element={<BrowserAuth />} />
 								<Route path="/mypage" element={<BrowserMyPage />} />
                 <Route path="/detail/:storeIdx" element={<BrowserDetail />} />
+                <Route path="/plus" element={<BrowserPlus />} />
               </Routes>
             </div>
           </BrowserRouter>
