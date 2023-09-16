@@ -1,55 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import { BrowserView, MobileView } from 'react-device-detect'
-import BrowserLogin from './pages/Login/BrowserLogin';
-import MobileLogin from './pages/Login/MobileLogin';
-import BrowserAuth from './pages/Auth/BrowserAuth';
-import MobileAuth from './pages/Auth/MobileAuth';
-import BrowserMain from './pages/Main/BrowserMain';
-import MobileMain from './pages/Main/MobileMain';
-import BrowserMyPage from './pages/MyPage/BrowserMyPage';
-import MobileMyPage from './pages/MyPage/MobileMyPage';
-import BrowserDetail from './pages/Detail/BrowserDetail';
-import BrowserPlus from './pages/Plus/BrowserPlus';
-import {authService} from './firebase';
-import {RecoilRoot} from 'recoil';
-import './App.css';
-
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import Auth from "./pages/Auth/Auth";
+import Main from "./pages/Main/Main";
+import MyPage from "./pages/MyPage/MyPage";
+import Detail from "./pages/Detail/Detail";
+import Plus from "./pages/Plus/Plus";
+import { RecoilRoot } from "recoil";
+import "./App.css";
 
 function App() {
   // 빌드 후 배포
   // npm run build
   // firebase deploy --only hosting
-  
+
   return (
     <RecoilRoot>
       <div className="App">
-        <BrowserView>
-          <BrowserRouter>
-            <div className='browser-main'>
-              <Routes>
-                <Route path="/" element={<BrowserMain />} />
-                <Route path="/login" element={<BrowserLogin />} />
-                <Route path="/auth" element={<BrowserAuth />} />
-								<Route path="/mypage" element={<BrowserMyPage />} />
-                <Route path="/detail/:storeIdx" element={<BrowserDetail />} />
-                <Route path="/plus" element={<BrowserPlus />} />
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </BrowserView>
-        <MobileView>
-          <BrowserRouter>
-            <div className='mobile-main'>
-              <Routes>
-                <Route path="/" element={<MobileMain />} />
-                <Route path="/login" element={<MobileLogin />} />
-                <Route path="/auth" element={<MobileAuth />} />
-								{/* <Route path="/mypage" element={<MobileMyPage />} /> */}
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </MobileView>
+        <BrowserRouter>
+          <div className="-main">
+            <Routes>
+              <Route
+                path="/"
+                element={<Main />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/auth"
+                element={<Auth />}
+              />
+              <Route
+                path="/mypage"
+                element={<MyPage />}
+              />
+              <Route
+                path="/detail/:storeIdx"
+                element={<Detail />}
+              />
+              <Route
+                path="/plus"
+                element={<Plus />}
+              />
+            </Routes>
+          </div>
+        </BrowserRouter>
       </div>
     </RecoilRoot>
   );

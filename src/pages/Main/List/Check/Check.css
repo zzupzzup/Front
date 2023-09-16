@@ -1,24 +1,24 @@
-.browser-store-check-list {
+.store-check-list {
   margin-top: 5px;
   width: 350px;
   height: 466px;
   overflow-x: hidden;
 }
-.browser-store-check-list::-webkit-scrollbar {
+.store-check-list::-webkit-scrollbar {
   width: 8px;
 }
 
-.browser-store-check-list::-webkit-scrollbar-thumb {
+.store-check-list::-webkit-scrollbar-thumb {
   height: 30%;
   background-color: #bbbbbb;
   border-radius: 10px;
 }
 
-.browser-store-check-list::-webkit-scrollbar-track {
-  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
+.store-check-list::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
-.check{
+.check {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

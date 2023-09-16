@@ -1,15 +1,15 @@
-.mypage-word{
-  position:absolute;
+.mypage-word {
+  position: absolute;
   top: 110px;
   left: 22vw;
   font-size: 25px;
 }
 
-.browser-mypage{
+.mypage {
   display: flex;
   width: 60vw;
   height: 500px;
-  position:absolute;
+  position: absolute;
   top: 150px;
   left: 20vw;
   background-color: rgb(255, 255, 255);
@@ -17,12 +17,12 @@
   /* box-shadow: 0px -5px 20px #454545; */
 }
 
-.mypage-info{
+.mypage-info {
   margin: 10px 50px;
   width: 300px;
 }
 
-.mypage-rabbit-logo{
+.mypage-rabbit-logo {
   height: 150px;
 
   animation-name: logo;
@@ -37,26 +37,26 @@
     padding-top: 15px;
   }
   60% {
-    padding-top: 25px
+    padding-top: 25px;
   }
   to {
     padding-top: 30px;
   }
 }
 
-.mypage-content{
+.mypage-content {
   padding: 50px 10px;
 }
-.mypage-myinfo{
+.mypage-myinfo {
   margin: 10px 40px;
 }
 
-.mypage-goto{
+.mypage-goto {
   margin: 90px 55px;
   display: flex;
   width: 200px;
 }
-.logout-btn{
+.logout-btn {
   padding: 10px;
   text-align: center;
   color: #414141;
@@ -67,29 +67,29 @@
 }
 
 /* 로그 */
-.mypage-log{
+.mypage-log {
   display: flex;
   flex-wrap: wrap;
   margin: 30px 0;
 }
 /* 클릭한 식당 */
-.mypage-click-log{
+.mypage-click-log {
   width: 300px;
   margin: 0 50px;
 }
-.mypage-log-list{
+.mypage-log-list {
   width: 350px;
-	height: 450px;
+  height: 450px;
   padding: 10px;
-	background-color: white;
+  background-color: white;
   border: 1px solid #949494;
-	border-radius: 15px;
-	box-shadow: 1px 1px 3px #949494;
-	margin: 10px 0;
+  border-radius: 15px;
+  box-shadow: 1px 1px 3px #949494;
+  margin: 10px 0;
 }
-.mypage-log-list-content{
+.mypage-log-list-content {
   width: 350px;
-	height: 450px;
+  height: 450px;
   overflow-x: hidden;
 }
 
@@ -105,10 +105,10 @@
 }
 
 .mypage-log-list-content::-webkit-scrollbar-track {
-  background: rgba(92, 92, 92, 0.1); 
+  background: rgba(92, 92, 92, 0.1);
 }
 
 /* 좋아요한 식당 */
-.mypage-like-log{
+.mypage-like-log {
   width: 300px;
 }
