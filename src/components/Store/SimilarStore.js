@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { click_log } from "../../api/api";
 import { useRecoilState } from "recoil";
 import { selectStore } from "../../Atom";
-import pinkHeart from "../../../../assets/pink_heart.png";
-import emptyHeart from "../../../../assets/empty_heart.png";
 import "./SimilarStore.css";
 
 const SimilarStore = (props) => {

@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
+import Input from "../../components/Common/Input";
 import logo from "../../assets/logo.png";
 import "./Login.css";
 
@@ -47,7 +46,6 @@ const Login = () => {
 
   return (
     <div style={{ backgroundColor: "#FED06E", height: "100vh" }}>
-      <Header></Header>
       <div className="login-content">
         <div>
           <img
@@ -62,34 +60,22 @@ const Login = () => {
             쩝쩝학사에서 나에게 딱 맞는 <br></br>
             맛집을 추천 받으세요!
           </p>
-          <div className="login_items">
-            <div className="login_text">
-              <span className={`text_bar ${!login ? "" : email ? "success" : "fail"}`}>이메일 (ID)</span>
-            </div>
-            <div className={`login_content ${!login ? "" : email ? "success" : "fail"}`}>
-              <input
-                className="textinput"
-                type="email"
-                placeholder="email 형식"
-                onChange={onChangeEmail}
-                value={email}
-              />
-            </div>
-          </div>
-          <div className="login_items">
-            <div className="login_text">
-              <span className={`text_bar ${!login ? "" : password ? "success" : "fail"}`}>비밀번호</span>
-            </div>
-            <div className={`login_content ${!login ? "" : password ? "success" : "fail"}`}>
-              <input
-                className="textinput"
-                type="password"
-                placeholder="비밀번호"
-                onChange={onChangePassword}
-                value={password}
-              />
-            </div>
-          </div>
+          <Input
+            label="이메일 (ID)"
+            type="email"
+            placeholder="email 형식"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            isValid={login && email}
+          />
+          <Input
+            label="비밀번호"
+            type="password"
+            placeholder="비밀번호"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            isValid={login && password}
+          />
           <button
             className={`login_btn ${!login ? "" : email && password ? "success" : "fail"}`}
             onClick={onSignInClick}

@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { detail, similarRestaurant, userLike, userUnlike, click_log } from "../../api/api";
-import Header from "../Header/Header";
 import DetailMap from "./DetailMap/DetailMap";
 import pinkHeart from "../../assets/pink_heart.png";
 import emptyHeart from "../../assets/empty_heart.png";
@@ -18,6 +17,7 @@ const Detail = () => {
   const [storeSimilar, setStoreSimilar] = useState(null); //결과값
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     fetchstoreDetails(Number(params.storeIdx), user.id);
@@ -101,7 +101,6 @@ const Detail = () => {
 
   return (
     <div>
-      <Header></Header>
       {storeDetails && (
         <div
           className="detail"

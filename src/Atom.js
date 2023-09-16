@@ -1,52 +1,52 @@
-import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist()
+const { persistAtom } = recoilPersist();
 
 export const selectStore = atom({
-  key: 'selectStore',
+  key: "selectStore",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const selectList = atom({
-  key: 'selectList',
+  key: "selectList",
   default: false,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const selectArea = atom({
-  key: 'selectArea',
+  key: "selectArea",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const selectType = atom({
-  key: 'selectType',
-  default: ['한식', '일식', '술집', '양식', '분식', '카페', '숯불구이', '중식', '기타'],
+  key: "selectType",
+  default: ["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"],
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const resultChat = atom({
-  key: 'resultChat',
+  key: "resultChat",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const resultCheck = atom({
-  key: 'resultCheck',
+  key: "resultCheck",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const firstChat = atom({
-  key: 'firstChat',
+  key: "firstChat",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});
 
 export const firstCheck = atom({
-  key: 'firstCheck',
+  key: "firstCheck",
   default: null,
   effects_UNSTABLE: [persistAtom],
-}); 
+});

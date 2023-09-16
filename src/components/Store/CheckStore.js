@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import { userLike, userUnlike, click_log } from "../../api/api";
 import { useRecoilState } from "recoil";
 import { selectStore } from "../../Atom";
-import pinkHeart from "../../../../assets/pink_heart.png";
-import emptyHeart from "../../../../assets/empty_heart.png";
+import pinkHeart from "../../assets/pink_heart.png";
+import emptyHeart from "../../assets/empty_heart.png";
 import "./CheckStore.css";
 
 const CheckStore = (props) => {

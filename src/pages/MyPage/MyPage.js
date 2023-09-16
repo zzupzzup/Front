@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { click_list, click_log } from "../../api/api";
-import axios from "axios";
-import Header from "../Header/Header";
 import logo from "../../assets/logo.png";
 import "./MyPage.css";
 
@@ -68,7 +66,6 @@ const MyPage = () => {
 
   return (
     <div style={{ backgroundColor: "#FED06E", height: "300px" }}>
-      <Header></Header>
       <div className="mypage-word">마이 페이지</div>
       <div className="mypage">
         <div className="mypage-info">

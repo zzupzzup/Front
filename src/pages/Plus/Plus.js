@@ -1,27 +1,27 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import axios from "axios";
-import Header from "../Header/Header";
-import userLogo from "../../assets/user_logo.png";
+import { boysandgirls, click_log } from "../../api/api";
 import redArea from "../../assets/red_area.png";
 import grayType from "../../assets/gray_type.png";
 import "./Plus.css";
 
 const Plus = () => {
+  const initialAreas = ["마포구", "성동구", "광진구", "서초구", "강남구"];
+  const initialTypes = ["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"];
+
   const navigate = useNavigate();
   const [storePlus, setStorePlus] = useState(null); //결과값
   const [originalCheck, setOriginalCheck] = useState(null);
-  const [area, setArea] = useState(["마포구", "성동구", "광진구", "서초구", "강남구"]);
-  const [type, setType] = useState(["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"]);
+  const [area, setArea] = useState(initialAreas);
+  const [type, setType] = useState(initialTypes);
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
   const user = JSON.parse(localStorage.getItem("user"));
   const [allAreaCheck, setAllAreaCheck] = useState(true);
   const [allTypeCheck, setAllTypeCheck] = useState(true);
-  const [areas, setAreas] = useState(["마포구", "성동구", "광진구", "서초구", "강남구"]);
-  const [types, setTypes] = useState(["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"]);
+  const [areas, setAreas] = useState(initialAreas);
+  const [types, setTypes] = useState(initialTypes);
 
   const age = parseInt(user.age / 10);
   let gender;
@@ -58,7 +58,7 @@ const Plus = () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`, { headers });
+      const response = click_log(id, userId);
       user.click_log_cnt = response.data.click_log_cnt;
       localStorage.setItem("user", JSON.stringify(user));
     } catch (e) {
@@ -87,7 +87,7 @@ const Plus = () => {
   //지역 모두 선택
   const handleAreaAll = () => {
     if (!allAreaCheck) {
-      setArea(["마포구", "성동구", "광진구", "서초구", "강남구"]);
+      setArea(initialAreas);
       setAllAreaCheck(true);
     } else {
       setArea([]);
@@ -115,7 +115,7 @@ const Plus = () => {
   //음식 카테고리 모두 선택
   const handleTypeAll = () => {
     if (!allTypeCheck) {
-      setType(["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"]);
+      setType(initialTypes);
       setAllTypeCheck(true);
     } else {
       setType([]);
@@ -137,7 +137,6 @@ const Plus = () => {
 
   return (
     <div>
-      <Header></Header>
       <div className="plus">
         <div className="plus-title">
           <span>{age}0</span>대 <span>{gender}</span>들이 많이 간 식당

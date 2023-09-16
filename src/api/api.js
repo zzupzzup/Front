@@ -58,7 +58,7 @@ export function userUnlike(id, userId) {
   return instance.post(`/userUnlike/${id}?user_id=${userId}`);
 }
 
-//Detail, MyPage, CheckStore, ChatStore - click_log
+//Detail, MyPage, CheckStore, ChatStore, Plus - click_log
 export function click_log(id, userId) {
   return instance.post(`/click_log/${id}?user_id=${userId}`);
 }

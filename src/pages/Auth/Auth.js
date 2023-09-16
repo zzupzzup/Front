@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../api/api";
-import Header from "../Header/Header";
+import Input from "../../components/Common/Input";
 import "./Auth.css";
 
 const Auth = () => {
@@ -14,30 +14,10 @@ const Auth = () => {
   const [name, setName] = useState("");
   const [sex, setSex] = useState("");
   const [age, setAge] = useState("");
-  const [pressBtn, setPressBtn] = useState(false);
+  const [pressBtn, sePressBtn] = useState(false);
   const [checkedTypes, setcheckedTypes] = useState([]);
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-
-  //요소 넣기
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const onChangePasswordCheck = (e) => {
-    setPasswordCheck(e.target.value);
-  };
-  const onChangeName = (e) => {
-    setName(e.target.value);
-  };
-  const onChangeSex = (e) => {
-    setSex(e.target.value);
-  };
-  const onChangeAge = (e) => {
-    setAge(e.target.value);
-  };
 
   // 음식 카테고리
   const type = [
@@ -71,7 +51,7 @@ const Auth = () => {
   //버튼 클릭
   const onSignUpClick = async (e) => {
     e.preventDefault();
-    setPressBtn(true);
+    sePressBtn(true);
     if (password !== passwordCheck) {
       return alert("비밀번호와 비밀번호확인은 같아야 합니다.");
     }
@@ -97,75 +77,50 @@ const Auth = () => {
 
   return (
     <div className="auth">
-      <Header></Header>
       <div className="auth-contents">
         <div className="auth-content-scroll">
           <div className="auth-title">
             <p style={{ fontSize: "18px" }}>회원가입</p>
           </div>
           <div className="auth_warp">
-            <div className="auth_items">
-              <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : email ? "success" : "fail"}`}>이메일 (ID)</span>
-              </div>
-              <div className={`auth_content ${!pressBtn ? "" : email ? "success" : "fail"}`}>
-                <input
-                  className="textinput"
-                  type="email"
-                  placeholder="email 형식"
-                  onChange={onChangeEmail}
-                  value={email}
-                />
-              </div>
-            </div>
-            <div className="auth_items">
-              <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : password ? "success" : "fail"}`}>비밀번호</span>
-              </div>
-              <div className={`auth_content ${!pressBtn ? "" : password ? "success" : "fail"}`}>
-                <input
-                  className="textinput"
-                  type="password"
-                  placeholder="비밀번호"
-                  onChange={onChangePassword}
-                  value={password}
-                />
-              </div>
-            </div>
-            <div className="auth_items">
-              <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : passwordCheck ? "success" : "fail"}`}>비밀번호확인</span>
-              </div>
-              <div className={`auth_content ${!pressBtn ? "" : passwordCheck ? "success" : "fail"}`}>
-                <input
-                  className="textinput"
-                  type="password"
-                  placeholder="비밀번호 확인"
-                  onChange={onChangePasswordCheck}
-                  value={passwordCheck}
-                />
-              </div>
-            </div>
-            <div className="auth_items">
-              <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : name ? "success" : "fail"}`}>닉네임</span>
-              </div>
-              <div className={`auth_content ${!pressBtn ? "" : name ? "success" : "fail"}`}>
-                <input
-                  className="textinput"
-                  type="text"
-                  placeholder="닉네임"
-                  onChange={onChangeName}
-                  value={name}
-                />
-              </div>
-            </div>
+            <Input
+              label="이메일 (ID)"
+              type="email"
+              placeholder="email 형식"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              isValid={pressBtn && email}
+            />
+            <Input
+              label="비밀번호"
+              type="password"
+              placeholder="비밀번호"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              isValid={pressBtn && password}
+            />
+            <Input
+              label="비밀번호확인"
+              type="password"
+              placeholder="비밀번호 확인"
+              onChange={(e) => setPasswordCheck(e.target.value)}
+              value={passwordCheck}
+              isValid={pressBtn && passwordCheck}
+            />
+            <Input
+              label="닉네임"
+              type="text"
+              placeholder="닉네임"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              isValid={pressBtn && name}
+            />
             <div
               className="auth_items"
               style={{ height: "75px" }}
             >
               <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : sex ? "success" : "fail"}`}>성별</span>
+                <span className={`text_bar ${pressBtn ? "" : sex ? "success" : "fail"}`}>성별</span>
               </div>
               <div className="auth-check-sex">
                 <input
@@ -173,7 +128,7 @@ const Auth = () => {
                   id="man"
                   name="sex"
                   value="man"
-                  onChange={onChangeSex}
+                  onChange={(e) => setSex(e.target.value)}
                 />
                 <label for="man"> 남</label>
                 <input
@@ -181,28 +136,22 @@ const Auth = () => {
                   id="woman"
                   name="sex"
                   value="woman"
-                  onChange={onChangeSex}
+                  onChange={(e) => setSex(e.target.value)}
                 />
                 <label for="woman"> 여</label>
               </div>
             </div>
-            <div className="auth_items">
-              <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : age ? "success" : "fail"}`}>나이</span>
-              </div>
-              <div className={`auth_content ${!pressBtn ? "" : age ? "success" : "fail"}`}>
-                <input
-                  className="textinput"
-                  type="text"
-                  placeholder="나이(숫자만)"
-                  onChange={onChangeAge}
-                  value={age}
-                />
-              </div>
-            </div>
+            <Input
+              label="나이"
+              type="text"
+              placeholder="나이(숫자만)"
+              onChange={(e) => setAge(e.target.value)}
+              value={age}
+              isValid={pressBtn && age}
+            />
             <div className="auth_items_type">
               <div className="auth_text">
-                <span className={`text_bar ${!pressBtn ? "" : checkedTypes.length ? "success" : "fail"}`}>좋아하는 음식 타입(최대 3개)</span>
+                <span className={`text_bar ${pressBtn ? "" : checkedTypes.length ? "success" : "fail"}`}>좋아하는 음식 타입(최대 3개)</span>
               </div>
               <div className="select-type">
                 {type.map((item) => (
@@ -227,7 +176,7 @@ const Auth = () => {
               </div>
             </div>
             <button
-              className={`start_btn ${!pressBtn ? "" : email && password && passwordCheck && name && sex && age && checkedTypes.length ? "success" : "fail"}`}
+              className={`start_btn ${pressBtn ? "" : email && password && passwordCheck && name && sex && age && checkedTypes.length ? "success" : "fail"}`}
               onClick={onSignUpClick}
             >
               가입하기
