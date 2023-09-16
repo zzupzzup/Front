@@ -27,7 +27,7 @@ const Header = () => {
         <Link to="/mypage">
           <img
             src={mypage}
-            className="mypage"
+            className="go-mypage"
             alt=""
           />
         </Link>
@@ -35,7 +35,7 @@ const Header = () => {
         <Link to="/login">
           <img
             src={mypage}
-            className="mypage"
+            className="go-mypage"
             alt=""
           />
         </Link>

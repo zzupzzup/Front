@@ -1,11 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { auth } from "../../api/api";
 import Header from "../Header/Header";
-import logo from "../../assets/logo.png";
-import { useRecoilState } from "recoil";
-import { signin } from "../../Atom";
 import "./Auth.css";
 
 const Auth = () => {
@@ -21,12 +18,6 @@ const Auth = () => {
   const [checkedTypes, setcheckedTypes] = useState([]);
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const baseUrl = process.env.REACT_APP_BASE_URL;
-
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   //요소 넣기
   const onChangeEmail = (e) => {
@@ -84,9 +75,7 @@ const Auth = () => {
     if (password !== passwordCheck) {
       return alert("비밀번호와 비밀번호확인은 같아야 합니다.");
     }
-    if (!email || !password || !passwordCheck || !name || !sex || !age || !checkedTypes.length) {
-      console.log("fail");
-    } else {
+    if (email && password && passwordCheck && name && sex && age && checkedTypes.length) {
       postData(email, password, name, sex, age, checkedTypes);
     }
   };
@@ -95,18 +84,7 @@ const Auth = () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.post(
-        `${baseUrl}/auth/register?sns_type=email`,
-        JSON.stringify({
-          email: email,
-          pw: password,
-          nickname: name,
-          age: age,
-          gender: sex,
-          category: checkedTypes,
-        }),
-        { headers }
-      );
+      auth(email, password, name, sex, age, checkedTypes);
       navigate("/login");
     } catch (e) {
       if (e.response.data.msg === "EMAIL_EXISTS") {

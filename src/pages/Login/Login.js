@@ -8,20 +8,11 @@ import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [name, setName] = useState("");
   const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const baseUrl = process.env.REACT_APP_BASE_URL;
-
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -33,9 +24,7 @@ const Login = () => {
   const onSignInClick = async (e) => {
     e.preventDefault();
     setLogin(true);
-    if (!email || !password) {
-      console.log("fail");
-    } else {
+    if (email && password) {
       postData(email, password);
     }
   };
@@ -44,14 +33,7 @@ const Login = () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.post(
-        `${baseUrl}/auth/login?sns_type=email`,
-        JSON.stringify({
-          email: email,
-          pw: password,
-        }),
-        { headers }
-      );
+      const response = login(email, password);
       localStorage.setItem("user", JSON.stringify(response.data));
       navigate("/");
     } catch (e) {
@@ -61,14 +43,6 @@ const Login = () => {
       setError(e);
     }
     setLoading(false);
-  };
-
-  const onGotoAuthClick = () => {
-    navigate("/auth");
-  };
-
-  const onGotoMainClick = () => {
-    navigate("/");
   };
 
   return (
@@ -127,14 +101,14 @@ const Login = () => {
       <div className="goto">
         <button
           className="goto-auth"
-          onClick={onGotoAuthClick}
+          onClick={() => navigate("/auth")}
           style={{ cursor: "pointer" }}
         >
           회원가입
         </button>
         <button
           className="goto-main"
-          onClick={onGotoMainClick}
+          onClick={() => navigate("/")}
           style={{ cursor: "pointer" }}
         >
           메인화면

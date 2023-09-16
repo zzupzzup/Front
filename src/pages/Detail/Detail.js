@@ -1,14 +1,14 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import axios from "axios";
+import { detail, similarRestaurant, userLike, userUnlike, click_log } from "../../api/api";
 import Header from "../Header/Header";
 import DetailMap from "./DetailMap/DetailMap";
-import userLogo from "../../assets/user_logo.png";
 import pinkHeart from "../../assets/pink_heart.png";
 import emptyHeart from "../../assets/empty_heart.png";
 import "./Detail.css";
+import SimilarStore from "../../components/Store/SimilarStore";
+import Review from "../../components/Review/Review";
 
 const Detail = () => {
   const params = useParams();
@@ -18,13 +18,6 @@ const Detail = () => {
   const [storeSimilar, setStoreSimilar] = useState(null); //결과값
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const baseUrl = process.env.REACT_APP_BASE_URL;
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   useEffect(() => {
     fetchstoreDetails(Number(params.storeIdx), user.id);
@@ -35,7 +28,7 @@ const Detail = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/detail/${storeId}?user_id=${id}`, { headers });
+      const response = detail(storeId, id);
       setStoreDetails(response.data);
     } catch (e) {
       setError(e);
@@ -47,7 +40,7 @@ const Detail = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.get(`${baseUrl}/similarRestaurant?id=${storeId}&user_id=${id}`, { headers });
+      const response = similarRestaurant(storeId, id);
       setStoreSimilar(response.data);
     } catch (e) {
       setError(e);
@@ -69,7 +62,7 @@ const Detail = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/userLike/${id}?user_id=${userId}`, { headers });
+      userLike(id, userId);
     } catch (e) {
       setError(e);
     }
@@ -80,7 +73,7 @@ const Detail = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/userUnlike/${id}?user_id=${userId}`, { headers });
+      userUnlike(id, userId);
     } catch (e) {
       setError(e);
     }
@@ -97,7 +90,7 @@ const Detail = () => {
     try {
       setError(null);
       setLoading(true);
-      const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`, { headers });
+      const response = click_log(id, userId);
       user.click_log_cnt = response.data.click_log_cnt;
       localStorage.setItem("user", JSON.stringify(user));
     } catch (e) {
@@ -118,7 +111,7 @@ const Detail = () => {
             <span className="store-detail-title">{storeDetails.store}</span>
           </div>
           <div>
-            {storeDetails.userscrap == 1 || isScrapped ? (
+            {storeDetails.userscrap === 1 || isScrapped ? (
               <img
                 src={pinkHeart}
                 alt=""
@@ -155,28 +148,19 @@ const Detail = () => {
           <div className="store-detail-third">
             <div className="store-detail-info">
               <div className="store-info-title">
-                리뷰{" "}
+                리뷰
                 <span className="store-info-subtitle">
                   {storeDetails.point}({storeDetails.reviewtext.length})
                 </span>
               </div>
               <div className="store-info-review">
                 {storeDetails.reviewtext &&
-                  storeDetails.reviewtext.map((r, i) => (
-                    <div
-                      className=""
+                  storeDetails.reviewtext.map((review, i) => (
+                    <Review
+                      idx={i}
                       key={i}
-                    >
-                      <div style={{ display: "flex" }}>
-                        <img
-                          src={userLogo}
-                          className="store-detail-user-img"
-                        ></img>
-                        <div style={{ paddingTop: "15px" }}> 익명{i + 1}</div>
-                      </div>
-                      <div style={{ padding: "5px 10px", fontWeight: "100" }}>{r}</div>
-                      <hr></hr>
-                    </div>
+                      review={review}
+                    />
                   ))}
               </div>
             </div>
@@ -185,30 +169,10 @@ const Detail = () => {
               <div className="store-info-review">
                 {storeSimilar &&
                   storeSimilar.map((store, i) => (
-                    <div
-                      className="store-similar"
+                    <SimilarStore
                       key={i}
-                    >
-                      <div style={{ display: "flex" }}>
-                        <img
-                          src={store.img_url}
-                          className="store-similar-img"
-                        ></img>
-                        <div className="store-similar-content">
-                          <div>
-                            <span
-                              className="store-title"
-                              onClick={() => clickStoreTitle(store.id)}
-                            >
-                              {store.store}
-                            </span>
-                          </div>
-                          <div className="store-type">{store.category}</div>
-                          <div className="store-address">{store.address}</div>
-                        </div>
-                      </div>
-                      <hr></hr>
-                    </div>
+                      store={store}
+                    />
                   ))}
               </div>
             </div>

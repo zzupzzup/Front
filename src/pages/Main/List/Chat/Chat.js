@@ -1,12 +1,11 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { chatRRS } from "../../../../api/api";
 import { useRecoilState } from "recoil";
 import { resultChat, firstChat, selectStore, selectArea, selectType } from "../../../../Atom";
 import searchIcon from "../../../../assets/search_icon.webp";
 import noResult from "../../../../assets/noResult.png";
-import ChatStore from "../Store/ChatStore";
+import ChatStore from "../../../../components/Store/ChatStore";
 import "./Chat.css";
 
 const Chat = (props) => {
@@ -21,14 +20,7 @@ const Chat = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const [embeddings, setEmbeddings] = useState([]);
-  const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   useEffect(() => {
     setcheckedStore(null);
@@ -37,9 +29,8 @@ const Chat = (props) => {
         top: 0,
       });
     }
-    const savedSearchTerm = localStorage.getItem("searchTerm");
-    if (savedSearchTerm) {
-      setSearchTerm(savedSearchTerm);
+    if (localStorage.getItem("searchTerm")) {
+      setSearchTerm(localStorage.getItem("searchTerm"));
     }
   }, []);
 
@@ -62,7 +53,7 @@ const Chat = (props) => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/chatRRS?user_id=${id}&query=${key}`, { headers });
+      const response = chatRRS(id, key);
       setSearchResult(response.data);
       setOriginalChat(response.data);
     } catch (e) {

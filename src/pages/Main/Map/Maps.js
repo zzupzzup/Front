@@ -35,26 +35,22 @@ function Maps() {
       setCenterLong(126.932956014);
       setZoom(12);
     } else {
+      setZoom(14);
       if (area === "마포구") {
         setCenterLat(37.555362);
         setCenterLong(126.897518);
-        setZoom(14);
       } else if (area === "성동구") {
         setCenterLat(37.556233);
         setCenterLong(127.02976);
-        setZoom(14);
       } else if (area === "광진구") {
         setCenterLat(37.5492366);
         setCenterLong(127.0747086);
-        setZoom(14);
       } else if (area === "강남구") {
         setCenterLat(37.5092939);
         setCenterLong(127.0214957);
-        setZoom(14);
       } else if (area === "서초구") {
         setCenterLat(37.494604);
         setCenterLong(126.995818);
-        setZoom(14);
       }
     }
 

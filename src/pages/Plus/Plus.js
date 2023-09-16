@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -17,7 +17,6 @@ const Plus = () => {
   const [type, setType] = useState(["한식", "일식", "술집", "양식", "분식", "카페", "숯불구이", "중식", "기타"]);
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = JSON.parse(localStorage.getItem("user"));
   const [allAreaCheck, setAllAreaCheck] = useState(true);
   const [allTypeCheck, setAllTypeCheck] = useState(true);
@@ -32,11 +31,6 @@ const Plus = () => {
     gender = "여성";
   }
 
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-
   useEffect(() => {
     fetchstorePlus(user.id);
   }, []);
@@ -45,7 +39,7 @@ const Plus = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.get(`${baseUrl}/boysandgirls?user_id=${id}`, { headers });
+      const response = boysandgirls(id);
       setStorePlus(response.data);
       setOriginalCheck(response.data);
     } catch (e) {

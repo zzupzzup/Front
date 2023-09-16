@@ -1,0 +1,14 @@
+.store-similar:hover {
+  background-color: #f5f5f5;
+}
+.store-similar-img {
+  width: 150px;
+  height: 100.275px;
+  border-radius: 5px;
+}
+.store-similar-content {
+  padding: 20px 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

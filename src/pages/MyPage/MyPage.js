@@ -1,9 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authService } from "../../firebase";
-import { useRecoilState } from "recoil";
-import { selectArea } from "../../Atom";
+import { click_list, click_log } from "../../api/api";
 import axios from "axios";
 import Header from "../Header/Header";
 import logo from "../../assets/logo.png";
@@ -15,13 +13,7 @@ const MyPage = () => {
   const [clickList, setClickList] = useState(null); //결과값
   const [loading, setLoading] = useState(false); // 로딩되는지 여부
   const [error, setError] = useState(null); //에러
-  const baseUrl = process.env.REACT_APP_BASE_URL;
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 
   // 로그아웃
   const onLogOutClick = () => {
@@ -43,7 +35,7 @@ const MyPage = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.get(`${baseUrl}/click_list?user_id=${id}`, { headers });
+      const response = click_list(id);
       if (user.click_log_cnt < 10) {
         setClickList(response.data);
       } else {
@@ -65,7 +57,7 @@ const MyPage = () => {
     try {
       setError(null);
       setLoading(true); //로딩이 시작됨
-      const response = await axios.post(`${baseUrl}/click_log/${id}?user_id=${userId}`, { headers });
+      const response = click_log(id, userId);
       user.click_log_cnt = response.data.click_log_cnt;
       localStorage.setItem("user", JSON.stringify(user));
     } catch (e) {

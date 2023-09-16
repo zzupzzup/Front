@@ -1,8 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import {useRecoilState} from 'recoil';
+import { useState, useEffect, useRef } from "react";
 
-
-const DetailMap = (props)=>{
+const DetailMap = (props) => {
   const { naver } = window;
   const mapElement = useRef(null);
   const { storeAddress } = props;
@@ -13,24 +11,20 @@ const DetailMap = (props)=>{
   useEffect(() => {
     if (!mapElement.current || !naver) return;
 
-
     //지오코딩(주소->좌표)
-    naver.maps.Service.geocode({query: storeAddress}, function(status, response) {
+    naver.maps.Service.geocode({ query: storeAddress }, function (status, response) {
       if (status === naver.maps.Service.Status.ERROR) {
-        return alert('문제가 발생했습니다.');
+        return alert("문제가 발생했습니다.");
       }
-      setX(response.v2.addresses[0].x)
-      setY(response.v2.addresses[0].y)
+      setX(response.v2.addresses[0].x);
+      setY(response.v2.addresses[0].y);
 
       new naver.maps.Marker({
         map: map,
         title: "",
-        position: new naver.maps.LatLng(
-          response.v2.addresses[0].y, 
-          response.v2.addresses[0].x
-        )
+        position: new naver.maps.LatLng(response.v2.addresses[0].y, response.v2.addresses[0].x),
       });
-    })
+    });
 
     //중심부 찍기
     const location = new naver.maps.LatLng(y, x);
@@ -48,8 +42,12 @@ const DetailMap = (props)=>{
     const map = new naver.maps.Map(mapElement.current, mapOptions);
   }, [x]);
 
-  return <div ref={mapElement} style={{width: '350px', height: '233px', margin:'auto' }} />
-}
-
+  return (
+    <div
+      ref={mapElement}
+      style={{ width: "350px", height: "233px", margin: "auto" }}
+    />
+  );
+};
 
 export default DetailMap;
