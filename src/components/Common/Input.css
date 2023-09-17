@@ -1,0 +1,43 @@
+.input_items {
+  height: 85px;
+}
+.input_text {
+  line-height: 14px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 2px 38px;
+  width: 440px;
+  word-break: keep-all;
+}
+.text_bar {
+  display: inline-block;
+  width: 440px;
+  padding: 0 10px;
+  border-left: 2px solid #414141;
+}
+.text_bar.fail {
+  border-left: 2px solid #ff0000;
+}
+.textinput {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #414141;
+  font-size: 14px;
+  margin: 12px 16px;
+}
+.input_content {
+  float: left;
+  width: 240px;
+  height: 40px;
+  margin: 5px 28px;
+  line-height: 40px;
+  border: 2px solid #414141;
+  border-radius: 10px;
+  color: #414141;
+}
+.auth_content.fail {
+  color: #ff0000;
+  border: 2px solid #ff0000;
+}

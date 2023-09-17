@@ -1,17 +1,17 @@
-.login-content{
+.login-content {
   width: 300px;
   height: 500px;
   background-color: #ffe09d;
   border-radius: 25px;
-  position:absolute;
-  top:330px;
-  left:50%;
-  margin:-200px 0 0 -150px;
+  position: absolute;
+  top: 330px;
+  left: 50%;
+  margin: -200px 0 0 -150px;
   box-shadow: 0 10px 10px -5px rgb(68, 68, 68);
 }
 
-.login-logo{
-  margin:0px 90px;
+.login-logo {
+  margin: 0px 90px;
   padding: 20px 0;
   height: 180px;
 
@@ -27,17 +27,16 @@
     padding-top: 15px;
   }
   60% {
-    padding-top: 25px
+    padding-top: 25px;
   }
   to {
     padding-top: 30px;
   }
 }
 
-.login-title{
-  margin:10px 20px 20px 40px;
+.login-title {
+  margin: 10px 20px 20px 40px;
 }
-
 
 /*로그인*/
 .login_warp {
@@ -45,53 +44,52 @@
   color: #414141;
   box-sizing: border-box;
   top: 200px;
-  width : 440px;
+  width: 440px;
 }
-
 
 /*login_content*/
-.login_items{
-  height:75px;
+.login_items {
+  height: 75px;
 }
-.login_text{
+.login_text {
   line-height: 14px;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  margin:2px 40px;
-  width:440px;
-  word-break:keep-all;
+  margin: 2px 40px;
+  width: 440px;
+  word-break: keep-all;
 }
-.text_bar{
-  display:inline-block;
-  width:120px;
+.text_bar {
+  display: inline-block;
+  width: 120px;
   padding: 0 10px;
   border-left: 2px solid #414141;
 }
 .text_bar.fail {
-  border-left: 2px solid #FF0000;
+  border-left: 2px solid #ff0000;
 }
 .textinput {
-  border:none;
+  border: none;
   outline: none;
   background: transparent;
-  color:#414141;
+  color: #414141;
   font-size: 14px;
   margin: 12px 16px;
 }
 .login_content {
-  float:left;
+  float: left;
   width: 240px;
   height: 35px;
   margin: 5px 28px;
   line-height: 40px;
   border: 2px solid #414141;
   border-radius: 10px;
-  color:#414141;
+  color: #414141;
 }
 .login_content.fail {
-  color : #FF0000;
-  border: 2px solid #FF0000;
+  color: #ff0000;
+  border: 2px solid #ff0000;
 }
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -99,13 +97,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
-.login_btn{
-  position:absolute;
+.login_btn {
+  position: absolute;
   left: 55px;
   bottom: -40px;
   width: 180px;
   height: 35px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 6px;
   font-style: normal;
   font-weight: 900;
@@ -115,20 +113,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 .login_btn.fail {
-  color : #FF0000;
-  border: 2px solid #FF0000;
-  background: #FFFFFF;
+  color: #ff0000;
+  border: 2px solid #ff0000;
+  background: #ffffff;
 }
 
-.browser-goto{
+.goto {
   width: 300px;
   text-align: center;
-  position:absolute;
-  top:640px;
-  left:50%;
-  margin-left:-150px;
+  position: absolute;
+  top: 640px;
+  left: 50%;
+  margin-left: -150px;
 }
-.goto-auth{
+.goto-auth {
   margin: 20px;
   font-weight: 1000;
   color: #414141;
@@ -137,8 +135,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   text-decoration: underline;
 }
 
-
-.goto-main{
+.goto-main {
   margin: 0 20px;
   font-weight: 1000;
   color: #414141;

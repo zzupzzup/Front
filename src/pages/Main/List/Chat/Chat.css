@@ -1,21 +1,21 @@
-.browser-store-list {
+.store-list {
   margin: 0;
   width: 350px;
   height: 405px;
   overflow-x: hidden;
 }
-.browser-store-list::-webkit-scrollbar {
+.store-list::-webkit-scrollbar {
   width: 8px;
 }
 
-.browser-store-list::-webkit-scrollbar-thumb {
+.store-list::-webkit-scrollbar-thumb {
   height: 30%;
   background-color: #bbbbbb;
   border-radius: 10px;
 }
 
-.browser-store-list::-webkit-scrollbar-track {
-  background: rgba(92, 92, 92, 0.1);  /*스크롤바 뒷 배경 색상*/
+.store-list::-webkit-scrollbar-track {
+  background: rgba(92, 92, 92, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
 .search-bar {
@@ -28,10 +28,10 @@
   background: rgba(217, 217, 217, 0.08);
   z-index: 1000;
 }
-.search-bar.success{
-  border: 4px solid #FED06E;
+.search-bar.success {
+  border: 4px solid #fed06e;
 }
-.search-bar.fail{
+.search-bar.fail {
   border: 4px solid #b1b1b1;
 }
 
@@ -50,7 +50,7 @@
   width: 260px;
   height: 40px;
   border: none;
-  top:50%;
+  top: 50%;
   line-height: 100%;
   transform: translateY(-50%);
 }
