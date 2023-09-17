@@ -10,10 +10,14 @@ function Maps() {
   const [area, setArea] = useRecoilState(selectArea);
   const [resultSearch, setResultSearch] = useRecoilState(resultChat);
   const [resultPersonal, setResultPersonal] = useRecoilState(resultCheck);
+  const [map, setMap] = useState(null);
+  const [otherMarkers, setOtherMarkers] = useState([]);
+  const [infowindows, setInfowindows] = useState([]);
   const [centerLat, setCenterLat] = useState(37.5271181);
   const [centerLong, setCenterLong] = useState(126.932956014);
   const [zoom, setZoom] = useState(12);
 
+  //데이터 정하기
   let stores = [];
   if (!chatbot) {
     if (resultPersonal) {
@@ -66,26 +70,31 @@ function Maps() {
       },
     };
 
-    const map = new naver.maps.Map(mapElement.current, mapOptions);
+    setMap(new naver.maps.Map(mapElement.current, mapOptions));
+  }, [area, mapElement, naver]);
 
-    //식당 위치
-    for (let i = 0; i < stores.length; i++) {
-      //지오코딩(주소->좌표)
-      naver.maps.Service.geocode({ query: stores[i].address }, function (status, response) {
+  // 식당 위치 설정
+  useEffect(() => {
+    const newMarkers = [];
+    const newInfowindows = [];
+
+    stores.forEach((store, i) => {
+      // 지오코딩(주소 -> 좌표)
+      naver.maps.Service.geocode({ query: store.address }, function (status, response) {
         if (status === naver.maps.Service.Status.ERROR) {
           return alert("문제가 발생했습니다.");
         }
 
-        //마커 찍기
-        const otherMarkers = new naver.maps.Marker({
+        // 마커 생성
+        const marker = new naver.maps.Marker({
           map: map,
-          title: stores[i].store,
+          title: store.store,
           position: new naver.maps.LatLng(response.v2.addresses[0].y, response.v2.addresses[0].x),
         });
 
-        //정보창
+        // 정보창 생성
         const infowindow = new naver.maps.InfoWindow({
-          content: stores[i].store,
+          content: store.store,
           backgroundColor: "#fff",
           borderColor: "rgb(80, 80, 80)",
           borderWidth: 3,
@@ -97,18 +106,37 @@ function Maps() {
           boxShadow: "#949494",
         });
 
-        //마커 클릭하면 정보창 뜨게함
-        naver.maps.Event.addListener(otherMarkers, "click", function (e) {
-          setStore(stores[i].id);
+        // 마커 클릭 이벤트 등록
+        naver.maps.Event.addListener(marker, "click", function (e) {
+          setStore(store.id);
         });
+
+        newMarkers.push(marker);
+        newInfowindows.push(infowindow);
+      });
+    });
+
+    // 마커와 정보창 배열 업데이트
+    setOtherMarkers(newMarkers);
+    setInfowindows(newInfowindows);
+  }, [stores]);
+
+  // 정보창 열기/닫기(재렌더링 방지)
+  useEffect(() => {
+    if (store !== null) {
+      infowindows.forEach((infowindow, i) => {
         if (store === stores[i].id) {
-          infowindow.open(map, otherMarkers);
+          infowindow.open(map, otherMarkers[i]);
         } else {
           infowindow.close();
         }
       });
+    } else {
+      infowindows.forEach((infowindow) => {
+        infowindow.close();
+      });
     }
-  }, [area, zoom, centerLat, centerLong, stores, mapElement, naver, store]);
+  }, [store, stores, infowindows, otherMarkers]);
 
   return (
     <div

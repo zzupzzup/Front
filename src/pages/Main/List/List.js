@@ -162,7 +162,6 @@ const List = () => {
               </div>
               {selType.length > 0 ? (
                 <div>
-                  {" "}
                   {selType.map((t, index) => (
                     <span key={index}> {t}</span>
                   ))}
