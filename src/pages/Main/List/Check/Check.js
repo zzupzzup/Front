@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { personalModel, firstModel } from "../../../../api/api";
 import { useRecoilState } from "recoil";
 import { resultCheck, firstCheck, selectStore, selectArea, selectType } from "../../../../Atom";
-import axios from "axios";
+import { Filter } from "../Filter/Filter";
 import noResult from "../../../../assets/noResult.png";
 import CheckStore from "../../../../components/Store/CheckStore";
 import "./Check.css";
@@ -70,30 +70,11 @@ const Check = (props) => {
 
   //필터링
   useEffect(() => {
-    if (originalCheck && storeList) {
+    if (storeList) {
       setStoreList(originalCheck);
-      if (selArea === null) {
-        setStoreList(originalCheck);
-      } else {
-        if (selArea === "마포구") {
-          setStoreList(originalCheck);
-          setStoreList((state) => [...state.filter((store) => store.address.includes("마포구"))]);
-        } else if (selArea === "광진구") {
-          setStoreList(originalCheck);
-          setStoreList((state) => [...state.filter((store) => store.address.includes("광진구"))]);
-        } else if (selArea === "성동구") {
-          setStoreList(originalCheck);
-          setStoreList((state) => [...state.filter((store) => store.address.includes("성동구"))]);
-        } else if (selArea === "서초구") {
-          setStoreList(originalCheck);
-          setStoreList((state) => [...state.filter((store) => store.address.includes("서초구"))]);
-        } else if (selArea === "강남구") {
-          setStoreList(originalCheck);
-          setStoreList((state) => [...state.filter((store) => store.address.includes("강남구"))]);
-        }
-      }
-      if (originalCheck && storeList) {
-        setStoreList((state) => [...state.filter((store) => selType.includes(store.category))]);
+
+      if (selArea) {
+        setStoreList((state) => Filter(state, selArea, selType));
       }
     }
   }, [originalCheck, chatbot, selArea, selType]);

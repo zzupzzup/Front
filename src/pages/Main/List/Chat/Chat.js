@@ -3,13 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import { chatRRS } from "../../../../api/api";
 import { useRecoilState } from "recoil";
 import { resultChat, firstChat, selectStore, selectArea, selectType } from "../../../../Atom";
+import { Filter } from "../Filter/Filter";
 import searchIcon from "../../../../assets/search_icon.webp";
 import noResult from "../../../../assets/noResult.png";
 import ChatStore from "../../../../components/Store/ChatStore";
 import "./Chat.css";
 
 const Chat = (props) => {
-  const { chatbot, area, type } = props;
+  const { chatbot } = props;
   const storeListRef = useRef(null);
   const [selArea, setSelArea] = useRecoilState(selectArea);
   const [selType, setSelType] = useRecoilState(selectType);
@@ -66,28 +67,9 @@ const Chat = (props) => {
   useEffect(() => {
     if (searchResult) {
       setSearchResult(originalChat);
-      if (selArea === null) {
-        setSearchResult(originalChat);
-      } else {
-        if (selArea === "마포구") {
-          setSearchResult(originalChat);
-          setSearchResult((state) => [...state.filter((store) => store.address.includes("마포구"))]);
-        } else if (selArea === "광진구") {
-          setSearchResult(originalChat);
-          setSearchResult((state) => [...state.filter((store) => store.address.includes("광진구"))]);
-        } else if (selArea === "성동구") {
-          setSearchResult(originalChat);
-          setSearchResult((state) => [...state.filter((store) => store.address.includes("성동구"))]);
-        } else if (selArea === "서초구") {
-          setSearchResult(originalChat);
-          setSearchResult((state) => [...state.filter((store) => store.address.includes("서초구"))]);
-        } else if (selArea === "강남구") {
-          setSearchResult(originalChat);
-          setSearchResult((state) => [...state.filter((store) => store.address.includes("강남구"))]);
-        }
-      }
-      if (searchResult) {
-        setSearchResult((state) => [...state.filter((store) => selType.includes(store.category))]);
+
+      if (selArea) {
+        setSearchResult((state) => Filter(state, selArea, selType));
       }
     }
   }, [originalChat, chatbot, selArea, selType]);
